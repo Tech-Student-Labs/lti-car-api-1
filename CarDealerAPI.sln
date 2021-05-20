@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerAPIService.App", "CarDealerAPIService.App\CarDealerAPIService.App.csproj", "{D48362FD-0E77-4725-967E-DA078B1E1B80}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10ECC629-0284-49B1-8874-6A84CC154874}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5B311935-25CE-4118-9A17-F17D110ED2EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +62,10 @@ Global
 		{D48362FD-0E77-4725-967E-DA078B1E1B80}.Release|x64.Build.0 = Release|Any CPU
 		{D48362FD-0E77-4725-967E-DA078B1E1B80}.Release|x86.ActiveCfg = Release|Any CPU
 		{D48362FD-0E77-4725-967E-DA078B1E1B80}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D48362FD-0E77-4725-967E-DA078B1E1B80} = {10ECC629-0284-49B1-8874-6A84CC154874}
+		{0C601619-10E0-40F5-9DE0-29DFABBDA6ED} = {10ECC629-0284-49B1-8874-6A84CC154874}
+		{F7A1C5C6-5CF7-4152-A74A-06D67B87AC62} = {5B311935-25CE-4118-9A17-F17D110ED2EA}
 	EndGlobalSection
 EndGlobal
