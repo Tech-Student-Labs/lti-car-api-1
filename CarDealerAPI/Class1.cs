@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CarDealerAPIService.App
+namespace CarDealerAPI
 {
     public class Class1
     {
