@@ -5,7 +5,7 @@ VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerAPIService.Tests", "CarDealerAPIService.Tests\CarDealerAPIService.Tests.csproj", "{F7A1C5C6-5CF7-4152-A74A-06D67B87AC62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerAPIService.App", "CarDealerAPIService.App\CarDealerAPIService.App.csproj", "{D48362FD-0E77-4725-967E-DA078B1E1B80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerApiService.App", "CarDealerApiService.App\CarDealerApiService.App.csproj", "{D48362FD-0E77-4725-967E-DA078B1E1B80}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10ECC629-0284-49B1-8874-6A84CC154874}"
 EndProject
