@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LTICarAPI
+namespace ConsoleApp
 {
     class Program
     {
