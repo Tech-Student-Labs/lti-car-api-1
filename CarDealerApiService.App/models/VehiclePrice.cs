@@ -1,27 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace CarDealerAPIService.App.models
 {
-    //http://marketvalue.vinaudit.com/getmarketvalue.php?key=VA_DEMO_KEY&vin=1VXBR12EXCP901213&format=json&period=90&mileage=average
-    public partial class VehiclePrice
+    public class VehiclePrice
     {
-        public string Vin { get; set; }
-        public bool Success { get; set; }
-        public string Vehicle { get; set; }
-        public long? Mileage { get; set; }
-        public long? Count { get; set; }
-        public long? Mean { get; set; }
-        public long? Stdev { get; set; }
-        public long? Certainty { get; set; }
-        public List<DateTimeOffset> Period { get; set; }
-        public Prices Prices { get; set; }
+        [JsonProperty("vin")] public string Vin { get; set; }
+
+        [JsonProperty("success")] public bool Success { get; set; }
+
+        [JsonProperty("vehicle")] public string Vehicle { get; set; }
+
+        [JsonProperty("mileage")] public long Mileage { get; set; }
+
+        [JsonProperty("count")] public long Count { get; set; }
+
+        [JsonProperty("mean")] public long Mean { get; set; }
+
+        [JsonProperty("stdev")] public long Stdev { get; set; }
+
+        [JsonProperty("certainty")] public long Certainty { get; set; }
+
+        [JsonProperty("period")] public List<DateTimeOffset> Period { get; set; }
+
+        [JsonProperty("prices")] public Prices Prices { get; set; }
     }
 
-    public partial class Prices
+    public class Prices
     {
-        public long? Average { get; set; }
-        public long? Below { get; set; }
-        public long? Above { get; set; }
+        [JsonProperty("average")] public long Average { get; set; }
+
+        [JsonProperty("below")] public long Below { get; set; }
+
+        [JsonProperty("above")] public long Above { get; set; }
     }
 }
