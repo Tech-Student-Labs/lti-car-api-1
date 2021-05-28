@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using CarDealerWebAPI.Data;
 
 namespace CarDealerWebAPI
 {
@@ -31,6 +32,8 @@ namespace CarDealerWebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "CarDealerWebAPI", Version = "v1"});
             });
+
+            services.AddDbContext<CarDealerContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
