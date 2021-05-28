@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using CarDealerAPIService.App.models;
 
 namespace CarDealerWebAPI.Data
 {
     public class CarDealerContext : DbContext
     {
         // TODO: add DbSet props here
-
+        public DbSet<Vehicle> VehicleInventory { get; set; }
 
         // public CarDealerContext(DbContextOptions options) : base(options)
         // {
