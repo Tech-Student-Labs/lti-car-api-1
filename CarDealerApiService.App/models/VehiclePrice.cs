@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace CarDealerAPIService.App.models
@@ -10,7 +11,7 @@ namespace CarDealerAPIService.App.models
 
         [JsonProperty("success")] public bool Success { get; set; }
 
-        [JsonProperty("vehicle")] public string Vehicle { get; set; }
+        [JsonProperty("vehicle")] public static string Vehicle { get; set; }
 
         [JsonProperty("mileage")] public long Mileage { get; set; }
 
@@ -25,6 +26,7 @@ namespace CarDealerAPIService.App.models
         [JsonProperty("period")] public List<DateTimeOffset> Period { get; set; }
 
         [JsonProperty("prices")] public Prices Prices { get; set; }
+        
     }
 
     public class Prices

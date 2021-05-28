@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace CarDealerAPIService.App.models
@@ -11,7 +12,7 @@ namespace CarDealerAPIService.App.models
 
         [JsonProperty("attributes")] public Attributes Attributes { get; set; }
 
-        [JsonProperty("success")] public bool? Success { get; set; }
+        [JsonProperty("success")] public bool Success { get; set; }
 
         [JsonProperty("error")] public string Error { get; set; }
     }
