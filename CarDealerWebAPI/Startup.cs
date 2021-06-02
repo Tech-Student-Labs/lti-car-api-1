@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarDealerAPIService.App.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using CarDealerWebAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarDealerWebAPI
 {
@@ -33,7 +34,7 @@ namespace CarDealerWebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "CarDealerWebAPI", Version = "v1"});
             });
 
-            services.AddDbContext<CarDealerContext>();
+            services.AddDbContext<CarDealerContext>(opt => opt.UseSqlite("Data Source=database.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
