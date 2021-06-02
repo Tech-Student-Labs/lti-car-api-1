@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CarDealerWebAPI.Migrations
+namespace CarDealerAPIService.App.Migrations
 {
-    public partial class vehiclemodelmigrations : Migration
+    public partial class initalMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
