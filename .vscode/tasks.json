@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+                "${workspaceFolder}/CarDealerWebAPI/CarDealerWebAPI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+                "${workspaceFolder}/CarDealerWebAPI/CarDealerWebAPI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,11 +32,71 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+                "${workspaceFolder}/CarDealerWebAPI/CarDealerWebAPI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "lticarapi1:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/CarDealerWebAPI/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/CarDealerWebAPI/CarDealerWebAPI.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "lticarapi1:latest",
+                "dockerfile": "${workspaceFolder}/CarDealerWebAPI/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/CarDealerWebAPI/CarDealerWebAPI.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dependsOn": [
+                "docker-build: debug"
+            ],
+            "dockerRun": {
+                "os": "Windows"
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/CarDealerWebAPI/CarDealerWebAPI.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build: release"
+            ],
+            "dockerRun": {
+                "os": "Windows"
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/CarDealerWebAPI/CarDealerWebAPI.csproj"
+            }
         }
     ]
 }
