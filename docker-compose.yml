@@ -10,3 +10,12 @@ services:
       dockerfile: CarDealerWebAPI/Dockerfile
     ports:
       - 5000:5000
+    depends_on:
+      - sqlserver
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Password1!"
+      ACCEPT_EULA: "Y"

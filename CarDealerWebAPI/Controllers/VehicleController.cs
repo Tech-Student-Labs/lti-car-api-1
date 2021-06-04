@@ -20,7 +20,7 @@ namespace CarDealerWebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok("Hello Galvanize");
+            return Ok(_db.VehicleInventory.ToList());
         }
     }
 }
