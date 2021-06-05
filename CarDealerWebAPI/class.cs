@@ -1,31 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
+using CarDealerWebAPI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace CarDealerWebAPI
+namespace Name
 {
-    public class Program
+    public static class Help2er
     {
-        public static void Main(string[] args)
-        {
-            MigrateDatabase<CarDealerContext>(CreateHostBuilder(args).Build()).Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-        public static IHost MigrateDatabase<T>(IHost webHost) where T : DbContext
+        public static IWebHost MigrateDatabase<T>(this IWebHost webHost) where T : DbContext
         {
             using (var scope = webHost.Services.CreateScope())
             {
@@ -44,5 +28,5 @@ namespace CarDealerWebAPI
             return webHost;
         }
     }
-
 }
+
