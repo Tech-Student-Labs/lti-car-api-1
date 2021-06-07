@@ -32,7 +32,7 @@ jobs:
       run: dotnet publish -c release
     - uses: actions/upload-artifact@v2
       with:
-        name: CarDealerWebAPI.App Artifact
+        name: CarDealerApiService.App Artifact
         path: CarDealerWebAPI.App/bin/Release
     - uses: actions/upload-artifact@v2
       with:
