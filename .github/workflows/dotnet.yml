@@ -48,4 +48,5 @@ jobs:
       with:
         push: true
         tags: ${{secrets.DOCKERHUB_USERNAME}}/cardealerwebapiimage:latest
+        file: CarDealerWebAPI/Dockerfile
 
