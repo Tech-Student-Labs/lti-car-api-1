@@ -33,9 +33,9 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: CarDealerWebAPI.App Artifact
-        path: CarDealerWebAPI.App/Bin/Release
+        path: CarDealerWebAPI.App/bin/Release
     - uses: actions/upload-artifact@v2
       with:
         name: CarDealerWebAPI Artifact
-        path: CarDealerWebAPI/Bin/Release
+        path: CarDealerWebAPI/bin/Release
 
