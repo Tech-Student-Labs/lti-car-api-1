@@ -4,7 +4,8 @@ using Newtonsoft.Json;
 
 namespace CarDealerAPIService.App.models
 {
-  public class VehiclePriceDTO
+  //Request Obj(From external api) => RequestModel => vehicle Model => dto model => frontend
+  public class VehiclePriceRequest
   {
     [JsonProperty("vin")] public string Vin { get; set; }
 

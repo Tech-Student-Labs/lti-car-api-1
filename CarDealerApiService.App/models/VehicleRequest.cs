@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace CarDealerAPIService.App.models
 {
-  public class VehicleDTO
+  public class VehicleRequest
   {
     [JsonProperty("input")] public Input Input { get; set; }
 
