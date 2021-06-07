@@ -48,7 +48,7 @@ jobs:
       with:
         install: true
     - name: Build
-      run: docker build .
+      run: docker compose build
     - name: Push to Docker Hub
       uses: docker/build-push-action@v2
       with:
