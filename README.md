@@ -4,7 +4,7 @@
 ## To Run The Program 
 </b>
 <br>
-`cd into WebAp`
+cd into WebAp
 <br>
 dotnet build
 <br>
