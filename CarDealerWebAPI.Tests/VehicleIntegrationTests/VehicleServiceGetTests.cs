@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using CarDealerWebAPI.services;
 using System;
 
-namespace CarDealerWebAPI.Tests.UnitTests
+namespace CarDealerWebApi.Tests
 {
     public class VehicleServiceGetTests
     {

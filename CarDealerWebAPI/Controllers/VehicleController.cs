@@ -10,9 +10,9 @@ namespace CarDealerWebAPI.Controllers
     [Route("[controller]")]
     public class VehicleController : ControllerBase
     {
-        private readonly VehicleService _service;
+        private readonly IVehicleService _service;
 
-        public VehicleController(VehicleService service)
+        public VehicleController(IVehicleService service)
         {
             _service = service;
         }

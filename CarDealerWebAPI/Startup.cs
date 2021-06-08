@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarDealerAPIService.App.Data;
+using CarDealerWebAPI.services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,7 @@ namespace CarDealerWebAPI
 
             services.AddControllers();
             services.AddDbContext<CarDealerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IVehicleService, VehicleService>();
             // services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSwaggerGen(c =>

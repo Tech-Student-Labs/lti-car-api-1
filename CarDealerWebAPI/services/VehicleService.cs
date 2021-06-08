@@ -5,7 +5,7 @@ using CarDealerAPIService.App.models;
 
 namespace CarDealerWebAPI.services
 {
-    public class VehicleService
+    public class VehicleService : IVehicleService
     {
         private readonly CarDealerContext _db;
         public VehicleService(CarDealerContext db)
