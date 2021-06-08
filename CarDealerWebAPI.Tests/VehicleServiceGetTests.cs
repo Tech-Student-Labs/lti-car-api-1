@@ -12,7 +12,7 @@ using System;
 
 namespace CarDealerWebAPI.Tests.UnitTests
 {
-    public class VehicleServiceTests
+    public class VehicleServiceGetTests
     {
         [Fact]
         public void GetVehicle_ShouldReturnVehicle1_WhenId1IsPassed()

@@ -9,7 +9,7 @@ using Xunit;
 
 namespace CarDealerWebApi.Tests
 {
-    public class VehicleServiceBoilerPlateTests
+    public class VehicleServiceGetAllTests
     {
         [Fact]
         public void VehicleInventory_ShouldReturn0_When0ItemsInDatabase()
