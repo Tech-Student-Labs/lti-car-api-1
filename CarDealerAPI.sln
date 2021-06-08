@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5B311935
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerWebAPI", "CarDealerWebAPI\CarDealerWebAPI.csproj", "{E45EA393-A048-462E-AE94-39193D1549B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerWebApi.Tests", "CarDealerWebApi.Tests\CarDealerWebApi.Tests.csproj", "{DA7101EF-4253-4111-9EE7-7FE5E908327E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,18 @@ Global
 		{E45EA393-A048-462E-AE94-39193D1549B3}.Release|x64.Build.0 = Release|Any CPU
 		{E45EA393-A048-462E-AE94-39193D1549B3}.Release|x86.ActiveCfg = Release|Any CPU
 		{E45EA393-A048-462E-AE94-39193D1549B3}.Release|x86.Build.0 = Release|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Debug|x64.Build.0 = Debug|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Debug|x86.Build.0 = Debug|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Release|x64.ActiveCfg = Release|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Release|x64.Build.0 = Release|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Release|x86.ActiveCfg = Release|Any CPU
+		{DA7101EF-4253-4111-9EE7-7FE5E908327E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D48362FD-0E77-4725-967E-DA078B1E1B80} = {10ECC629-0284-49B1-8874-6A84CC154874}

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
+using CarDealerWebAPI.services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarDealerWebAPI.Controllers
@@ -9,18 +10,24 @@ namespace CarDealerWebAPI.Controllers
     [Route("[controller]")]
     public class VehicleController : ControllerBase
     {
-        private readonly CarDealerContext _db;
+        private readonly VehicleService _service;
 
-        public VehicleController(CarDealerContext db)
+        public VehicleController(VehicleService service)
         {
-            _db = db;
+            _service = service;
         }
 
         // GET
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_db.VehicleInventory.ToList());
+            return Ok(_service.GetAllVehicles());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetVehicleById(int id)
+        {
+            return Ok(_service.GetVehicle(id));
         }
     }
 }
