@@ -14,6 +14,7 @@ namespace CarDealerWebAPI.Tests.UnitTests
 {
     public class VehicleServiceTests
     {
+        
         [Fact]
         public void VehicleInventory_ShouldReturn0_When0ItemsInDatabase()
         {
