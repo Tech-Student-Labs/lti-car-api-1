@@ -27,60 +27,36 @@ namespace CarDealerWebAPI.services
             }
             else
             {
-                throw new System.Exception();
+                throw new System.ArgumentNullException("Id not found in database.");
             }
         }
 
         public void AddVehicle(Vehicle vehicle)
         {
-            try
-            {
-                _db.VehicleInventory.Add(vehicle);
-                _db.SaveChanges();
-            }
-            catch
-            {
-                throw new System.Exception();
-            }
+            if (vehicle == null) throw new System.ArgumentNullException("The vehicle you are trying to add is null");
+            _db.VehicleInventory.Add(vehicle);
+            _db.SaveChanges();
         }
 
         public void AddRangeOfVehicles(Vehicle[] vehicles)
         {
-            try
-            {
-                _db.VehicleInventory.AddRange(vehicles);
-                _db.SaveChanges();
-            }
-            catch
-            {
-                throw new System.Exception();
-            }
+            if (vehicles == null) throw new System.ArgumentNullException("The vehicles you are trying to add are null");
+            _db.VehicleInventory.AddRange(vehicles);
+            _db.SaveChanges();
         }
 
         public void UpdateVehicle(Vehicle vehicle)
         {
-            try
-            {
-                _db.VehicleInventory.Update(vehicle);
-                _db.SaveChanges();
-            }
-            catch
-            {
-                throw new System.Exception();
-            }
+            if (vehicle == null) throw new System.ArgumentNullException("The vehicle you are trying to update is null");
+            _db.VehicleInventory.Update(vehicle);
+            _db.SaveChanges();
         }
 
         public void DeleteVehicle(Vehicle vehicle)
         {
-            try
-            {
-                _db.VehicleInventory.Remove(vehicle);
-                _db.SaveChanges();
-            }
-            catch
-            {
-                throw new System.Exception();
-            }
+            if (vehicle == null) throw new System.ArgumentNullException("The vehicle you are trying to delete is null");
+            _db.VehicleInventory.Remove(vehicle);
+            _db.SaveChanges();
         }
 
         public void DestroyDatabase()
