@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarDealerAPIService.App.Data;
+using CarDealerWebAPI.services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarDealerWebAPI
 {
-    public class Startup
+   public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -28,13 +29,16 @@ namespace CarDealerWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
+            services.AddDbContext<CarDealerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IVehicleService, VehicleService>();
+            // services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "CarDealerWebAPI", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarDealerWebAPI", Version = "v1" });
             });
-
-            services.AddDbContext<CarDealerContext>(opt => opt.UseSqlite("Data Source=database.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,13 +51,14 @@ namespace CarDealerWebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarDealerWebAPI v1"));
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
