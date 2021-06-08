@@ -19,8 +19,9 @@ namespace CarDealerWebApi.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             var databaseContext = new CarDealerContext(options);
+            var vehicleInventoryService = new VehicleService(databaseContext);
             //When
-            var result = databaseContext.VehicleInventory.ToList().Count;
+            var result = vehicleInventoryService.GetAllVehicles().Count;
             //Then
             result.Should().Be(0);
         }
