@@ -4,10 +4,10 @@
 ## To Run The Program 
 </b>
 <br>
-cd into WebApi
+`cd into WebAp
 <br>
 dotnet build
 <br>
 dotnet ef database update  -s ..\CarDealerWebAPI
 <br>
-dotnet run
+dotnet run`
