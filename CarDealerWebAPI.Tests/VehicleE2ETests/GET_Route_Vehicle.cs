@@ -59,6 +59,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var jsonObj = await result.Content.ReadAsStringAsync();
             List<Vehicle> vehicleObjList = JsonConvert.DeserializeObject<List<Vehicle>>(jsonObj);
             vehicleObjList?.Count.Should().Be(0);
+            await todoService.Database.EnsureDeletedAsync();
         }
 
         [Fact]
@@ -193,6 +194,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             //THEN the response should return a OK status
             var resultStatusCode = result.StatusCode;
             resultStatusCode.Should().Be(HttpStatusCode.OK);
+            await todoService.Database.EnsureDeletedAsync();
         }
     }
 }
