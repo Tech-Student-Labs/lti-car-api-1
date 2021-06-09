@@ -12,6 +12,23 @@ namespace CarDealerWebApi.Tests
     public class VehicleServiceAddVehicleTests
     {
         [Fact]
+        public void AddMethod_ShouldThrowError_WhenNullIsPassedAsAParameter()
+        {
+            //Given
+            var options = new DbContextOptionsBuilder<CarDealerContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+            var databaseContext = new CarDealerContext(options);
+            var vehicleInventoryService = new VehicleService(databaseContext);
+            //When
+
+            //Then
+            Action action = () => vehicleInventoryService.AddVehicle(null);
+            action.Should().Throw<System.ArgumentNullException>()
+                .WithMessage("Value cannot be null. (Parameter 'The vehicle you are trying to add is null')");
+        }
+
+        [Fact]
         public void AddVehicle_ShouldAddVehicleToDatabase()
         {
             //Given
@@ -21,7 +38,8 @@ namespace CarDealerWebApi.Tests
             var databaseContext = new CarDealerContext(options);
             var vehicleInventoryService = new VehicleService(databaseContext);
             //When
-            var vehicle = new Vehicle() { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 };
+            var vehicle = new Vehicle()
+                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
             vehicleInventoryService.AddVehicle(vehicle);
             var result = databaseContext.VehicleInventory.FirstOrDefault(s => s.Id == vehicle.Id);
             //Then

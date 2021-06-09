@@ -36,7 +36,8 @@ namespace CarDealerWebApi.Tests
             var databaseContext = new CarDealerContext(options);
             var vehicleInventoryService = new VehicleService(databaseContext);
             //When
-            databaseContext.VehicleInventory.Add(new Vehicle() { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 });
+            databaseContext.VehicleInventory.Add(new Vehicle()
+                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000});
             databaseContext.SaveChanges();
             var result = vehicleInventoryService.GetAllVehicles().Count;
             //Then
@@ -53,12 +54,18 @@ namespace CarDealerWebApi.Tests
             var databaseContext = new CarDealerContext(options);
             var vehicleInventoryService = new VehicleService(databaseContext);
             //When
-            var vehicles = new Vehicle[] {
-                new Vehicle() { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 },
-                new Vehicle() { Id = 2, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 },
-                new Vehicle() { Id = 3, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 },
-                new Vehicle() { Id = 4, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 },
-                new Vehicle() { Id = 5, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 }
+            var vehicles = new Vehicle[]
+            {
+                new Vehicle()
+                    {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000},
+                new Vehicle()
+                    {Id = 2, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000},
+                new Vehicle()
+                    {Id = 3, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000},
+                new Vehicle()
+                    {Id = 4, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000},
+                new Vehicle()
+                    {Id = 5, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000}
             };
             databaseContext.VehicleInventory.AddRange(vehicles);
             databaseContext.SaveChanges();

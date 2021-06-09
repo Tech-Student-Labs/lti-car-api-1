@@ -27,7 +27,7 @@ namespace CarDealerWebAPI.services
             }
             else
             {
-                throw new System.ArgumentNullException("Id not found in database.");
+                throw new System.ArgumentNullException(nameof(id),$"id:{id} not found in database.");
             }
         }
 
@@ -40,7 +40,7 @@ namespace CarDealerWebAPI.services
 
         public void AddRangeOfVehicles(Vehicle[] vehicles)
         {
-            if (vehicles == null) throw new System.ArgumentNullException("The vehicles you are trying to add are null");
+            if (vehicles == null) throw new System.ArgumentNullException(nameof(vehicles),"The vehicle you are trying to add is null");
             _db.VehicleInventory.AddRange(vehicles);
             _db.SaveChanges();
         }

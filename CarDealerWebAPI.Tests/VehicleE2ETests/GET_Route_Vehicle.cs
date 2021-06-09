@@ -55,7 +55,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             //WHEN a GET request is submitted to Vehicle with no parameters
             var result = await client.GetAsync("/Vehicle");
 
-            //THEN the response should return a OK status
+            //THEN the response should return No Vehicles
             var jsonObj = await result.Content.ReadAsStringAsync();
             List<Vehicle> vehicleObjList = JsonConvert.DeserializeObject<List<Vehicle>>(jsonObj);
             vehicleObjList?.Count.Should().Be(0);
@@ -97,7 +97,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             //WHEN a GET request is submitted to Vehicle with no parameters
             var result = await client.GetAsync("/Vehicle");
 
-            //THEN the response should return a OK status
+            //THEN the response should return a Vehicle Object
             var response = await result.Content.ReadAsStringAsync();
             List<Vehicle> vehicleJsonObj = JsonConvert.DeserializeObject<List<Vehicle>>(response);
             vehicleJsonObj?.Count.Should().Be(1);
@@ -143,11 +143,56 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             //WHEN a GET request is submitted to Vehicle with no parameters
             var result = await client.GetAsync("/Vehicle");
 
-            //THEN the response should return a OK status
+            //THEN the response should return Two Objects
             var response = await result.Content.ReadAsStringAsync();
             List<Vehicle> vehicleJsonObj = JsonConvert.DeserializeObject<List<Vehicle>>(response);
             vehicleJsonObj?.Count.Should().Be(2);
             await todoService.Database.EnsureDeletedAsync();
+        }
+
+        [Fact]
+        public async Task Should_ReturnTheVehicleWithId1_WhenTheGetVehicleByIdIsCalledWithId1()
+        {
+            //GIVEN the service is running and there are no items in the Vehicles Table
+            var testServer = new TestServer(HostBuilder);
+            var client = testServer.CreateClient();
+            var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
+            await todoService.Database.EnsureDeletedAsync();
+            await todoService.Database.EnsureCreatedAsync();
+
+            var vehicle1 = new Vehicle() {VinNumber = "123qwe"};
+            await todoService.VehicleInventory.AddAsync(vehicle1);
+            await todoService.SaveChangesAsync();
+            //WHEN a GET request is submitted to Vehicle with id = 1 in the parameters
+            var result = await client.GetAsync("/Vehicle/1");
+
+            //THEN the response should return an Vehicle Object with id = 1
+            var response = await result.Content.ReadAsStringAsync();
+            Vehicle vehicleJsonObj = JsonConvert.DeserializeObject<Vehicle>(response);
+            vehicleJsonObj.Should().BeEquivalentTo(vehicle1);
+            await todoService.Database.EnsureDeletedAsync();
+        }
+
+        [Fact]
+        public async Task Should_ReturnTheStatusCode200_WhenTheGetVehicleByIdCalledWithId1()
+        {
+            //GIVEN the service is running and there are no items in the Vehicles Table
+            var testServer = new TestServer(HostBuilder);
+            var client = testServer.CreateClient();
+            var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
+            await todoService.Database.EnsureDeletedAsync();
+            await todoService.Database.EnsureCreatedAsync();
+
+            var vehicle1 = new Vehicle() {VinNumber = "123qwe"};
+            var vehicle2 = new Vehicle();
+            await todoService.VehicleInventory.AddAsync(vehicle1);
+            await todoService.SaveChangesAsync();
+            //WHEN a GET request is submitted to Vehicle with no parameters
+            var result = await client.GetAsync("/Vehicle/1");
+
+            //THEN the response should return a OK status
+            var resultStatusCode = result.StatusCode;
+            resultStatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }

@@ -24,7 +24,8 @@ namespace CarDealerWebApi.Tests
             var databaseContext = new CarDealerContext(options);
             var vehicleInventoryService = new VehicleService(databaseContext);
             //When
-            var vehicle = new Vehicle() { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 };
+            var vehicle = new Vehicle()
+                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.SaveChanges();
             var result = vehicleInventoryService.GetVehicle(1);
@@ -42,12 +43,14 @@ namespace CarDealerWebApi.Tests
             var databaseContext = new CarDealerContext(options);
             var vehicleInventoryService = new VehicleService(databaseContext);
             //When
-            var vehicle = new Vehicle() { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 };
+            var vehicle = new Vehicle()
+                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.SaveChanges();
             Action action = () => vehicleInventoryService.GetVehicle(-1);
             //Then
-            action.Should().Throw<System.ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'Id not found in database.')");
+            action.Should().Throw<System.ArgumentNullException>()
+                .WithMessage("id:-1 not found in database. (Parameter 'id')");
         }
     }
 }

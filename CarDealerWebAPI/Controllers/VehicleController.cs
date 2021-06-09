@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 using CarDealerWebAPI.services;
