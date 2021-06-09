@@ -65,5 +65,11 @@ namespace CarDealerWebAPI.services
             _db.VehicleInventory.RemoveRange(entities);
             _db.SaveChanges();
         }
+
+        public List<int> GetMarketValues()
+        {
+            var vehicles = _db.VehicleInventory.ToList();
+            return vehicles.Select(vehicle => vehicle.MarketValue).ToList();
+        }
     }
 }
