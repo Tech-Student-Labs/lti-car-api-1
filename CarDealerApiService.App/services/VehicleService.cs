@@ -3,7 +3,7 @@ using System.Linq;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 
-namespace CarDealerWebAPI.services
+namespace CarDealerAPIService.services
 {
     public class VehicleService : IVehicleService
     {

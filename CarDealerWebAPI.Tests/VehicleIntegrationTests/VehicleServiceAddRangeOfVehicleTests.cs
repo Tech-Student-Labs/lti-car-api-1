@@ -2,7 +2,7 @@
 using System.Linq;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
-using CarDealerWebAPI.services;
+using CarDealerAPIService.services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;

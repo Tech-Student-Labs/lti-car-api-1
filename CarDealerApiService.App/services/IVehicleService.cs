@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CarDealerAPIService.App.models;
 
-namespace CarDealerWebAPI.services
+namespace CarDealerAPIService.services
 {
     public interface IVehicleService
     {
