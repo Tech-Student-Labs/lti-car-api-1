@@ -28,7 +28,7 @@ namespace CarDealerWebAPI.Tests.MiddlewareTests
             //Then
             objResponse
                 .Should()
-                .BeEquivalentTo(new ErrorDetails() {Message = "Test", Type = "Exception", StatusCode = 200});
+                .BeEquivalentTo(new ErrorDetails() { Message = "Test", Type = "Exception", StatusCode = 200 });
         }
 
         [Fact]
@@ -51,7 +51,32 @@ namespace CarDealerWebAPI.Tests.MiddlewareTests
             //Then
             objResponse
                 .Should()
-                .BeEquivalentTo(new ErrorDetails() {Message = "Test", Type = "ArgumentException", StatusCode = 200});
+                .BeEquivalentTo(new ErrorDetails() { Message = "Test", Type = "ArgumentException", StatusCode = 200 });
         }
+
+        [Fact]
+        public void
+            ExceptionMiddleware_ShouldReturnAnErrorModelWithTypeEqualToArgumentNullException_WhenArgumentNullExceptionIsThrown()
+        {
+            //Given
+            var middleware = new ExceptionMiddleware((innerHttpContext) => throw new ArgumentNullException("testing", "Argument can't be null"));
+            //When
+            var context = new DefaultHttpContext();
+            context.Response.Body = new MemoryStream();
+
+            middleware.Invoke(context);
+
+            context.Response.Body.Seek(0, SeekOrigin.Begin);
+            var reader = new StreamReader(context.Response.Body);
+            var streamText = reader.ReadToEnd();
+            var objResponse = JsonConvert.DeserializeObject<ErrorDetails>(streamText);
+
+            //Then
+            objResponse
+                .Should()
+                .BeEquivalentTo(new ErrorDetails() { Message = "Argument can't be null (Parameter 'testing')", Type = "ArgumentNullException", StatusCode = 200 });
+        }
+
+
     }
 }

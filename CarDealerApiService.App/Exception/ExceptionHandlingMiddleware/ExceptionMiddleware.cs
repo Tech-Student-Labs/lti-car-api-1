@@ -31,8 +31,14 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
         private static Task HandleExceptionAsync(HttpContext context, System.Exception exception)
         {
             // Log issues and handle exception response
-
-            if (exception.GetType() == typeof(ArgumentException))
+            if (exception.GetType() == typeof(ArgumentNullException))
+            {
+                var response = context.Response;
+                response.ContentType = "application/json";
+                var result = JsonSerializer.Serialize(new ErrorDetails {Type = "ArgumentNullException",StatusCode = response.StatusCode, Message = exception?.Message});
+                return response.WriteAsync(result);
+            }
+            else if (exception.GetType() == typeof(ArgumentException))
             {
                 var response = context.Response;
                 response.ContentType = "application/json";
