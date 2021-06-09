@@ -45,7 +45,7 @@ namespace CarDealerWebApi.Tests
             Action action = () => vehicleInventoryService.UpdateVehicle(null);
             //Then
             action.Should().Throw<System.ArgumentNullException>()
-                .WithMessage("Value cannot be null. (Parameter 'The vehicle you are trying to update is null')");
+                .WithMessage("The vehicle you are trying to update is null (Parameter 'vehicle')");
         }
     }
 }

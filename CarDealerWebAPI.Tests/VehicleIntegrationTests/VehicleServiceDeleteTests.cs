@@ -74,7 +74,7 @@ namespace CarDealerWebApi.Tests
             Action action = () => vehicleInventoryService.DeleteVehicle(null);
             //Then
             action.Should().Throw<System.ArgumentNullException>()
-                .WithMessage("Value cannot be null. (Parameter 'The vehicle you are trying to delete is null')");
+                .WithMessage("The vehicle you are trying to delete is null (Parameter 'vehicle')");
         }
     }
 }

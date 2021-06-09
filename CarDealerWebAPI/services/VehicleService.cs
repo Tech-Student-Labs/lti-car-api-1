@@ -33,7 +33,7 @@ namespace CarDealerWebAPI.services
 
         public void AddVehicle(Vehicle vehicle)
         {
-            if (vehicle == null) throw new System.ArgumentNullException("The vehicle you are trying to add is null");
+            if (vehicle == null) throw new System.ArgumentNullException(nameof(vehicle),"The vehicle you are trying to add is null");
             _db.VehicleInventory.Add(vehicle);
             _db.SaveChanges();
         }
@@ -47,14 +47,14 @@ namespace CarDealerWebAPI.services
 
         public void UpdateVehicle(Vehicle vehicle)
         {
-            if (vehicle == null) throw new System.ArgumentNullException("The vehicle you are trying to update is null");
+            if (vehicle == null) throw new System.ArgumentNullException(nameof(vehicle),"The vehicle you are trying to update is null");
             _db.VehicleInventory.Update(vehicle);
             _db.SaveChanges();
         }
 
         public void DeleteVehicle(Vehicle vehicle)
         {
-            if (vehicle == null) throw new System.ArgumentNullException("The vehicle you are trying to delete is null");
+            if (vehicle == null) throw new System.ArgumentNullException(nameof(vehicle),"The vehicle you are trying to delete is null");
             _db.VehicleInventory.Remove(vehicle);
             _db.SaveChanges();
         }

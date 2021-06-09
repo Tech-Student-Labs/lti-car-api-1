@@ -25,7 +25,7 @@ namespace CarDealerWebApi.Tests
             //Then
             Action action = () => vehicleInventoryService.AddVehicle(null);
             action.Should().Throw<System.ArgumentNullException>()
-                .WithMessage("Value cannot be null. (Parameter 'The vehicle you are trying to add is null')");
+                .WithMessage("The vehicle you are trying to add is null (Parameter 'vehicle')");
         }
 
         [Fact]
