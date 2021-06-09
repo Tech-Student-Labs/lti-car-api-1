@@ -15,6 +15,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using CarDealerAPIService.services;
+using CarDealerApiService.App.models;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarDealerWebAPI
 {
@@ -40,6 +42,18 @@ namespace CarDealerWebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarDealerWebAPI", Version = "v1" });
             });
+            services.AddIdentity<User, IdentityRole>(opt=>
+            {
+                opt.User.RequireUniqueEmail = true;
+                opt.Password.RequiredLength = 6;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+            }).
+                AddEntityFrameworkStores<CarDealerContext>()
+                .AddRoles<IdentityRole>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
