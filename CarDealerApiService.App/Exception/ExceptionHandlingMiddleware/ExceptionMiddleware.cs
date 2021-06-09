@@ -22,20 +22,31 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
             {
                 await _next(context);
             }
-            catch (ArgumentException error)
+            catch (System.Exception ex)
             {
-                var response = context.Response;
-                response.ContentType = "application/json";
-                var result = JsonSerializer.Serialize(new ErrorDetails {Type = "ArgumentException",StatusCode = response.StatusCode, Message = error?.Message});
-                await response.WriteAsync(result);
-            }
-            catch (System.Exception error)
-            {
-                var response = context.Response;
-                response.ContentType = "application/json";
-                var result = JsonSerializer.Serialize(new ErrorDetails {Type = "Exception",StatusCode = response.StatusCode, Message = error?.Message});
-                await response.WriteAsync(result);
+                await HandleExceptionAsync(context, ex);
             }
         }
+        
+        private static Task HandleExceptionAsync(HttpContext context, System.Exception exception)
+        {
+            // Log issues and handle exception response
+
+            if (exception.GetType() == typeof(ArgumentException))
+            {
+                var response = context.Response;
+                response.ContentType = "application/json";
+                var result = JsonSerializer.Serialize(new ErrorDetails {Type = "ArgumentException",StatusCode = response.StatusCode, Message = exception?.Message});
+                return response.WriteAsync(result);
+            }
+            else
+            {
+                var response = context.Response;
+                response.ContentType = "application/json";
+                var result = JsonSerializer.Serialize(new ErrorDetails {Type = "Exception",StatusCode = response.StatusCode, Message = exception?.Message});
+                return response.WriteAsync(result);
+            }
+        }
+        
     }
 }
