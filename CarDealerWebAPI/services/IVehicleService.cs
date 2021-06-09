@@ -13,6 +13,6 @@ namespace CarDealerWebAPI.services
         void DeleteVehicle(Vehicle vehicle);
         void DestroyDatabase();
 
-        int GetMarketValue(int id);
+        List<int> GetMarketValues();
     }
 }

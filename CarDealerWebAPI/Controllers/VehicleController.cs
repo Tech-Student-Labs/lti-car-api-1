@@ -32,10 +32,10 @@ namespace CarDealerWebAPI.Controllers
             return Ok(_service.GetVehicle(id));
         }
 
-        [HttpGet("{id}/MarketValue")]
-        public IActionResult GetVehicleMarketValue(int id)
+        [HttpGet("MarketValue")]
+        public IActionResult GetVehicleMarketValue()
         {
-            return Ok(_service.GetMarketValue(id));
+            return Ok(_service.GetMarketValues());
         }
     }
 }

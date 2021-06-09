@@ -43,11 +43,12 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await todoService.VehicleInventory.AddAsync(vehicle);
             await todoService.SaveChangesAsync();
             //WHEN
-            var result = await client.GetAsync("/Vehicle/1/MarketValue");
+            var result = await client.GetAsync("/Vehicle/MarketValue");
 
             //THEN
             var response = await result.Content.ReadAsStringAsync();
-            response.Should().Be("23000");
+            List<int> vehicleJsonObj = JsonConvert.DeserializeObject<List<int>>(response);
+            vehicleJsonObj?.Count.Should().Be(1);
             await todoService.Database.EnsureDeletedAsync();
         }
 
@@ -66,7 +67,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await todoService.SaveChangesAsync();
 
             //WHEN
-            var result = await client.GetAsync("/Vehicle/1/MarketValue");
+            var result = await client.GetAsync("/Vehicle/MarketValue");
 
             //THEN
             result.StatusCode.Should().Be(HttpStatusCode.OK);

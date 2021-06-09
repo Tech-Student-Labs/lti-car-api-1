@@ -66,17 +66,10 @@ namespace CarDealerWebAPI.services
             _db.SaveChanges();
         }
 
-        public int GetMarketValue(int id)
+        public List<int> GetMarketValues()
         {
-            var result = _db.VehicleInventory.FirstOrDefault(s => s.Id == id);
-            if (result != null)
-            {
-                return result.MarketValue;
-            }
-            else
-            {
-                throw new System.ArgumentNullException(nameof(id),$"id:{id} not found in database.");
-            }
+            var vehicles = _db.VehicleInventory.ToList();
+            return vehicles.Select(vehicle => vehicle.MarketValue).ToList();
         }
     }
 }

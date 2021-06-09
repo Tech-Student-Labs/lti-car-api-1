@@ -29,10 +29,10 @@ namespace CarDealerWebAPI.Tests.VehicleIntegrationTests
                 {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.SaveChanges();
-            var result = vehicleInventoryService.GetMarketValue(1);
+            var result = vehicleInventoryService.GetMarketValues().Count;
 
             //Then
-            result.Should().Be(23000);
+            result.Should().Be(1);
         }
 
         [Fact]
@@ -53,10 +53,10 @@ namespace CarDealerWebAPI.Tests.VehicleIntegrationTests
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.VehicleInventory.Add(vehicle2);
             databaseContext.SaveChanges();
-            var result = vehicleInventoryService.GetMarketValue(1);
+            var result = vehicleInventoryService.GetMarketValues().Count;
 
             //Then
-            result.Should().Be(23000);
+            result.Should().Be(2);
         }
 
         [Fact]
@@ -70,10 +70,10 @@ namespace CarDealerWebAPI.Tests.VehicleIntegrationTests
             var vehicleInventoryService = new VehicleService(databaseContext);
 
             //When
-            Action result = () => vehicleInventoryService.GetMarketValue(1);
+            var result = vehicleInventoryService.GetMarketValues().Count;
 
             //Then
-            result.Should().Throw<System.ArgumentNullException>();
+            result.Should().Be(0);
         }
     }
 }
