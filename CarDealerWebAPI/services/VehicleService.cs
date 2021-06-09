@@ -65,5 +65,18 @@ namespace CarDealerWebAPI.services
             _db.VehicleInventory.RemoveRange(entities);
             _db.SaveChanges();
         }
+
+        public int GetMarketValue(int id)
+        {
+            var result = _db.VehicleInventory.FirstOrDefault(s => s.Id == id);
+            if (result != null)
+            {
+                return result.MarketValue;
+            }
+            else
+            {
+                throw new System.ArgumentNullException(nameof(id),$"id:{id} not found in database.");
+            }
+        }
     }
 }
