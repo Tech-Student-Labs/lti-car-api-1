@@ -21,7 +21,8 @@ namespace CarDealerWebApi.Tests
             var databaseContext = new CarDealerContext(options);
             var vehicleInventoryService = new VehicleService(databaseContext);
             //When
-            var vehicle = new Vehicle() { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 };
+            var vehicle = new Vehicle()
+                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.SaveChanges();
             vehicle.Year = 2023;
@@ -43,24 +44,8 @@ namespace CarDealerWebApi.Tests
             //When
             Action action = () => vehicleInventoryService.UpdateVehicle(null);
             //Then
-            action.Should().Throw<System.ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'The vehicle you are trying to update is null')");
+            action.Should().Throw<System.ArgumentNullException>()
+                .WithMessage("The vehicle you are trying to update is null (Parameter 'vehicle')");
         }
-
-        [Fact]
-        public void AddMethod_ShouldThrowError_WhenNullIsPassedAsAParameter()
-        {
-            //Given
-            var options = new DbContextOptionsBuilder<CarDealerContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
-            var databaseContext = new CarDealerContext(options);
-            var vehicleInventoryService = new VehicleService(databaseContext);
-            //When
-
-            //Then
-            Action action = () => vehicleInventoryService.AddVehicle(null);
-            action.Should().Throw<System.ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'The vehicle you are trying to add is null')");
-        }
-
     }
 }
