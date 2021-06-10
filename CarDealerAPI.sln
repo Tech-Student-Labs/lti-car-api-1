@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerWebAPI", "CarDeale
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerWebAPI.Tests", "CarDealerWebAPI.Tests\CarDealerWebAPI.Tests.csproj", "{DA7101EF-4253-4111-9EE7-7FE5E908327E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{02DAD986-5BF2-42F1-89D0-E0FD888EF9A2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
