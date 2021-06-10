@@ -19,11 +19,13 @@ namespace CarDealerWebAPI.Controllers
             _marketValueService = marketValueService;
         }
 
+        // test vin: KL79MMS22MB176461
+
         // GET
-        [HttpGet]
-        public async Task<IActionResult> GetAMarketValue()
+        [HttpGet("{vin}")]
+        public async Task<IActionResult> GetMarketValue(string vin)
         {
-            return Ok(await _marketValueService.GetAverageVehiclePrice("KL79MMS22MB176461"));
+            return Ok(await _marketValueService.GetAverageVehiclePrice(vin));
         }
     }
 }
