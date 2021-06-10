@@ -6,9 +6,6 @@ namespace CarDealerWebAPI.services
 {
     public interface IVehicleMarketValueService
     {
-        long AveragePrice(string url);
-        HttpResponseMessage Get(string url);
-        Task<HttpResponseMessage> GetAsync(string url);
-        Task<VehiclePriceRequest> PriceRequestAsync(string url);
+        Task<string> GetAverageVehiclePrice(string vin);
     }
 }

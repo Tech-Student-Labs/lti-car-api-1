@@ -5,35 +5,31 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CarDealerAPIService.App.models;
 using System.Net.Http.Formatting;
+using Newtonsoft.Json;
 
 namespace CarDealerWebAPI.services
 {
     public class VehicleMarketValueService : IVehicleMarketValueService
     {
-        private HttpClient _client;
-        public VehicleMarketValueService(HttpClient client)
+        private IHttpClient _client;
+        public VehicleMarketValueService(IHttpClient client)
         {
             _client = client;
         }
-        public HttpResponseMessage Get(string url)
-        {
-            return GetAsync(url).Result;
-        }
 
-        public async Task<HttpResponseMessage> GetAsync(string url)
+        public async Task<string> GetAverageVehiclePrice(string vin)
         {
-            return await _client.GetAsync(url);
-        }
+            // HttpResponseMessage message = await _client.GetAsync($"http://marketvalue.vinaudit.com/getmarketvalue.php?key=VA_DEMO_KEY&vin={vin}&format=json&period=90&mileage=average");
 
-        public async Task<VehiclePriceRequest> PriceRequestAsync(string url)
-        {
-            HttpResponseMessage message = Get(url);
-            return await message.Content.ReadAsAsync<VehiclePriceRequest>();
-        }
+            // VehiclePriceRequest request = await message.Content.ReadAsAsync<VehiclePriceRequest>();
+            // return request.Prices.Average.ToString("$0.00");
 
-        public long AveragePrice(string url)
-        {
-            return PriceRequestAsync(url).Result.Prices.Average;
+            var stringTask = await _client.GetAsync($"http://marketvalue.vinaudit.com/getmarketvalue.php?key=VA_DEMO_KEY&vin={vin}&format=json&period=90&mileage=average");
+            string result = await stringTask.Content.ReadAsStringAsync();
+            return result.ToString();
+
+            // var msg = stringTask;
+            // return msg.ToString();
         }
     }
 }

@@ -37,6 +37,8 @@ namespace CarDealerWebAPI
             services.AddDbContext<CarDealerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IVehicleService, VehicleService>();
             // services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddSingleton<IHttpClient, HttpClientHandler>();
+            services.AddScoped<IVehicleMarketValueService, VehicleMarketValueService>();
 
             services.AddSwaggerGen(c =>
             {
