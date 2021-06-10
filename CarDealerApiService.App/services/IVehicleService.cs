@@ -12,5 +12,7 @@ namespace CarDealerAPIService.services
         void UpdateVehicle(Vehicle vehicle);
         void DeleteVehicle(Vehicle vehicle);
         void DestroyDatabase();
+
+        List<int> GetMarketValues();
     }
 }

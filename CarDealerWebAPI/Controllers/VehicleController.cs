@@ -31,5 +31,11 @@ namespace CarDealerWebAPI.Controllers
         {
             return Ok(_service.GetVehicle(id));
         }
+
+        [HttpGet("MarketValue")]
+        public IActionResult GetVehicleMarketValue()
+        {
+            return Ok(_service.GetMarketValues());
+        }
     }
 }
