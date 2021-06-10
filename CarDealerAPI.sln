@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10ECC629-028
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5B311935-25CE-4118-9A17-F17D110ED2EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerWebAPI", "CarDealerWebAPI\CarDealerWebAPI.csproj", "{E45EA393-A048-462E-AE94-39193D1549B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerWebApi", "CarDealerWebApi\CarDealerWebApi.csproj", "{E45EA393-A048-462E-AE94-39193D1549B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerWebAPI.Tests", "CarDealerWebAPI.Tests\CarDealerWebAPI.Tests.csproj", "{DA7101EF-4253-4111-9EE7-7FE5E908327E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerWebApi.Tests", "CarDealerWebApi.Tests\CarDealerWebApi.Tests.csproj", "{DA7101EF-4253-4111-9EE7-7FE5E908327E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

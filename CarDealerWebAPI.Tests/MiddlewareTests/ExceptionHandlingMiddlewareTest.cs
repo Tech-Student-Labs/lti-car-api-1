@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
-using CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware;
-using CarDealerAPIService.App.Exception.ExceptionModel;
+using CarDealerApiService.App.Exception.ExceptionHandlingMiddleware;
+using CarDealerApiService.App.Exception.ExceptionModel;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace CarDealerWebAPI.Tests.MiddlewareTests
+namespace CarDealerWebApi.Tests.MiddlewareTests
 {
     public class ExceptionHandlingMiddlewareTest
     {

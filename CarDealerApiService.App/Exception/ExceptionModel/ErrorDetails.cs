@@ -1,4 +1,4 @@
-﻿namespace CarDealerAPIService.App.Exception.ExceptionModel
+﻿namespace CarDealerApiService.App.Exception.ExceptionModel
 {
     public class ErrorDetails
     {

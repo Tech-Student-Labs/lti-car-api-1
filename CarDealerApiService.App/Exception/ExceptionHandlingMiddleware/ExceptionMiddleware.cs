@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Exception.ExceptionModel;
+using CarDealerApiService.App.Exception.ExceptionModel;
 using Microsoft.AspNetCore.Http;
 
-namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
+namespace CarDealerApiService.App.Exception.ExceptionHandlingMiddleware
 {
     public class ExceptionMiddleware
     {

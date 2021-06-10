@@ -3,11 +3,11 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.models;
+using CarDealerApiService.App.models;
 using Newtonsoft.Json;
-using CarDealerAPIService.services;
+using CarDealerApiService.services;
 
-namespace CarDealerAPIService.services
+namespace CarDealerApiService.services
 {
     public class VehicleMarketValueService : IVehicleMarketValueService
     {

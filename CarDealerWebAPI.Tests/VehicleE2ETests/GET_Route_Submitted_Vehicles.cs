@@ -2,7 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
+using CarDealerApiService.App.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -10,11 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.TestHost;
 using FluentAssertions;
 using System.Net;
-using CarDealerAPIService.App.models;
+using CarDealerApiService.App.models;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace CarDealerWebAPI.Tests.VehicleE2ETests
+namespace CarDealerWebApi.Tests.VehicleE2ETests
 {
     public class GET_Route_Submitted_Vehicles
     {

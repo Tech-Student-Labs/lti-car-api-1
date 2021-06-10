@@ -8,6 +8,6 @@ cd into WebAp
 <br>
 dotnet build
 <br>
-dotnet ef database update  -s ..\CarDealerWebAPI
+dotnet ef database update  -s ..\CarDealerWebApi
 <br>
 dotnet run

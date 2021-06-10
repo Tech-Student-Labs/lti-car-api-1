@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CarDealerAPIService.App.models
+namespace CarDealerApiService.App.models
 {
     public class VehicleSubmissions
     {

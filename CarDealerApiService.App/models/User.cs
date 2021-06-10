@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace CarDealerAPIService.App.models
+namespace CarDealerApiService.App.models
 {
     public class User : IdentityUser
     {

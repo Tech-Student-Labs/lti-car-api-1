@@ -1,16 +1,16 @@
 using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
-using CarDealerWebAPI.Controllers;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.models;
+using CarDealerWebApi.Controllers;
+using CarDealerApiService.App.Data;
+using CarDealerApiService.App.models;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System;
-using CarDealerAPIService.services;
+using CarDealerApiService.services;
 
-namespace CarDealerWebAPI.Tests.VehicleIntegrationTests
+namespace CarDealerWebApi.Tests.VehicleIntegrationTests
 {
     public class VehicleServiceGetMarketValue
     {

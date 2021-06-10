@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
-using CarDealerAPIService.App.models;
-using CarDealerAPIService.services;
+using CarDealerApiService.App.models;
+using CarDealerApiService.services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 using Xunit;
 
-namespace CarDealerWebAPI.Tests.UserServiceIntegrationTests
+namespace CarDealerWebApi.Tests.UserServiceIntegrationTests
 {
     public class UserServiceUnitTests
     {

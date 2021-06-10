@@ -2,12 +2,12 @@ using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.models;
-using CarDealerAPIService.services;
+using CarDealerApiService.App.Data;
+using CarDealerApiService.App.models;
+using CarDealerApiService.services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarDealerWebAPI.Controllers
+namespace CarDealerWebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

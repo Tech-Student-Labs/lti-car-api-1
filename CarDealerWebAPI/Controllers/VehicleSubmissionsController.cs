@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using CarDealerAPIService.services;
+using CarDealerApiService.services;
 
 
-namespace CarDealerWebAPI.Controllers
+namespace CarDealerWebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

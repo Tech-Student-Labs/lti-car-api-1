@@ -1,8 +1,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.models;
+using CarDealerApiService.App.models;
 
-namespace CarDealerAPIService.services
+namespace CarDealerApiService.services
 {
     public interface IVehicleMarketValueService
     {

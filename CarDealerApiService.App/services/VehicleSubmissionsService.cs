@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.models;
+using CarDealerApiService.App.Data;
+using CarDealerApiService.App.models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CarDealerAPIService.services
+namespace CarDealerApiService.services
 {
     public class VehicleSubmissionsService : IVehicleSubmissionsService
     {

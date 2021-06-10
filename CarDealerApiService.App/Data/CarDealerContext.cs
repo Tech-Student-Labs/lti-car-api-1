@@ -1,8 +1,8 @@
-using CarDealerAPIService.App.models;
+using CarDealerApiService.App.models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CarDealerAPIService.App.Data
+namespace CarDealerApiService.App.Data
 {
     public class CarDealerContext : IdentityDbContext<User>
     {

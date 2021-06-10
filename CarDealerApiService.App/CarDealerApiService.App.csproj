@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>CarDealerAPIService.App</RootNamespace>
+        <RootNamespace>CarDealerApiService.App</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

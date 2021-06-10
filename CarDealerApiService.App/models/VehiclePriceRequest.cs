@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace CarDealerAPIService.App.models
+namespace CarDealerApiService.App.models
 {
   //Request Obj(From external api) => RequestModel => vehicle Model => dto model => frontend
   public class VehiclePriceRequest

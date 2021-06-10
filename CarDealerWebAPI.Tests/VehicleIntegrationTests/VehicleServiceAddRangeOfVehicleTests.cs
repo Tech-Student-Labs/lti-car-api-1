@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.models;
-using CarDealerAPIService.services;
+using CarDealerApiService.App.Data;
+using CarDealerApiService.App.models;
+using CarDealerApiService.services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;

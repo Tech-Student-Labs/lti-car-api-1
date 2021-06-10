@@ -36,8 +36,8 @@ jobs:
         path: CarDealerApiService.App/bin/Release
     - uses: actions/upload-artifact@v2
       with:
-        name: CarDealerWebAPI Artifact
-        path: CarDealerWebAPI/bin/Release
+        name: CarDealerWebApi Artifact
+        path: CarDealerWebApi/bin/Release
   dockerize:
     runs-on: ubuntu-latest
     steps:
@@ -62,7 +62,7 @@ jobs:
       with:
         push: true
         tags: ${{secrets.DOCKERHUB_USERNAME}}/cardealerwebapiimage:latest
-        file: CarDealerWebAPI/Dockerfile
+        file: CarDealerWebApi/Dockerfile
 
 
   

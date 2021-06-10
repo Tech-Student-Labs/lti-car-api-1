@@ -1,4 +1,4 @@
-﻿namespace CarDealerAPIService.App.models
+﻿namespace CarDealerApiService.App.models
 {
     public class JWTKey
     {

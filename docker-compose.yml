@@ -14,7 +14,7 @@ services:
     image: cardealerwebapi
     build:
       context: .
-      dockerfile: CarDealerWebAPI/Dockerfile
+      dockerfile: CarDealerWebApi/Dockerfile
     ports:
       - 5000:5000
     depends_on:

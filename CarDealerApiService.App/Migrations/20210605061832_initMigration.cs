@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CarDealerAPIService.App.Migrations
+namespace CarDealerApiService.App.Migrations
 {
     public partial class initMigration : Migration
     {

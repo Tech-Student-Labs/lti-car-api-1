@@ -8,7 +8,7 @@ using System.Threading;
 using System.Net;
 using Microsoft.Extensions.Logging;
 using System;
-using CarDealerAPIService.services;
+using CarDealerApiService.services;
 
 namespace CarDealerWebApi.Tests.UnitTests
 {

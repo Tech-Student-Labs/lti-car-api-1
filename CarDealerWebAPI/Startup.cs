@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware;
+using CarDealerApiService.App.Data;
+using CarDealerApiService.App.Exception.ExceptionHandlingMiddleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,11 +14,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using CarDealerAPIService.services;
+using CarDealerApiService.services;
 using Microsoft.AspNetCore.Identity;
-using CarDealerAPIService.App.models;
+using CarDealerApiService.App.models;
 
-namespace CarDealerWebAPI
+namespace CarDealerWebApi
 {
    public class Startup
     {
@@ -43,7 +43,7 @@ namespace CarDealerWebAPI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarDealerWebAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarDealerWebApi", Version = "v1" });
             });
             services.AddIdentity<User, IdentityRole>(opt=>
             {
@@ -66,7 +66,7 @@ namespace CarDealerWebAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarDealerWebAPI v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarDealerWebApi v1"));
             }
 
             app.UseRouting();

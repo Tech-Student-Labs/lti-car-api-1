@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CarDealerAPIService.App.Migrations
+namespace CarDealerApiService.App.Migrations
 {
     public partial class AddedVehicleSubmissions : Migration
     {

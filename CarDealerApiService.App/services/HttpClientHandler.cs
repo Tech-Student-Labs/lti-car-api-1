@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace CarDealerAPIService.services
+namespace CarDealerApiService.services
 {
     public class HttpClientHandler : IHttpClient
     {
