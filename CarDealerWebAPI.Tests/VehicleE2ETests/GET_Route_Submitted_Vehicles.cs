@@ -50,7 +50,12 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
-            context.VehicleSubmissions.Add(new VehicleSubmissions());
+            User newUser = new User() { Id = "1" };
+            Vehicle newVehicle = new Vehicle() { Id = 1 };
+            await context.Users.AddAsync(newUser);
+            await context.VehicleInventory.AddAsync(newVehicle);
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle });
+            await context.SaveChangesAsync();
 
 
             //WHEN a GET request is submitted to VehicleSubmissions with UserID
@@ -58,6 +63,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
 
             //THEN the response should return a OK status
             result.StatusCode.Should().Be(HttpStatusCode.OK);
+            await context.Database.EnsureDeletedAsync();
         }
 
         [Fact]
@@ -67,11 +73,11 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
-            User newUser = new User(){Id = "1"};
-            Vehicle newVehicle = new Vehicle(){Id = 1};
+            User newUser = new User() { Id = "1" };
+            Vehicle newVehicle = new Vehicle() { Id = 1 };
             await context.Users.AddAsync(newUser);
             await context.VehicleInventory.AddAsync(newVehicle);
-            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions(){ User = newUser, Vehicle = newVehicle });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle });
             await context.SaveChangesAsync();
 
 
@@ -80,8 +86,70 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
 
             //THEN the response should return a OK status
             var response = await result.Content.ReadAsStringAsync();
-            List<VehicleSubmissions> vehicleJsonObj = JsonConvert.DeserializeObject<List<VehicleSubmissions>>(response);
+            List<VehicleSubmissionsDTO> vehicleJsonObj = JsonConvert.DeserializeObject<List<VehicleSubmissionsDTO>>(response);
             vehicleJsonObj?.Count.Should().Be(1);
+            await context.Database.EnsureDeletedAsync();
+        }
+
+        [Fact]
+        public async Task Should_Return200Status_WhenManyVehicleSubmissionsExists()
+        {
+            //GIVEN the service is running and there is 1 items in the VehicleSubmissions Table
+            var testServer = new TestServer(HostBuilder);
+            var client = testServer.CreateClient();
+            var context = testServer.Services.GetRequiredService<CarDealerContext>();
+            User newUser = new User() { Id = "1" };
+            Vehicle newVehicle1 = new Vehicle() { Make = "Toyota" };
+            Vehicle newVehicle2 = new Vehicle() { Make = "Toyota" };
+            Vehicle newVehicle3 = new Vehicle() { Make = "Toyota" };
+            await context.Users.AddAsync(newUser);
+            await context.VehicleInventory.AddAsync(newVehicle1);
+            await context.VehicleInventory.AddAsync(newVehicle2);
+            await context.VehicleInventory.AddAsync(newVehicle3);
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle1 });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle2 });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle3 });
+
+            await context.SaveChangesAsync();
+
+
+            //WHEN a GET request is submitted to VehicleSubmissions with UserID
+            var result = await client.GetAsync("/VehicleSubmissions/1");
+
+            //THEN the response should return a OK status
+            result.StatusCode.Should().Be(HttpStatusCode.OK);
+            await context.Database.EnsureDeletedAsync();
+        }
+
+        [Fact]
+        public async Task Should_ReturnOneObject_WhenManyVehicleSubmissionsExists()
+        {
+            //GIVEN the service is running and there is 1 items in the VehicleSubmissions Table
+            var testServer = new TestServer(HostBuilder);
+            var client = testServer.CreateClient();
+            var context = testServer.Services.GetRequiredService<CarDealerContext>();
+            User newUser = new User() { Id = "1" };
+            Vehicle newVehicle1 = new Vehicle() { Make = "Toyota" };
+            Vehicle newVehicle2 = new Vehicle() { Make = "Toyota" };
+            Vehicle newVehicle3 = new Vehicle() { Make = "Toyota" };
+            await context.Users.AddAsync(newUser);
+            await context.VehicleInventory.AddAsync(newVehicle1);
+            await context.VehicleInventory.AddAsync(newVehicle2);
+            await context.VehicleInventory.AddAsync(newVehicle3);
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle1 });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle2 });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle3 });
+            await context.SaveChangesAsync();
+
+
+            //WHEN a GET request is submitted to VehicleSubmissions with UserID
+            var result = await client.GetAsync("/VehicleSubmissions/1");
+
+            //THEN the response should return a OK status
+            var response = await result.Content.ReadAsStringAsync();
+            List<VehicleSubmissionsDTO> vehicleJsonObj = JsonConvert.DeserializeObject<List<VehicleSubmissionsDTO>>(response);
+            vehicleJsonObj?.Count.Should().Be(3);
+            await context.Database.EnsureDeletedAsync();
         }
     }
 }
