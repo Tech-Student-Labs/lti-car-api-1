@@ -7,8 +7,8 @@ using CarDealerAPIService.App.models;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using CarDealerWebAPI.services;
 using System;
+using CarDealerAPIService.services;
 
 namespace CarDealerWebAPI.Tests.VehicleIntegrationTests
 {
