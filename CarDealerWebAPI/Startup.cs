@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware;
-using CarDealerWebAPI.services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,8 +14,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using CarDealerApiService.App.models;
+using CarDealerAPIService.services;
 using Microsoft.AspNetCore.Identity;
+using CarDealerAPIService.App.models;
 
 namespace CarDealerWebAPI
 {
@@ -36,6 +36,7 @@ namespace CarDealerWebAPI
             services.AddControllers();
             services.AddDbContext<CarDealerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IVehicleService, VehicleService>();
+            services.AddScoped<IVehicleSubmissionsService, VehicleSubmissionsService>();
             // services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSingleton<IHttpClient, HttpClientHandler>();
             services.AddScoped<IVehicleMarketValueService, VehicleMarketValueService>();
