@@ -10,7 +10,7 @@ namespace CarDealerAPIService.App.Data
         // TODO: add DbSet props here
         public DbSet<Vehicle> VehicleInventory { get; set; }
         public DbSet<User> UserTable { get; set; }
-
+        public DbSet<VehicleSubmissions> VehicleSubmissions { get; set; }
         public CarDealerContext(DbContextOptions options) : base(options)
         {
         }
@@ -23,6 +23,12 @@ namespace CarDealerAPIService.App.Data
                     b.HasKey(e => e.Id);
                     b.Property(e => e.Id).ValueGeneratedOnAdd();
                 });
+            
+            modelBuilder.Entity<VehicleSubmissions>(b=>
+            {
+                b.HasKey(e => e.Id);
+                b.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
 
             // modelBuilder.Entity<Vehicle>().HasData(
             //     new Vehicle { Id = 1050, Make = "Tesla", Model = "T", Year = 210, VinNumber = "1233asd", MarketValue = 51 },
