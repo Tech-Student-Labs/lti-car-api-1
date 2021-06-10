@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace CarDealerWebAPI.services
+namespace CarDealerAPIService.services
 {
     public interface IHttpClient
     {
