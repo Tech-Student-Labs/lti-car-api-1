@@ -66,19 +66,20 @@ namespace CarDealerWebApi.Tests.UnitTests
         // }
 
         [Fact]
-        public async Task TestName()
+        #pragma warning disable 4014
+        public void GetAsync_ShouldBeCalledOnce_WhenGetAverageVehiclePriceIsCalled()
         {
             //Given
             var mock = new Mock<IHttpClient>();
             var response = new HttpResponseMessage();
-            mock.Setup(s => s.GetAsync("hello")).ReturnsAsync(response);
+            mock.Setup(s => s.GetAsync("http://marketvalue.vinaudit.com/getmarketvalue.php?key=VA_DEMO_KEY&vin=KL79MMS22MB176461&format=json&period=90&mileage=average")).ReturnsAsync(response);
             var service = new VehicleMarketValueService(mock.Object);
 
             //When
-            var result = await service.GetAverageVehiclePrice("KL79MMS22MB176461");
+            service.GetAverageVehiclePrice("KL79MMS22MB176461");
 
             //Then
-            mock.Verify(mock => mock.GetAsync("hello"), Times.Once);
+            mock.Verify(mock => mock.GetAsync("http://marketvalue.vinaudit.com/getmarketvalue.php?key=VA_DEMO_KEY&vin=KL79MMS22MB176461&format=json&period=90&mileage=average"), Times.Once);
         }
     }
 }
