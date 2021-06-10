@@ -1,4 +1,4 @@
-using CarDealerApiService.App.models;
+using CarDealerAPIService.App.models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

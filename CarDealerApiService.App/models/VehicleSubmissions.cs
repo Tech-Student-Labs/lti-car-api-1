@@ -1,5 +1,4 @@
 ﻿using System;
-using CarDealerApiService.App.models;
 
 namespace CarDealerAPIService.App.models
 {

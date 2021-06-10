@@ -15,8 +15,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using CarDealerAPIService.services;
-using CarDealerApiService.App.models;
 using Microsoft.AspNetCore.Identity;
+using CarDealerAPIService.App.models;
 
 namespace CarDealerWebAPI
 {
@@ -36,6 +36,7 @@ namespace CarDealerWebAPI
             services.AddControllers();
             services.AddDbContext<CarDealerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IVehicleService, VehicleService>();
+            services.AddScoped<IVehicleSubmissionsService, VehicleSubmissionsService>();
             // services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSwaggerGen(c =>

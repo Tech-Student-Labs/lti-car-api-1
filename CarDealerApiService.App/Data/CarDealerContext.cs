@@ -1,4 +1,3 @@
-using CarDealerApiService.App.models;
 using CarDealerAPIService.App.models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

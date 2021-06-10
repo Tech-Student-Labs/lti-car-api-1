@@ -1,5 +1,5 @@
 using System;
-using CarDealerApiService.App.models;
+using CarDealerAPIService.App.models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
