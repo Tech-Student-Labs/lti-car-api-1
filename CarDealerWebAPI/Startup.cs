@@ -38,6 +38,8 @@ namespace CarDealerWebAPI
             services.AddScoped<IVehicleService, VehicleService>();
             services.AddScoped<IVehicleSubmissionsService, VehicleSubmissionsService>();
             // services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddSingleton<IHttpClient, HttpClientHandler>();
+            services.AddScoped<IVehicleMarketValueService, VehicleMarketValueService>();
 
             services.AddSwaggerGen(c =>
             {
