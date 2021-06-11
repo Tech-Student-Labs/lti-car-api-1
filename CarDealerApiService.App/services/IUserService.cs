@@ -5,7 +5,7 @@ namespace CarDealerAPIService.services
 {
     public interface IUserService 
     {
-        Task<string> Authenticate(UserLogin cred);
+        Task<TokenDTO> Authenticate(UserLogin cred);
         Task<string> SignUpUser(UserSignUp cred);
     }
 }

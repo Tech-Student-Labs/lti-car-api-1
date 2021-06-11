@@ -36,7 +36,7 @@ namespace CarDealerWebApi.Tests
                    });
         
         [Fact]
-        public async Task test()
+        public async Task Login_ShouldReturnAnTokenDTO_WhenItCouldAuthenticateUser()
         {
             //Given
             var testServer = new TestServer(HostBuilder);
@@ -50,8 +50,9 @@ namespace CarDealerWebApi.Tests
             await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinhuynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
             var response = await client.PostAsJsonAsync("User/Login",new UserLogin{Email = "kevinhuynh@yahoo.com",Password = "123qwe123_"});
             //Then
-            var result = await response.Content.ReadAsStringAsync();
-            result.Should().NotBeEmpty();
+            var jsonObj = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<TokenDTO>(jsonObj);
+            result.Token.Should().NotBeEmpty();
         }
 
 

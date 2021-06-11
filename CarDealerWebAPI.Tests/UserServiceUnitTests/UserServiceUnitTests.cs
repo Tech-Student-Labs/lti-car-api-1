@@ -36,7 +36,7 @@ namespace CarDealerWebAPI.Tests.UserServiceIntegrationTests
         private static readonly Mock<IConfiguration> ConfigMock = new Mock<IConfiguration>();
 
         [Fact]
-        public async Task Login_ShouldCallFindByEmailAsyncAndCheckPasswordAsync_WhenTheValidSignInFunctionIsCalledAsync()
+        public async Task Login_ShouldCallFindByEmailAsync_WhenTheValidSignInFunctionIsCalledAsync()
         {
             //Given That the UserManager And SigninManager are Setup
             var user = new User();

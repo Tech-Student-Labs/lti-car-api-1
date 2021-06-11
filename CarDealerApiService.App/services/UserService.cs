@@ -23,11 +23,11 @@ namespace CarDealerAPIService.services
         }
 
 
-        public async Task<string> Authenticate(UserLogin cred)
+        public async Task<TokenDTO> Authenticate(UserLogin cred)
         {
             var user = await _userManager.FindByEmailAsync(cred.Email);
             var result = await _signInManager.CheckPasswordSignInAsync(user, cred.Password, false);
-            if (user == null || !result.Succeeded) throw new Exception("Could Not Authenticate User");
+            if (user == null || !result.Succeeded) throw new System.Exception("Could Not Authenticate User");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -42,15 +42,13 @@ namespace CarDealerAPIService.services
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             var token = tokenHandler.WriteToken(securityToken);
-            return token;
+            return new TokenDTO(){Token = token};
         }
 
         public async Task<string> SignUpUser(UserSignUp cred)
         {
             User user = new User() {Email = cred.Email, FirstName = cred.FirstName, LastName = cred.LastName, UserName = cred.UserName};
-
             var result = await _userManager.CreateAsync(user, cred.Password);
-            
             //add to roles here
             return result.ToString();
         }
