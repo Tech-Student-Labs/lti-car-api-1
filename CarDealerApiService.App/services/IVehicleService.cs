@@ -11,6 +11,7 @@ namespace CarDealerAPIService.services
         void AddRangeOfVehicles(Vehicle[] vehicles);
         void UpdateVehicle(Vehicle vehicle);
         void DeleteVehicle(Vehicle vehicle);
+        void DeleteVehicleById(int id);
         void DestroyDatabase();
 
         List<int> GetMarketValues();

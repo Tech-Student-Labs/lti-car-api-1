@@ -60,6 +60,14 @@ namespace CarDealerAPIService.services
             _db.SaveChanges();
         }
 
+        public void DeleteVehicleById(int id)
+        {
+            var vehicleToDelete = _db.VehicleInventory.FirstOrDefault(e => e.Id == id);
+            if(vehicleToDelete == null) throw new System.ArgumentOutOfRangeException();
+            _db.VehicleInventory.Remove(vehicleToDelete);
+            _db.SaveChanges();
+        }
+
         public void DestroyDatabase()
         {
             var entities = _db.VehicleInventory.ToList();

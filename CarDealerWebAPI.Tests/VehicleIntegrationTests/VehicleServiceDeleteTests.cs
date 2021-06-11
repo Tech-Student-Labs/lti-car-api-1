@@ -76,5 +76,39 @@ namespace CarDealerWebApi.Tests
             action.Should().Throw<System.ArgumentNullException>()
                 .WithMessage("The vehicle you are trying to delete is null (Parameter 'vehicle')");
         }
+
+        [Fact]
+        public void DeleteVehicleById_CanDeleteAVehicle()
+        {
+            //Given
+            var options = new DbContextOptionsBuilder<CarDealerContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+            var databaseContext = new CarDealerContext(options);
+            var vehicleInventoryService = new VehicleService(databaseContext);
+            //When
+            var vehicle = new Vehicle()
+                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
+            databaseContext.VehicleInventory.Add(vehicle);
+            databaseContext.SaveChanges();
+            vehicleInventoryService.DeleteVehicleById(1);
+            //Then
+            databaseContext.VehicleInventory.ToList().Count.Should().Be(0);
+        }
+
+        [Fact]
+        public void DeleteVehicleById_ShouldThrowException_WhenPassedOutOfRangeValue()
+        {
+            //Given
+            var options = new DbContextOptionsBuilder<CarDealerContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+            var databaseContext = new CarDealerContext(options);
+            var vehicleInventoryService = new VehicleService(databaseContext);
+            //When
+            Action action = () => vehicleInventoryService.DeleteVehicleById(-1);
+            //Then
+            action.Should().Throw<System.ArgumentOutOfRangeException>();
+        }
     }
 }

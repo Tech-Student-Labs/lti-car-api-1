@@ -23,7 +23,7 @@ namespace CarDealerAPIService.App.models
 
     [JsonProperty("certainty")] public long Certainty { get; set; }
 
-    [JsonProperty("period")] public List<DateTimeOffset> Period { get; set; }
+    // [JsonProperty("period")] public List<DateTimeOffset> Period { get; set; }
 
     [JsonProperty("prices")] public Prices Prices { get; set; }
   }

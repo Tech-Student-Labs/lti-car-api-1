@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using CarDealerAPIService.services;
+using CarDealerAPIService.App.models;
 
 
 namespace CarDealerWebAPI.Controllers
@@ -21,5 +22,25 @@ namespace CarDealerWebAPI.Controllers
             return Ok(_service.GetAllVehicleSubmissionsByUser(UserId));
         }
 
+        [HttpPost]
+        public IActionResult AddVehicleSubmission(VehicleSubmissions submission)
+        {
+            _service.AddVehicleSubmission(submission);
+            return Ok("Vehicle submission added");
+        }
+
+        [HttpPut]
+        public IActionResult UpdateVehicleSubmission(VehicleSubmissions submission)
+        {
+            _service.UpdateVehicleSubmission(submission);
+            return Ok("Vehicle submission updated");
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteVehicleSubmission(VehicleSubmissions submission)
+        {
+            _service.DeleteVehicleSubmission(submission);
+            return Ok("Vehicle submission deleted");
+        }
     }
 }
