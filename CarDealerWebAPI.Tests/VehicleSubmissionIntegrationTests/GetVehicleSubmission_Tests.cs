@@ -89,7 +89,6 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var result = vehicleSubmissionsService.GetAllVehicleSubmissionsByUser("abc123");
             //Then
             result.Count.Should().Be(3);
-            result[0].Vehicle.Make.Should().Be("Toyota");
         }
     }
 }
