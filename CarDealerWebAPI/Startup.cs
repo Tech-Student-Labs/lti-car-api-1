@@ -1,22 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using CarDealerAPIService.services;
 using Microsoft.AspNetCore.Identity;
 using CarDealerAPIService.App.models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CarDealerWebAPI
 {
@@ -37,10 +34,13 @@ namespace CarDealerWebAPI
             services.AddDbContext<CarDealerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IVehicleService, VehicleService>();
             services.AddScoped<IVehicleSubmissionsService, VehicleSubmissionsService>();
+            
             // services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSingleton<IHttpClient, HttpClientHandler>();
             services.AddScoped<IVehicleMarketValueService, VehicleMarketValueService>();
-
+            services.AddScoped<IUserService, UserService>();
+            services.AddCors();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarDealerWebAPI", Version = "v1" });
@@ -57,6 +57,25 @@ namespace CarDealerWebAPI
                 AddEntityFrameworkStores<CarDealerContext>()
                 .AddRoles<IdentityRole>();
 
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(x=> {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ThisIsTheKeyPleaseDoNotShareThisKeyOrWeWillBeHacked")),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,8 +88,13 @@ namespace CarDealerWebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarDealerWebAPI v1"));
             }
 
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+            );
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseMiddleware<ExceptionMiddleware>();
