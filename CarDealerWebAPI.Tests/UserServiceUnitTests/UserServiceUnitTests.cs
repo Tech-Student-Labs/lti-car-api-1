@@ -54,7 +54,6 @@ namespace CarDealerWebAPI.Tests.UserServiceIntegrationTests
             //Then Test the Behavior of the dependencies to see if they were called and what functions got called. 
             UserManagerMock.Verify(mock => mock.FindByEmailAsync(cred.Email),Times.Once);
             SignInManagerMock.Verify(mock => mock.CheckPasswordSignInAsync(user, cred.Password, false),Times.Once);
-            //We Can Ei
         }
     }
 }
