@@ -1,7 +1,10 @@
+using System.Text.Json.Serialization;
+
 namespace CarDealerAPIService.App.models
 {
     public class Vehicle
     {
+        [JsonIgnore]
         public int Id { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }

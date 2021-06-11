@@ -65,6 +65,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var result = vehicleSubmissionsService.GetAllVehicleSubmissionsByUser("abc123").Count;
             //Then
             result.Should().Be(3);
+            
         }
     }
 }
