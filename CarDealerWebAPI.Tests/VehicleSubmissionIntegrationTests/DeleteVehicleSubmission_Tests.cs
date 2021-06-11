@@ -23,9 +23,9 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
             //When
             var submission = new VehicleSubmissions() {
-                User = new User() {Id="abc123"},
+                UserId = "abc123",
                 TimeStamp = new DateTime(12, 12, 12),
-                Vehicle = new Vehicle() {Make="Toyota", Model="Highlander", Year=1994, VinNumber="abc"}
+                VehicleId = 1
             };
             databaseContext.VehicleSubmissions.Add(submission);
             databaseContext.SaveChanges();

@@ -38,9 +38,9 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
             //When
             var submission = new VehicleSubmissions() {
-                User = new User() {Id="abc123"},
+                UserId = "abc123",
                 TimeStamp = new DateTime(12, 12, 12),
-                Vehicle = new Vehicle() {Make="Toyota", Model="Highlander", Year=1994, VinNumber="abc"}
+                VehicleId = 1
             };
             databaseContext.VehicleSubmissions.Add(submission);
             databaseContext.SaveChanges();
@@ -61,19 +61,19 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             //When
             User MyUser = new User() {Id="abc123"};
             var submission1 = new VehicleSubmissions() {
-                User = MyUser,
+                UserId = MyUser.Id,
                 TimeStamp = new DateTime(12, 12, 12),
-                Vehicle = new Vehicle() {Make="Toyota", Model="Highlander", Year=1994, VinNumber="abc1"}
+                VehicleId = 1
             };
             var submission2 = new VehicleSubmissions() {
-                User = MyUser,
+                UserId = MyUser.Id,
                 TimeStamp = new DateTime(12, 12, 12),
-                Vehicle = new Vehicle() {Make="Toyota", Model="Highlander", Year=1994, VinNumber="abc2"}
+                VehicleId = 2
             };
             var submission3 = new VehicleSubmissions() {
-                User = MyUser,
+                UserId = MyUser.Id,
                 TimeStamp = new DateTime(12, 12, 12),
-                Vehicle = new Vehicle() {Make="Toyota", Model="Highlander", Year=1994, VinNumber="abc3"}
+                VehicleId = 3
             };
             databaseContext.VehicleSubmissions.Add(submission1);
             databaseContext.VehicleSubmissions.Add(submission2);

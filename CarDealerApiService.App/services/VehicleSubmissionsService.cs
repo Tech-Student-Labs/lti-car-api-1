@@ -20,8 +20,8 @@ namespace CarDealerAPIService.services
             User MyUser = new User() {Id = Id};
 
             var ListOfSubmissions = _db.VehicleSubmissions
-                .Where(v => v.User.Id == Id)
-                .Select(x => new VehicleSubmissionsDTO { TimeStamp = x.TimeStamp, Vehicle = x.Vehicle })
+                .Where(v => v.UserId == Id)
+                .Select(x => new VehicleSubmissionsDTO { TimeStamp = x.TimeStamp, Vehicle = _db.VehicleInventory.FirstOrDefault(y => y.Id == x.VehicleId) })
                 .ToList();
             
             return ListOfSubmissions;
@@ -29,6 +29,8 @@ namespace CarDealerAPIService.services
 
         public void AddVehicleSubmission(VehicleSubmissions submission)
         {
+            if(_db.UserTable.FirstOrDefault(e => e.Id == submission.UserId) == null) throw new ArgumentException("User not found");
+            if(_db.VehicleInventory.FirstOrDefault(e => e.Id == submission.VehicleId) == null) throw new ArgumentException("Vehicle not found");
             _db.VehicleSubmissions.Add(submission);
             _db.SaveChanges();
         }
@@ -44,6 +46,14 @@ namespace CarDealerAPIService.services
         {
             if(submission == null) throw new System.ArgumentNullException();
             _db.VehicleSubmissions.Remove(submission);
+            _db.SaveChanges();
+        }
+
+        public void DeleteVehicleSubmissionById(string Id)
+        {
+            var submissionToDelete = _db.VehicleSubmissions.FirstOrDefault(e => e.Id == Id);
+            if(submissionToDelete == null) throw new System.ArgumentOutOfRangeException();
+            _db.VehicleSubmissions.Remove(submissionToDelete);
             _db.SaveChanges();
         }
     }

@@ -9,5 +9,6 @@ namespace CarDealerAPIService.services
         void AddVehicleSubmission(VehicleSubmissions submission);
         void UpdateVehicleSubmission(VehicleSubmissions submission);
         void DeleteVehicleSubmission(VehicleSubmissions submission);
+        void DeleteVehicleSubmissionById(string Id);
     }
 }
