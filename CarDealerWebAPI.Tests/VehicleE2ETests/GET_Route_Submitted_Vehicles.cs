@@ -54,7 +54,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             Vehicle newVehicle = new Vehicle() { Id = 1 };
             await context.Users.AddAsync(newUser);
             await context.VehicleInventory.AddAsync(newVehicle);
-            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { UserId = newUser.Id, VehicleId = newVehicle.Id });
             await context.SaveChangesAsync();
 
 
@@ -77,7 +77,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             Vehicle newVehicle = new Vehicle() { Id = 1 };
             await context.Users.AddAsync(newUser);
             await context.VehicleInventory.AddAsync(newVehicle);
-            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { UserId = newUser.Id, VehicleId = newVehicle.Id });
             await context.SaveChangesAsync();
 
 
@@ -106,9 +106,9 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await context.VehicleInventory.AddAsync(newVehicle1);
             await context.VehicleInventory.AddAsync(newVehicle2);
             await context.VehicleInventory.AddAsync(newVehicle3);
-            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle1 });
-            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle2 });
-            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle3 });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { UserId = newUser.Id, VehicleId = newVehicle1.Id });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { UserId = newUser.Id, VehicleId = newVehicle2.Id });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { UserId = newUser.Id, VehicleId = newVehicle3.Id });
 
             await context.SaveChangesAsync();
 
@@ -136,9 +136,9 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await context.VehicleInventory.AddAsync(newVehicle1);
             await context.VehicleInventory.AddAsync(newVehicle2);
             await context.VehicleInventory.AddAsync(newVehicle3);
-            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle1 });
-            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle2 });
-            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { User = newUser, Vehicle = newVehicle3 });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { UserId = newUser.Id, VehicleId = newVehicle1.Id });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { UserId = newUser.Id, VehicleId = newVehicle2.Id });
+            await context.VehicleSubmissions.AddAsync(new VehicleSubmissions() { UserId = newUser.Id, VehicleId = newVehicle3.Id });
             await context.SaveChangesAsync();
 
 

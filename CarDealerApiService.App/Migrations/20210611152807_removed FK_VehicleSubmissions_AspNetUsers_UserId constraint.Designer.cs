@@ -4,14 +4,16 @@ using CarDealerAPIService.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarDealerAPIService.App.Migrations
 {
     [DbContext(typeof(CarDealerContext))]
-    partial class CarDealerContextModelSnapshot : ModelSnapshot
+    [Migration("20210611152807_removed FK_VehicleSubmissions_AspNetUsers_UserId constraint")]
+    partial class removedFK_VehicleSubmissions_AspNetUsers_UserIdconstraint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,12 +58,6 @@ namespace CarDealerAPIService.App.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -328,19 +324,6 @@ namespace CarDealerAPIService.App.Migrations
                     b.HasOne("CarDealerAPIService.App.models.Prices", "Prices")
                         .WithMany()
                         .HasForeignKey("PricesAverage");
-
-                    b.Navigation("Prices");
-                });
-
-            modelBuilder.Entity("CarDealerAPIService.App.models.VehicleSubmissions", b =>
-                {
-                    b.HasOne("CarDealerAPIService.App.models.Prices", "Prices")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
 
                     b.Navigation("Prices");
                 });

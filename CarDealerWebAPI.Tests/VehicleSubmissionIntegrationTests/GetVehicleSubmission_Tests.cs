@@ -37,10 +37,14 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var databaseContext = new CarDealerContext(options);
             var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
             //When
+            User MyUser = new User() {Id = "abc123", Email = "string@string.com", PasswordHash = "xxxxxx"};
+            Vehicle vehicle = new Vehicle() {Id = 1};
+            databaseContext.UserTable.Add(MyUser);
+            databaseContext.VehicleInventory.Add(vehicle);
             var submission = new VehicleSubmissions() {
-                User = new User() {Id="abc123"},
+                User = MyUser,
                 TimeStamp = new DateTime(12, 12, 12),
-                Vehicle = new Vehicle() {Make="Toyota", Model="Highlander", Year=1994, VinNumber="abc"}
+                Vehicle = vehicle
             };
             databaseContext.VehicleSubmissions.Add(submission);
             databaseContext.SaveChanges();
@@ -60,20 +64,23 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
             //When
             User MyUser = new User() {Id="abc123"};
+            Vehicle vehicle1 = new Vehicle() {Id = 1, Make = "Toyota"};
+            Vehicle vehicle2 = new Vehicle() {Id = 2, Make = "Chevy"};
+            Vehicle vehicle3 = new Vehicle() {Id = 3, Make = "SUV"};
             var submission1 = new VehicleSubmissions() {
                 User = MyUser,
                 TimeStamp = new DateTime(12, 12, 12),
-                Vehicle = new Vehicle() {Make="Toyota", Model="Highlander", Year=1994, VinNumber="abc1"}
+                Vehicle = vehicle1
             };
             var submission2 = new VehicleSubmissions() {
                 User = MyUser,
                 TimeStamp = new DateTime(12, 12, 12),
-                Vehicle = new Vehicle() {Make="Toyota", Model="Highlander", Year=1994, VinNumber="abc2"}
+                Vehicle = vehicle2
             };
             var submission3 = new VehicleSubmissions() {
                 User = MyUser,
                 TimeStamp = new DateTime(12, 12, 12),
-                Vehicle = new Vehicle() {Make="Toyota", Model="Highlander", Year=1994, VinNumber="abc3"}
+                Vehicle = vehicle3
             };
             databaseContext.VehicleSubmissions.Add(submission1);
             databaseContext.VehicleSubmissions.Add(submission2);
@@ -82,7 +89,6 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var result = vehicleSubmissionsService.GetAllVehicleSubmissionsByUser("abc123");
             //Then
             result.Count.Should().Be(3);
-            result[0].Vehicle.Make.Should().Be("Toyota");
         }
     }
 }

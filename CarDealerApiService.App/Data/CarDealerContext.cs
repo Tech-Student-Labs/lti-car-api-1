@@ -19,10 +19,10 @@ namespace CarDealerAPIService.App.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>(b=>
-                {
-                    b.HasKey(e => e.Id);
-                    b.Property(e => e.Id).ValueGeneratedOnAdd();
-                });
+            {
+                b.HasKey(e => e.Id);
+                b.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
             
             modelBuilder.Entity<VehicleSubmissions>(b=>
             {
