@@ -4,15 +4,20 @@ using System;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace CarDealerAPIService.services
 {
     public class VehicleSubmissionsService : IVehicleSubmissionsService
     {
         private readonly CarDealerContext _db;
-        public VehicleSubmissionsService(CarDealerContext db)
+
+        private readonly IVehicleMarketValueService _vehicleMarketValueService;
+
+        public VehicleSubmissionsService(CarDealerContext db, IVehicleMarketValueService vehicleMarketValueService)
         {
             _db = db;
+            _vehicleMarketValueService = vehicleMarketValueService;
         }
 
         public List<VehicleSubmissionsDTO> GetAllVehicleSubmissionsByUser(string Id)
@@ -27,11 +32,13 @@ namespace CarDealerAPIService.services
             return ListOfSubmissions;
         }
 
-        public void AddVehicleSubmission(VehicleSubmissions submission)
+        public async Task AddVehicleSubmission(VehicleSubmissions submission)
         {
             if(_db.UserTable.FirstOrDefault(e => e.Id == submission.UserId) == null) throw new ArgumentException("User not found");
             if(_db.VehicleInventory.FirstOrDefault(e => e.Id == submission.VehicleId) == null) throw new ArgumentException("Vehicle not found");
             if(_db.VehicleSubmissions.FirstOrDefault(e => e.VehicleId == submission.VehicleId) != null) throw new ArgumentException("Vehicle already used in previous submission");
+
+            submission.Vehicle.MarketValue = Int32.Parse(await _vehicleMarketValueService.GetAverageVehiclePrice(submission.Vehicle.VinNumber));
             _db.VehicleSubmissions.Add(submission);
             _db.SaveChanges();
         }

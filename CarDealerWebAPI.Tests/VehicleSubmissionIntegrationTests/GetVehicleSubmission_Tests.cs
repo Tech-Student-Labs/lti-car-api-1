@@ -7,11 +7,14 @@ using CarDealerAPIService.services;
 using Microsoft.EntityFrameworkCore;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
+using Moq;
 
 namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
 {
     public class GetVehicleSubmission_Tests
     {
+        private readonly Mock<IVehicleMarketValueService> mockMarketValueService = new Mock<IVehicleMarketValueService>();
+
         [Fact]
         public void GetAllSubmissions_ShouldReturn0_WhenListIsEmpty()
         {
@@ -20,7 +23,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             var databaseContext = new CarDealerContext(options);
-            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
+            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
             var result = vehicleSubmissionsService.GetAllVehicleSubmissionsByUser("abc123").Count;
             //Then
@@ -35,7 +38,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             var databaseContext = new CarDealerContext(options);
-            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
+            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
             User MyUser = new User() {Id = "abc123", Email = "string@string.com", PasswordHash = "xxxxxx"};
             Vehicle vehicle = new Vehicle() {Id = 1};
@@ -61,7 +64,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             var databaseContext = new CarDealerContext(options);
-            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
+            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
             User MyUser = new User() {Id="abc123"};
             Vehicle vehicle1 = new Vehicle() {Id = 1, Make = "Toyota"};
