@@ -20,7 +20,7 @@ namespace CarDealerAPIService.services
             User MyUser = new User() {Id = Id};
 
             var ListOfSubmissions = _db.VehicleSubmissions
-                .Where(v => v.User.Id == Id)
+                .Where(v => v.UserId == Id)
                 .Select(x => new VehicleSubmissionsDTO { TimeStamp = x.TimeStamp, Vehicle = x.Vehicle })
                 .ToList();
             
