@@ -13,7 +13,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
     public class DeleteVehicleSubmission_Tests
     {
         [Fact]
-        public void UpdateVehicleSubmission_ShouldUpdateVehicle()
+        public void DeleteVehicleSubmission_ShouldDeleteVehicle()
         {
             //Given
             var options = new DbContextOptionsBuilder<CarDealerContext>()
@@ -37,7 +37,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
         }
 
         [Fact]
-        public void TestName()
+        public void DeleteVehicleSubmission_ShouldThrowException_WhenPassedNull()
         {
             //Given
             var options = new DbContextOptionsBuilder<CarDealerContext>()

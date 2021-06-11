@@ -37,7 +37,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
         }
 
         [Fact]
-        public void TestName()
+        public void UpdateVehicleSubmission_ShouldThrowException_WhenPassedNull()
         {
             //Given
             var options = new DbContextOptionsBuilder<CarDealerContext>()
