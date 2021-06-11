@@ -31,6 +31,7 @@ namespace CarDealerAPIService.services
         {
             if(_db.UserTable.FirstOrDefault(e => e.Id == submission.UserId) == null) throw new ArgumentException("User not found");
             if(_db.VehicleInventory.FirstOrDefault(e => e.Id == submission.VehicleId) == null) throw new ArgumentException("Vehicle not found");
+            if(_db.VehicleSubmissions.FirstOrDefault(e => e.VehicleId == submission.VehicleId) != null) throw new ArgumentException("Vehicle already used in previous submission");
             _db.VehicleSubmissions.Add(submission);
             _db.SaveChanges();
         }

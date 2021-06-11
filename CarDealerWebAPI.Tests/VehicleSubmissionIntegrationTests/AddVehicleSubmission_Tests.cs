@@ -79,5 +79,45 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             //Then
             result.Should().Be(3);
         }
+
+        [Fact]
+        public void DuplicateVehicleIdShouldThrowException()
+        {
+            //Given
+            var options = new DbContextOptionsBuilder<CarDealerContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+            var databaseContext = new CarDealerContext(options);
+            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
+            //When
+            User user = new User() {Id = "abc123"};
+            Vehicle vehicle1 = new Vehicle() {Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc123xyzz"};
+            Vehicle vehicle2 = new Vehicle() {Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc123xyzz"};
+            Vehicle vehicle3 = new Vehicle() {Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc123xyzz"};
+            databaseContext.UserTable.Add(user);
+            databaseContext.VehicleInventory.Add(vehicle1);
+            databaseContext.VehicleInventory.Add(vehicle2);
+            databaseContext.SaveChanges();
+            var submission1 = new VehicleSubmissions() {
+                UserId = user.Id,
+                TimeStamp = new DateTime(12, 12, 12),
+                VehicleId = 1
+            };
+            var submission2 = new VehicleSubmissions() {
+                UserId = user.Id,
+                TimeStamp = new DateTime(12, 12, 12),
+                VehicleId = 2
+            };
+            var submission3 = new VehicleSubmissions() {
+                UserId = user.Id,
+                TimeStamp = new DateTime(12, 12, 12),
+                VehicleId = 1
+            };
+            vehicleSubmissionsService.AddVehicleSubmission(submission1);
+            vehicleSubmissionsService.AddVehicleSubmission(submission2);
+            Action action = () => vehicleSubmissionsService.AddVehicleSubmission(submission3);
+            //Then
+            action.Should().Throw<System.ArgumentException>();
+        }
     }
 }
