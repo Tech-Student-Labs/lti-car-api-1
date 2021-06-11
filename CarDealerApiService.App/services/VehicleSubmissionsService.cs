@@ -21,7 +21,7 @@ namespace CarDealerAPIService.services
 
             var ListOfSubmissions = _db.VehicleSubmissions
                 .Where(v => v.UserId == Id)
-                .Select(x => new VehicleSubmissionsDTO { TimeStamp = x.TimeStamp, Vehicle = _db.VehicleInventory.FirstOrDefault(y => y.Id == x.VehicleId) })
+                .Select(x => new VehicleSubmissionsDTO { TimeStamp = x.TimeStamp, Vehicle = x.Vehicle })
                 .ToList();
             
             return ListOfSubmissions;

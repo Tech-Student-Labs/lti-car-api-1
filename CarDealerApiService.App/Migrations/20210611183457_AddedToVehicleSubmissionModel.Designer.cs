@@ -4,14 +4,16 @@ using CarDealerAPIService.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarDealerAPIService.App.Migrations
 {
     [DbContext(typeof(CarDealerContext))]
-    partial class CarDealerContextModelSnapshot : ModelSnapshot
+    [Migration("20210611183457_AddedToVehicleSubmissionModel")]
+    partial class AddedToVehicleSubmissionModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,12 +184,16 @@ namespace CarDealerAPIService.App.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VehicleId");
 
                     b.ToTable("VehicleSubmissions");
                 });
@@ -334,7 +340,11 @@ namespace CarDealerAPIService.App.Migrations
 
             modelBuilder.Entity("CarDealerAPIService.App.models.VehicleSubmissions", b =>
                 {
-                    b.HasOne("CarDealerAPIService.App.models.Prices", "Prices")
+                    b.HasOne("CarDealerAPIService.App.models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("CarDealerAPIService.App.models.Vehicle", "Vehicle")
                         .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -342,7 +352,7 @@ namespace CarDealerAPIService.App.Migrations
 
                     b.Navigation("User");
 
-                    b.Navigation("Prices");
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
