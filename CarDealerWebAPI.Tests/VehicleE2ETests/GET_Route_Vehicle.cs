@@ -160,8 +160,8 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
-
-            var vehicle1 = new Vehicle() {VinNumber = "123qwe"};
+            
+            var vehicle1 = new Vehicle() {Id = 1, VinNumber = "123qwe"};
             await todoService.VehicleInventory.AddAsync(vehicle1);
             await todoService.SaveChangesAsync();
             //WHEN a GET request is submitted to Vehicle with id = 1 in the parameters
@@ -170,7 +170,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             //THEN the response should return an Vehicle Object with id = 1
             var response = await result.Content.ReadAsStringAsync();
             Vehicle vehicleJsonObj = JsonConvert.DeserializeObject<Vehicle>(response);
-            vehicleJsonObj.Should().BeEquivalentTo(vehicle1);
+            vehicleJsonObj.VinNumber.Should().BeEquivalentTo(vehicle1.VinNumber);
             await todoService.Database.EnsureDeletedAsync();
         }
 
