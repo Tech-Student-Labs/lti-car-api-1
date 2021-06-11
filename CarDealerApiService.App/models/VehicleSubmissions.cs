@@ -5,6 +5,7 @@ namespace CarDealerAPIService.App.models
 {
     public class VehicleSubmissions
     {
+        [JsonIgnore]
         public string Id { get; set; }
         public string UserId { get; set; }
         [JsonIgnore]
