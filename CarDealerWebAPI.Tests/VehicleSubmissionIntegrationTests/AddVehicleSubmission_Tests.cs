@@ -143,9 +143,9 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             };
             await vehicleSubmissionsService.AddVehicleSubmission(submission1);
             await vehicleSubmissionsService.AddVehicleSubmission(submission2);
-            Action action = () =>
+            Func<Task> action = async () =>
             {
-                _ = vehicleSubmissionsService.AddVehicleSubmission(submission3);
+                await vehicleSubmissionsService.AddVehicleSubmission(submission3);
             };
             //Then
             action.Should().Throw<System.ArgumentException>();
