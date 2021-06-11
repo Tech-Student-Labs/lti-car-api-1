@@ -136,7 +136,6 @@ namespace CarDealerAPIService.App.Migrations
                     b.ToTable("VehicleInventory");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("CarDealerAPIService.App.models.VehiclePriceRequest", b =>
                 {
                     b.Property<string>("Vin")
@@ -173,8 +172,6 @@ namespace CarDealerAPIService.App.Migrations
                     b.ToTable("MarketValues");
                 });
 
-=======
->>>>>>> 10aa2c89a18679d8aa7e3c3350765316dffbadc3
             modelBuilder.Entity("CarDealerAPIService.App.models.VehicleSubmissions", b =>
                 {
                     b.Property<string>("Id")
@@ -185,26 +182,13 @@ namespace CarDealerAPIService.App.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-<<<<<<< HEAD
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VehicleId")
-=======
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("VehicleId")
->>>>>>> 10aa2c89a18679d8aa7e3c3350765316dffbadc3
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-=======
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VehicleId");
-
->>>>>>> 10aa2c89a18679d8aa7e3c3350765316dffbadc3
                     b.ToTable("VehicleSubmissions");
                 });
 
@@ -341,11 +325,7 @@ namespace CarDealerAPIService.App.Migrations
 
             modelBuilder.Entity("CarDealerAPIService.App.models.VehiclePriceRequest", b =>
                 {
-<<<<<<< HEAD
                     b.HasOne("CarDealerAPIService.App.models.Prices", "Prices")
-=======
-                    b.HasOne("CarDealerAPIService.App.models.User", "User")
->>>>>>> 10aa2c89a18679d8aa7e3c3350765316dffbadc3
                         .WithMany()
                         .HasForeignKey("PricesAverage");
 
