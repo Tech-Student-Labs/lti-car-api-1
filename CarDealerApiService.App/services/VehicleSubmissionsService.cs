@@ -41,6 +41,7 @@ namespace CarDealerAPIService.services
             submission.Vehicle.MarketValue = Int32.Parse(await _vehicleMarketValueService.GetAverageVehiclePrice(submission.Vehicle.VinNumber));
             _db.VehicleSubmissions.Add(submission);
             _db.SaveChanges();
+     
         }
 
         public void UpdateVehicleSubmission(VehicleSubmissions submission)

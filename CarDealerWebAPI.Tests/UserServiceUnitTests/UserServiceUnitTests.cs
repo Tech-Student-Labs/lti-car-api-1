@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Moq;
+using Moq.Language.Flow;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.UserServiceIntegrationTests
@@ -32,6 +33,10 @@ namespace CarDealerWebAPI.Tests.UserServiceIntegrationTests
             /* ILogger<SignInManager<TUser>> logger */null,
             /* IAuthenticationSchemeProvider schemes */null,
             /* IUserConfirmation<TUser> confirmation */null);
+        
+        
+
+        private static readonly Mock<RoleManager<User>> RoleManagerMock = new Mock<RoleManager<User>>();
 
         private static readonly Mock<IConfiguration> ConfigMock = new Mock<IConfiguration>();
 
@@ -47,8 +52,7 @@ namespace CarDealerWebAPI.Tests.UserServiceIntegrationTests
                 .ReturnsAsync(user);
             SignInManagerMock.Setup(x => x.CheckPasswordSignInAsync(user, cred.Password, false))
                 .ReturnsAsync(SignInResult.Success);
-            //When the service calls a Login Function 
-            
+
             var service = new UserService(UserManagerMock.Object, SignInManagerMock.Object);
             await service.Authenticate(cred);
             //Then Test the Behavior of the dependencies to see if they were called and what functions got called. 

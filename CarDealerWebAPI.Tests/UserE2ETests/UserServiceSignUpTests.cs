@@ -117,5 +117,42 @@ namespace CarDealerWebApi.Tests
             var result = JsonConvert.DeserializeObject<ErrorDetails>(str);
             result?.Message.Should().Be("Could Not Authenticate User");
         }
+        
+        [Fact]
+        public async Task UserSignUp_ShouldReturnSucceeded_WhenAUserIsMade()
+        {
+            //GIVEN the service is running and there is 1 items in the VehicleSubmissions Table
+            var testServer = new TestServer(HostBuilder);
+            var client = testServer.CreateClient();
+            var context = testServer.Services.GetRequiredService<CarDealerContext>();
+            await client.PostAsJsonAsync("/Roles/Create","");
+            //WHEN a GET request is submitted to VehicleSubmissions with UserID
+            var response = await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            var jsonObj = await response.Content.ReadAsStringAsync();
+            context.UserTable.ToList().Count.Should().Be(1);
+            jsonObj.Should().Be("Succeeded");
+            //THEN the response should return a OK status
+            
+            await context.Database.EnsureDeletedAsync();
+        }
+        
+        [Fact]
+        public async Task UserSignUp_ShouldContainFailed_WhenAUserIsNotMade()
+        {
+            //GIVEN the service is running and there is 1 items in the VehicleSubmissions Table
+            var testServer = new TestServer(HostBuilder);
+            var client = testServer.CreateClient();
+            var context = testServer.Services.GetRequiredService<CarDealerContext>();
+            await client.PostAsJsonAsync("/Roles/Create","");
+            //WHEN a GET request is submitted to VehicleSubmissions with UserID
+            await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            var response = await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            var jsonObj = await response.Content.ReadAsStringAsync();
+            context.UserTable.ToList().Count.Should().Be(1);
+            jsonObj.Should().Contain("Failed");
+            //THEN the response should return a OK status
+            
+            await context.Database.EnsureDeletedAsync();
+        }
     }
 }

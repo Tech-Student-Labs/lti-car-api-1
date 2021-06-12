@@ -49,6 +49,7 @@ namespace CarDealerAPIService.services
         {
             User user = new User() {Email = cred.Email, FirstName = cred.FirstName, LastName = cred.LastName, UserName = cred.UserName};
             var result = await _userManager.CreateAsync(user, cred.Password);
+            await _userManager.AddToRoleAsync(user, "RegularUser");
             //add to roles here
             return result.ToString();
         }

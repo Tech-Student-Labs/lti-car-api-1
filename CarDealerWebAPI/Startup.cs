@@ -39,6 +39,7 @@ namespace CarDealerWebAPI
             services.AddSingleton<IHttpClient, HttpClientHandler>();
             services.AddScoped<IVehicleMarketValueService, VehicleMarketValueService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
             services.AddCors();
             
             services.AddSwaggerGen(c =>
@@ -55,6 +56,7 @@ namespace CarDealerWebAPI
                 opt.Password.RequireNonAlphanumeric = false;
             }).
                 AddEntityFrameworkStores<CarDealerContext>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddRoles<IdentityRole>();
 
             services.AddAuthentication(x =>
