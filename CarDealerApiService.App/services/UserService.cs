@@ -26,8 +26,9 @@ namespace CarDealerAPIService.services
         public async Task<TokenDTO> Authenticate(UserLogin cred)
         {
             var user = await _userManager.FindByEmailAsync(cred.Email);
+            if (user == null) throw new System.Exception("Could Not Authenticate User");
             var result = await _signInManager.CheckPasswordSignInAsync(user, cred.Password, false);
-            if (user == null || !result.Succeeded) throw new System.Exception("Could Not Authenticate User");
+            if (!result.Succeeded) throw new System.Exception("Could Not Authenticate User");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
