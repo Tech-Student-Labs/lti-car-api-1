@@ -18,8 +18,8 @@ namespace CarDealerAPIService.services
             var roleExistsUser = await _roleManager.RoleExistsAsync("RegularUser");
             var roleExistsAdmin = await _roleManager.RoleExistsAsync("AdminUser");
             if (roleExistsAdmin || roleExistsUser) throw new Exception("You Already have those roles in your DB");
-            var roleCreated = await _roleManager.CreateAsync(new IdentityRole{Name = "RegularUser"});
-            await _roleManager.CreateAsync(new IdentityRole{Name = "AdminUser"});
+            var roleCreated = await _roleManager.CreateAsync(new IdentityRole {Name = "RegularUser"});
+            await _roleManager.CreateAsync(new IdentityRole {Name = "AdminUser"});
             return roleCreated;
         }
     }

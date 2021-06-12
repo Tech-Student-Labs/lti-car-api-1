@@ -14,8 +14,7 @@ namespace CarDealerWebAPI.Tests.RolesUnitTest
         {
             var roleStore = new Mock<IRoleStore<IdentityRole>>();
             return new Mock<RoleManager<IdentityRole>>(
-                roleStore.Object,null,null,null,null);
-
+                roleStore.Object, null, null, null, null);
         }
 
         [Theory]
@@ -30,8 +29,7 @@ namespace CarDealerWebAPI.Tests.RolesUnitTest
             //When
             await roleService.CreateRoleAsync();
             //Then
-            roleMock.Verify(x=>x.RoleExistsAsync(role),Times.Once);
+            roleMock.Verify(x => x.RoleExistsAsync(role), Times.Once);
         }
-        
     }
 }

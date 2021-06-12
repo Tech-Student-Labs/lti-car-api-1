@@ -27,7 +27,7 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
                 await HandleExceptionAsync(context, ex);
             }
         }
-        
+
         private static Task HandleExceptionAsync(HttpContext context, System.Exception exception)
         {
             // Log issues and handle exception response
@@ -35,24 +35,26 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
             {
                 var response = context.Response;
                 response.ContentType = "application/json";
-                var result = JsonSerializer.Serialize(new ErrorDetails {Type = "ArgumentNullException",StatusCode = response.StatusCode, Message = exception?.Message});
+                var result = JsonSerializer.Serialize(new ErrorDetails
+                    {Type = "ArgumentNullException", StatusCode = response.StatusCode, Message = exception?.Message});
                 return response.WriteAsync(result);
             }
             else if (exception.GetType() == typeof(ArgumentException))
             {
                 var response = context.Response;
                 response.ContentType = "application/json";
-                var result = JsonSerializer.Serialize(new ErrorDetails {Type = "ArgumentException",StatusCode = response.StatusCode, Message = exception?.Message});
+                var result = JsonSerializer.Serialize(new ErrorDetails
+                    {Type = "ArgumentException", StatusCode = response.StatusCode, Message = exception?.Message});
                 return response.WriteAsync(result);
             }
             else
             {
                 var response = context.Response;
                 response.ContentType = "application/json";
-                var result = JsonSerializer.Serialize(new ErrorDetails {Type = "Exception",StatusCode = response.StatusCode, Message = exception?.Message});
+                var result = JsonSerializer.Serialize(new ErrorDetails
+                    {Type = "Exception", StatusCode = response.StatusCode, Message = exception?.Message});
                 return response.WriteAsync(result);
             }
         }
-        
     }
 }

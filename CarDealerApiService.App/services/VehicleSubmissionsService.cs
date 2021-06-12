@@ -26,34 +26,37 @@ namespace CarDealerAPIService.services
 
             var ListOfSubmissions = _db.VehicleSubmissions
                 .Where(v => v.UserId == Id)
-                .Select(x => new VehicleSubmissionsDTO { TimeStamp = x.TimeStamp, Vehicle = x.Vehicle })
+                .Select(x => new VehicleSubmissionsDTO {TimeStamp = x.TimeStamp, Vehicle = x.Vehicle})
                 .ToList();
-            
+
             return ListOfSubmissions;
         }
 
         public async Task AddVehicleSubmission(VehicleSubmissions submission)
         {
-            if(_db.UserTable.FirstOrDefault(e => e.Id == submission.UserId) == null) throw new ArgumentException("User not found");
-            if(_db.VehicleInventory.FirstOrDefault(e => e.Id == submission.VehicleId) == null) throw new ArgumentException("Vehicle not found");
-            if(_db.VehicleSubmissions.FirstOrDefault(e => e.VehicleId == submission.VehicleId) != null) throw new ArgumentException("Vehicle already used in previous submission");
+            if (_db.UserTable.FirstOrDefault(e => e.Id == submission.UserId) == null)
+                throw new ArgumentException("User not found");
+            if (_db.VehicleInventory.FirstOrDefault(e => e.Id == submission.VehicleId) == null)
+                throw new ArgumentException("Vehicle not found");
+            if (_db.VehicleSubmissions.FirstOrDefault(e => e.VehicleId == submission.VehicleId) != null)
+                throw new ArgumentException("Vehicle already used in previous submission");
 
-            submission.Vehicle.MarketValue = Int32.Parse(await _vehicleMarketValueService.GetAverageVehiclePrice(submission.Vehicle.VinNumber));
+            submission.Vehicle.MarketValue =
+                Int32.Parse(await _vehicleMarketValueService.GetAverageVehiclePrice(submission.Vehicle.VinNumber));
             _db.VehicleSubmissions.Add(submission);
             _db.SaveChanges();
-     
         }
 
         public void UpdateVehicleSubmission(VehicleSubmissions submission)
         {
-            if(submission == null) throw new System.ArgumentNullException();
+            if (submission == null) throw new System.ArgumentNullException();
             _db.VehicleSubmissions.Update(submission);
             _db.SaveChanges();
         }
 
         public void DeleteVehicleSubmission(VehicleSubmissions submission)
         {
-            if(submission == null) throw new System.ArgumentNullException();
+            if (submission == null) throw new System.ArgumentNullException();
             _db.VehicleSubmissions.Remove(submission);
             _db.SaveChanges();
         }
@@ -61,7 +64,7 @@ namespace CarDealerAPIService.services
         public void DeleteVehicleSubmissionById(string Id)
         {
             var submissionToDelete = _db.VehicleSubmissions.FirstOrDefault(e => e.Id == Id);
-            if(submissionToDelete == null) throw new System.ArgumentOutOfRangeException();
+            if (submissionToDelete == null) throw new System.ArgumentOutOfRangeException();
             _db.VehicleSubmissions.Remove(submissionToDelete);
             _db.SaveChanges();
         }

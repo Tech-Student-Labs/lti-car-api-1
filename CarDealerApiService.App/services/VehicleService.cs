@@ -8,6 +8,7 @@ namespace CarDealerAPIService.services
     public class VehicleService : IVehicleService
     {
         private readonly CarDealerContext _db;
+
         public VehicleService(CarDealerContext db)
         {
             _db = db;
@@ -27,13 +28,14 @@ namespace CarDealerAPIService.services
             }
             else
             {
-                throw new System.ArgumentNullException(nameof(id),$"id:{id} not found in database.");
+                throw new System.ArgumentNullException(nameof(id), $"id:{id} not found in database.");
             }
         }
 
         public void AddVehicle(Vehicle vehicle)
         {
-            if (vehicle == null) throw new System.ArgumentNullException(nameof(vehicle),"The vehicle you are trying to add is null");
+            if (vehicle == null)
+                throw new System.ArgumentNullException(nameof(vehicle), "The vehicle you are trying to add is null");
 
             _db.VehicleInventory.Add(vehicle);
             _db.SaveChanges();
@@ -41,21 +43,24 @@ namespace CarDealerAPIService.services
 
         public void AddRangeOfVehicles(Vehicle[] vehicles)
         {
-            if (vehicles == null) throw new System.ArgumentNullException(nameof(vehicles),"The vehicle you are trying to add is null");
+            if (vehicles == null)
+                throw new System.ArgumentNullException(nameof(vehicles), "The vehicle you are trying to add is null");
             _db.VehicleInventory.AddRange(vehicles);
             _db.SaveChanges();
         }
 
         public void UpdateVehicle(Vehicle vehicle)
         {
-            if (vehicle == null) throw new System.ArgumentNullException(nameof(vehicle),"The vehicle you are trying to update is null");
+            if (vehicle == null)
+                throw new System.ArgumentNullException(nameof(vehicle), "The vehicle you are trying to update is null");
             _db.VehicleInventory.Update(vehicle);
             _db.SaveChanges();
         }
 
         public void DeleteVehicle(Vehicle vehicle)
         {
-            if (vehicle == null) throw new System.ArgumentNullException(nameof(vehicle),"The vehicle you are trying to delete is null");
+            if (vehicle == null)
+                throw new System.ArgumentNullException(nameof(vehicle), "The vehicle you are trying to delete is null");
             _db.VehicleInventory.Remove(vehicle);
             _db.SaveChanges();
         }
@@ -63,7 +68,7 @@ namespace CarDealerAPIService.services
         public void DeleteVehicleById(int id)
         {
             var vehicleToDelete = _db.VehicleInventory.FirstOrDefault(e => e.Id == id);
-            if(vehicleToDelete == null) throw new System.ArgumentOutOfRangeException();
+            if (vehicleToDelete == null) throw new System.ArgumentOutOfRangeException();
             _db.VehicleInventory.Remove(vehicleToDelete);
             _db.SaveChanges();
         }

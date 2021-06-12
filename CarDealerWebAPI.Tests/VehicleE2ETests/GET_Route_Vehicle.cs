@@ -160,7 +160,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
-            
+
             var vehicle1 = new Vehicle() {Id = 1, VinNumber = "123qwe"};
             await todoService.VehicleInventory.AddAsync(vehicle1);
             await todoService.SaveChangesAsync();

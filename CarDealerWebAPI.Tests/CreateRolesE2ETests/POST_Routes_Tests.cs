@@ -40,6 +40,7 @@ namespace CarDealerWebAPI.Tests.CreateRolesE2ETests
             todoService.Roles.ToList().Count.Should().Be(2);
             //Then
         }
+
         [Fact]
         public async Task CreateRoles_ShouldHaveRegularUser_WhenCalledOnce()
         {
@@ -54,6 +55,7 @@ namespace CarDealerWebAPI.Tests.CreateRolesE2ETests
             todoService.Roles.ToList()[0].Name.Should().Be("RegularUser");
             //Then
         }
+
         [Fact]
         public async Task CreateRoles_ShouldHaveAdminUser_WhenCalledOnce()
         {

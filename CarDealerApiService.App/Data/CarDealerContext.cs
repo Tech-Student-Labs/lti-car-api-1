@@ -10,7 +10,8 @@ namespace CarDealerAPIService.App.Data
         public DbSet<Vehicle> VehicleInventory { get; set; }
         public DbSet<User> UserTable { get; set; }
         public DbSet<VehicleSubmissions> VehicleSubmissions { get; set; }
-        public DbSet<VehiclePriceRequest>  MarketValues{ get; set; }
+        public DbSet<VehiclePriceRequest> MarketValues { get; set; }
+
         public CarDealerContext(DbContextOptions options) : base(options)
         {
         }
@@ -18,27 +19,21 @@ namespace CarDealerAPIService.App.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>(b=>
-            {
-                b.HasKey(e => e.Id);
-                b.Property(e => e.Id).ValueGeneratedOnAdd();
-            });
-            
-            modelBuilder.Entity<VehicleSubmissions>(b=>
+            modelBuilder.Entity<User>(b =>
             {
                 b.HasKey(e => e.Id);
                 b.Property(e => e.Id).ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<VehiclePriceRequest>(b=>
+            modelBuilder.Entity<VehicleSubmissions>(b =>
             {
-                b.HasKey(e => e.Vin);
+                b.HasKey(e => e.Id);
+                b.Property(e => e.Id).ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<Prices>(b=>
-            {
-                b.HasKey(e => e.Average);
-            });
+            modelBuilder.Entity<VehiclePriceRequest>(b => { b.HasKey(e => e.Vin); });
+
+            modelBuilder.Entity<Prices>(b => { b.HasKey(e => e.Average); });
 
             // modelBuilder.Entity<Vehicle>().HasData(
             //     new Vehicle { Id = 1050, Make = "Tesla", Model = "T", Year = 210, VinNumber = "1233asd", MarketValue = 51 },

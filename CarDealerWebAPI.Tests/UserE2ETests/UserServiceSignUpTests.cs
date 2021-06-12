@@ -43,14 +43,15 @@ namespace CarDealerWebApi.Tests
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
 
             //WHEN a GET request is submitted to VehicleSubmissions with UserID
-            var result = await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinhuynh@yahoo.com",Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            var result = await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                    {Email = "kevinhuynh@yahoo.com", Password = "123qwe123_", FirstName = "Kevin", LastName = "Huynh"});
 
             //THEN the response should return a OK status
             result.StatusCode.Should().Be(HttpStatusCode.OK);
             await context.Database.EnsureDeletedAsync();
-            
         }
-        
+
         [Fact]
         public async Task SignUP_ShouldAddUser_WhenCalled()
         {
@@ -60,13 +61,18 @@ namespace CarDealerWebApi.Tests
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
 
             //WHEN a GET request is submitted to VehicleSubmissions with UserID
-            var result = await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinhuynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            var result = await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                {
+                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
 
             //THEN the response should return a OK status
             context.UserTable.ToList().Count.Should().Be(1);
             await context.Database.EnsureDeletedAsync();
         }
-        
+
         [Fact]
         public async Task SignUP_ShouldAdd2Users_WhenCalledCalledTwice()
         {
@@ -76,14 +82,24 @@ namespace CarDealerWebApi.Tests
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
 
             //WHEN a GET request is submitted to VehicleSubmissions with UserID
-            await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinhuynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
-            await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinuynh@yahoo.com",UserName = "usrName", Password = "12qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                {
+                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
+            await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                {
+                    Email = "kevinuynh@yahoo.com", UserName = "usrName", Password = "12qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
 
             //THEN the response should return a OK status
             context.UserTable.ToList().Count.Should().Be(2);
             await context.Database.EnsureDeletedAsync();
         }
-        
+
         [Fact]
         public async Task SignUP_ShouldNotAddUser_WhenEmailIsAlreadyInDb()
         {
@@ -93,14 +109,24 @@ namespace CarDealerWebApi.Tests
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
 
             //WHEN a GET request is submitted to VehicleSubmissions with UserID
-            await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinhuynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
-            await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinhuynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                {
+                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
+            await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                {
+                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
 
             //THEN the response should return a OK status
             context.UserTable.ToList().Count.Should().Be(1);
             await context.Database.EnsureDeletedAsync();
         }
-        
+
         [Fact]
         public async Task LoginThrowError_WhenNoUserCalled()
         {
@@ -110,14 +136,24 @@ namespace CarDealerWebApi.Tests
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
 
             //WHEN a GET request is submitted to VehicleSubmissions with UserID
-            await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinhuynh@yahoo.com",UserName = "userName", Password = "123q51651_",FirstName = "Kevin",LastName = "Huynh"});
+            await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                {
+                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123q51651_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
 
-            var response = await client.PostAsJsonAsync("/User/Login", new UserSignUp(){Email = "kevinhuynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            var response = await client.PostAsJsonAsync("/User/Login",
+                new UserSignUp()
+                {
+                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
             var str = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<ErrorDetails>(str);
             result?.Message.Should().Be("Could Not Authenticate User");
         }
-        
+
         [Fact]
         public async Task UserSignUp_ShouldReturnSucceeded_WhenAUserIsMade()
         {
@@ -125,17 +161,22 @@ namespace CarDealerWebApi.Tests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
-            await client.PostAsJsonAsync("/Roles/Create","");
+            await client.PostAsJsonAsync("/Roles/Create", "");
             //WHEN a GET request is submitted to VehicleSubmissions with UserID
-            var response = await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            var response = await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                {
+                    Email = "kevinynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
             var jsonObj = await response.Content.ReadAsStringAsync();
             context.UserTable.ToList().Count.Should().Be(1);
             jsonObj.Should().Be("Succeeded");
             //THEN the response should return a OK status
-            
+
             await context.Database.EnsureDeletedAsync();
         }
-        
+
         [Fact]
         public async Task UserSignUp_ShouldContainFailed_WhenAUserIsNotMade()
         {
@@ -143,15 +184,25 @@ namespace CarDealerWebApi.Tests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
-            await client.PostAsJsonAsync("/Roles/Create","");
+            await client.PostAsJsonAsync("/Roles/Create", "");
             //WHEN a GET request is submitted to VehicleSubmissions with UserID
-            await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
-            var response = await client.PostAsJsonAsync("/User/Signup", new UserSignUp(){Email = "kevinynh@yahoo.com",UserName = "userName", Password = "123qwe123_",FirstName = "Kevin",LastName = "Huynh"});
+            await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                {
+                    Email = "kevinynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
+            var response = await client.PostAsJsonAsync("/User/Signup",
+                new UserSignUp()
+                {
+                    Email = "kevinynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
             var jsonObj = await response.Content.ReadAsStringAsync();
             context.UserTable.ToList().Count.Should().Be(1);
             jsonObj.Should().Contain("Failed");
             //THEN the response should return a OK status
-            
+
             await context.Database.EnsureDeletedAsync();
         }
     }
