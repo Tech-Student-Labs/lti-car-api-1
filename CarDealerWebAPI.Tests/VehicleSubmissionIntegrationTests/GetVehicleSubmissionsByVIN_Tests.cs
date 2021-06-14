@@ -27,7 +27,6 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var user = new User
                 {Id = "1", Email = "KevinHuynh@yahoo.com", UserName = "hahahaha", FirstName = "ha", LastName = "Ha"};
             databaseContext.UserTable.Add(user);
-            //await client.PostAsJsonAsync("User/Signup", new UserSignUp {Email = "kevinhuynh@yahoo.com", UserName = "kevinhuynh",FirstName = "kevin",LastName = "Huynh",Password = "123123qweqwe"});
             //setup Vehicles
             var vehicle = new Vehicle
                 {Id =2 , Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997};
@@ -38,6 +37,48 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var response = vehicleSubmissionsService.GetVehicleSubmissionsByVIN("1GCCT19X738198141");
             //Then
             response.Vehicle.Should().Be(vehicle);
+        }
+
+        [Fact]
+        public void GetVehicleSubmissionByVin_ShouldReturnNull_WhenVehicleDoesntExist()
+        {
+            //Given
+            var options = new DbContextOptionsBuilder<CarDealerContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+            var databaseContext = new CarDealerContext(options);
+            var vehicleSubmissionsService =
+                new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
+            var user = new User
+                {Id = "1", Email = "KevinHuynh@yahoo.com", UserName = "hahahaha", FirstName = "ha", LastName = "Ha"};
+            databaseContext.UserTable.Add(user);            
+            databaseContext.SaveChanges();
+            //When
+            Action action = () => vehicleSubmissionsService.GetVehicleSubmissionsByVIN("1GCCT19X738198141");
+            //Then
+            action.Should().Throw<NullReferenceException>();
+        }
+
+        [Fact]
+        public void GetVehicleSubmissionByVin_ShouldReturnNull_WhenUserDoesntExist()
+        {
+            //Given
+            var options = new DbContextOptionsBuilder<CarDealerContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+            var databaseContext = new CarDealerContext(options);
+            var vehicleSubmissionsService =
+                new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
+            //setup Vehicles
+            var vehicle = new Vehicle
+                {Id =2 , Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997};
+            databaseContext.VehicleInventory.Add(vehicle);
+            databaseContext.VehicleSubmissions.Add(new VehicleSubmissions {UserId = "1", VehicleId = 2});
+            databaseContext.SaveChanges();
+            //When
+            Action action = () => vehicleSubmissionsService.GetVehicleSubmissionsByVIN("1GCCT19X738198141");
+            //Then
+            action.Should().Throw<NullReferenceException>();
         }
     }
 }

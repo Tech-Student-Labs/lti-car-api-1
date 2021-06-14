@@ -72,8 +72,15 @@ namespace CarDealerAPIService.services
         }
 
         public VehicleSubmissions GetVehicleSubmissionsByVIN(string vin)
-        { 
-            return _db.VehicleSubmissions.FirstOrDefault(x => x.Vehicle.VinNumber == vin);
+        {
+            var submission =  _db.VehicleSubmissions.FirstOrDefault(x => x.Vehicle.VinNumber == vin);
+
+            if (submission == null || submission.Vehicle == null || submission.User == null)
+            {
+                throw new System.NullReferenceException();
+            }
+
+            return submission;
         }
     }
 }
