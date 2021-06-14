@@ -27,7 +27,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionE2ETests
                         s => s.ServiceType == typeof(DbContextOptions<CarDealerContext>))
                 );
                 services.AddDbContext<CarDealerContext>(options =>
-                    options.UseInMemoryDatabase("ToDoGetSubmittedVehicles"));
+                    options.UseInMemoryDatabase("ToDoGetSubmilttedVehicles"));
             });
 
         [Fact]
@@ -54,7 +54,8 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionE2ETests
             //Call VehicleSubmissionController
             service.UserTable.ToList().Count.Should().Be(1);
             
-            var response = await client.PostAsJsonAsync("/VehicleSubmissions", new VehicleSubmissions {UserId = "1", VehicleId = 2});
+            var response = await client.PostAsJsonAsync("/VehicleSubmissions", new {UserId = "1", VehicleId = 2});
+            
             var jsonObj = await response.Content.ReadAsStringAsync();
             jsonObj.Should().Be("jk");
             service.VehicleSubmissions.ToList().Count.Should().Be(1);

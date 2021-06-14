@@ -28,7 +28,6 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             mockMarketValueService.Setup(x => x.GetAverageVehiclePrice("abc123xyzz")).ReturnsAsync("123");
             var vehicleSubmissionsService =
                 new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
-            //When
             User user = new User() {Id = "abc123"};
             Vehicle vehicle = new Vehicle() {Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc123xyzz"};
             databaseContext.UserTable.Add(user);
@@ -42,10 +41,10 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 Vehicle = vehicle,
                 VehicleId = vehicle.Id
             };
+            //When
             await vehicleSubmissionsService.AddVehicleSubmission(submission);
-            var result = vehicleSubmissionsService.GetAllVehicleSubmissionsByUser("abc123").Count;
             //Then
-            result.Should().Be(1);
+            databaseContext.VehicleSubmissions.Count().Should().Be(1);
             databaseContext.Database.EnsureDeleted();
         }
 

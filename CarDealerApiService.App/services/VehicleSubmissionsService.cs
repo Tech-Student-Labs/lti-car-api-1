@@ -70,5 +70,10 @@ namespace CarDealerAPIService.services
             _db.VehicleSubmissions.Remove(submissionToDelete);
             _db.SaveChanges();
         }
+
+        public VehicleSubmissions GetVehicleSubmissionsByVIN(string vin)
+        { 
+            return _db.VehicleSubmissions.FirstOrDefault(x => x.Vehicle.VinNumber == vin);
+        }
     }
 }
