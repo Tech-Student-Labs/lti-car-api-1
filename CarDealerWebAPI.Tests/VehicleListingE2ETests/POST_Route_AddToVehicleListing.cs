@@ -19,9 +19,9 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
 {
     public class POST_Route_AddToVehicleListing
     {
-        private readonly string adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJjYjlkZTNjYS1mNTU1LTQ1NzctOWM4My0wYmFiMGRlMmE4ZGEiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzAyMTYxLCJleHAiOjMzMTgwNjEwOTYxLCJpYXQiOjE2MjM3MDIxNjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.2mimAkdW2HxEuotUNdxVPtUxcMOfP6wCLIh3twM28lY";
-
-        private IWebHostBuilder HostBuilder => new WebHostBuilder()
+        private readonly string adminToken =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI5MzIxM2UwMi1kMWRkLTQ5M2MtOWFmZC03MjU3NWMzODMzYWMiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzA5MjQ4LCJleHAiOjE2MjM3OTU2NDgsImlhdCI6MTYyMzcwOTI0OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.yZAMh82PpKNzuYoqykuBSPg6zt2C78n_6Ln3r7szzdw";
+       private IWebHostBuilder HostBuilder => new WebHostBuilder()
         .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
         .ConfigureServices(services =>
         {
@@ -63,7 +63,6 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             //Call VehicleListingsController            
             var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 1, Price = 12000});
             var jsonObj = await response.Content.ReadAsStringAsync();
-            jsonObj.Should().Be("jk");
             //Then
             dbContext.VehicleListings.ToList().Count.Should().Be(1);
 

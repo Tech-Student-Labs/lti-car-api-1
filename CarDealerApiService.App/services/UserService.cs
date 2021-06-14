@@ -37,7 +37,7 @@ namespace CarDealerAPIService.services
                 {
                     new Claim("UserID", user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddDays(100),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes("ThisIsTheKeyPleaseDoNotShareThisKeyOrWeWillBeHacked")),
@@ -62,6 +62,16 @@ namespace CarDealerAPIService.services
                 {Email = cred.Email, FirstName = cred.FirstName, LastName = cred.LastName, UserName = cred.UserName};
             var result = await _userManager.CreateAsync(user, cred.Password);
             await _userManager.AddToRoleAsync(user, "RegularUser");
+            //add to roles here
+            return result.ToString();
+        }
+        
+        public async Task<string> SignUpAdmin(UserSignUp cred)
+        {
+            User user = new User()
+                {Email = cred.Email, FirstName = cred.FirstName, LastName = cred.LastName, UserName = cred.UserName};
+            var result = await _userManager.CreateAsync(user, cred.Password);
+            await _userManager.AddToRoleAsync(user, "AdminUser");
             //add to roles here
             return result.ToString();
         }

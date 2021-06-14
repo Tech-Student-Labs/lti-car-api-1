@@ -17,13 +17,13 @@ namespace CarDealerWebAPI.Controllers
         }
 
         // GET
+        [Authorize(Roles = "AdminUser")]
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_service.GetAllVehicleListings());
         }
-
-        [Authorize]
+        
         [HttpPost]
         public IActionResult AddToVehicleListing([FromBody] VehicleListing vehicle)
         {
