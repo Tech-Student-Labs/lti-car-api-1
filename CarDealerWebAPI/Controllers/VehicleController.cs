@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 using CarDealerAPIService.services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarDealerWebAPI.Controllers
@@ -20,6 +21,7 @@ namespace CarDealerWebAPI.Controllers
         }
 
         // GET
+        [Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {

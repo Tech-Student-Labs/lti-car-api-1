@@ -30,10 +30,9 @@ namespace CarDealerAPIService.services
             if (user == null) throw new System.Exception("Could Not Authenticate User");
             var result = await _signInManager.CheckPasswordSignInAsync(user, cred.Password, false);
             if (!result.Succeeded) throw new System.Exception("Could Not Authenticate User");
-            var roles = await _userManager.GetRolesAsync(user);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                
+                Issuer = "http://localhost:5000",
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim("UserID", user.Id.ToString())
@@ -44,6 +43,7 @@ namespace CarDealerAPIService.services
                         Encoding.UTF8.GetBytes("ThisIsTheKeyPleaseDoNotShareThisKeyOrWeWillBeHacked")),
                     SecurityAlgorithms.HmacSha256Signature)
             };
+            IList<string> roles = await _userManager.GetRolesAsync(user);
             foreach (var role in roles)
             {
                 var claim = new Claim(ClaimTypes.Role, role);

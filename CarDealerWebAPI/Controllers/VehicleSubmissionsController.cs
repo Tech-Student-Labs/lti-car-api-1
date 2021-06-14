@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CarDealerAPIService.services;
 using CarDealerAPIService.App.models;
@@ -23,9 +24,9 @@ namespace CarDealerWebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddVehicleSubmission(VehicleSubmissions submission)
+        public async Task<IActionResult> AddVehicleSubmission(VehicleSubmissions submission)
         {
-            _service.AddVehicleSubmission(submission);
+            await _service.AddVehicleSubmission(submission);
             return Ok("Vehicle submission added");
         }
 

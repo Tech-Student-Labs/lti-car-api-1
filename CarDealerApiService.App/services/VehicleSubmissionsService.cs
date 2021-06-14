@@ -28,7 +28,7 @@ namespace CarDealerAPIService.services
                 .Where(v => v.UserId == Id)
                 .Select(x => new VehicleSubmissionsDTO {TimeStamp = x.TimeStamp, Vehicle = x.Vehicle})
                 .ToList();
-
+ 
             return ListOfSubmissions;
         }
 
@@ -41,10 +41,12 @@ namespace CarDealerAPIService.services
             if (_db.VehicleSubmissions.FirstOrDefault(e => e.VehicleId == submission.VehicleId) != null)
                 throw new ArgumentException("Vehicle already used in previous submission");
 
+            var vehicle = await _db.VehicleInventory.FirstOrDefaultAsync(x => x.Id == submission.VehicleId);
+
             submission.Vehicle.MarketValue =
-                Int32.Parse(await _vehicleMarketValueService.GetAverageVehiclePrice(submission.Vehicle.VinNumber));
-            _db.VehicleSubmissions.Add(submission);
-            _db.SaveChanges();
+                int.Parse(await _vehicleMarketValueService.GetAverageVehiclePrice(vehicle.VinNumber));
+            await _db.VehicleSubmissions.AddAsync(submission);
+            await _db.SaveChangesAsync();
         }
 
         public void UpdateVehicleSubmission(VehicleSubmissions submission)

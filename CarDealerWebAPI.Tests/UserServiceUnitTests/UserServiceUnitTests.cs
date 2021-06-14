@@ -53,7 +53,7 @@ namespace CarDealerWebAPI.Tests.UserServiceIntegrationTests
             SignInManagerMock.Setup(x => x.CheckPasswordSignInAsync(user, cred.Password, false))
                 .ReturnsAsync(SignInResult.Success);
             UserManagerMock.Setup(x => x.GetRolesAsync(user))
-                .ReturnsAsync(new List<string>(){"RegularUser"});
+                .ReturnsAsync(new List<string>{"RegularUser"});
 
             var service = new UserService(UserManagerMock.Object, SignInManagerMock.Object);
             await service.Authenticate(cred);

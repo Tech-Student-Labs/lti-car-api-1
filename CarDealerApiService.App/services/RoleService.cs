@@ -22,5 +22,6 @@ namespace CarDealerAPIService.services
             await _roleManager.CreateAsync(new IdentityRole {Name = "AdminUser"});
             return roleCreated;
         }
+        
     }
 }

@@ -1,4 +1,5 @@
 using CarDealerAPIService.App.models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,8 @@ namespace CarDealerAPIService.App.Data
                 b.HasKey(e => e.Id);
                 b.Property(e => e.Id).ValueGeneratedOnAdd();
             });
+            
+          
 
             modelBuilder.Entity<VehicleSubmissions>(b =>
             {
