@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -18,6 +17,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionE2ETests
 {
     public class POST_Route_VehicleSubmission
     {
+
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>
@@ -47,7 +47,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionE2ETests
             dbContext.UserTable.Add(user);
             //setup Vehicles
             var vehicles = new Vehicle
-                {Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997};
+                {Make = "toyota", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997};
             dbContext.SaveChanges();
 
             //When
@@ -57,7 +57,6 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionE2ETests
 
             //Then
             dbContext.UserTable.ToList().Count.Should().Be(1);
-            // jsonObj.Should().Be("jk");
             dbContext.VehicleSubmissions.ToList().Count.Should().Be(1);
         }
     }
