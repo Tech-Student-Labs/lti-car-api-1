@@ -75,7 +75,15 @@ namespace CarDealerAPIService.services
         {
             var submission =  _db.VehicleSubmissions.FirstOrDefault(x => x.Vehicle.VinNumber == vin);
 
-            if (submission == null || submission.Vehicle == null || submission.User == null)
+            if (submission == null)
+            {
+                throw new System.NullReferenceException();
+            }
+            if (submission.Vehicle == null)
+            {
+                throw new System.NullReferenceException();
+            }
+            if (submission.User == null)
             {
                 throw new System.NullReferenceException();
             }

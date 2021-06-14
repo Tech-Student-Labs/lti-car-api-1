@@ -43,22 +43,21 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionE2ETests
             await client.PostAsJsonAsync("/Roles/Create", "");
             //setup user
             var user = new User
-                {Id = "1", Email = "KevinHuynh@yahoo.com", UserName = "hahahaha", FirstName = "ha", LastName = "Ha"};
+                {Id = "aa2e7246-448c-4995-bfa3-b42d5474d5de", Email = "KevinHuynh@yahoo.com", UserName = "hahahaha", FirstName = "ha", LastName = "Ha"};
             dbContext.UserTable.Add(user);
             //setup Vehicles
             var vehicles = new Vehicle
-                {Id =2 , Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997};
-            dbContext.VehicleInventory.Add(vehicles);
+                {Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997};
             dbContext.SaveChanges();
 
             //When
             //Call VehicleSubmissionController            
-            var response = await client.PostAsJsonAsync("/VehicleSubmissions", new {UserId = "1", VehicleId = 2, Vehicle = vehicles});
+            var response = await client.PostAsJsonAsync("/VehicleSubmissions", new VehicleSubmissions{UserId = "aa2e7246-448c-4995-bfa3-b42d5474d5de", Vehicle = vehicles});
             var jsonObj = await response.Content.ReadAsStringAsync();
 
             //Then
             dbContext.UserTable.ToList().Count.Should().Be(1);
-            jsonObj.Should().Be("jk");
+            // jsonObj.Should().Be("jk");
             dbContext.VehicleSubmissions.ToList().Count.Should().Be(1);
         }
     }

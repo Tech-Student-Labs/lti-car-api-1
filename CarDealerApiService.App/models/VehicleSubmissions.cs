@@ -10,6 +10,6 @@ namespace CarDealerAPIService.App.models
         [JsonIgnore] public User User { get; set; }
         public DateTime? TimeStamp { get; set; }
         public int VehicleId { get; set; }
-        [JsonIgnore] public Vehicle Vehicle { get; set; }
+        public Vehicle Vehicle { get; set; }
     }
 }

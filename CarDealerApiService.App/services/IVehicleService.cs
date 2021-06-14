@@ -7,7 +7,7 @@ namespace CarDealerAPIService.services
     {
         List<Vehicle> GetAllVehicles();
         Vehicle GetVehicle(int id);
-        void AddVehicle(Vehicle vehicle);
+        int AddVehicle(Vehicle vehicle);
         void AddRangeOfVehicles(Vehicle[] vehicles);
         void UpdateVehicle(Vehicle vehicle);
         void DeleteVehicle(Vehicle vehicle);

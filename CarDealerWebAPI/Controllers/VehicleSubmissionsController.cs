@@ -11,10 +11,12 @@ namespace CarDealerWebAPI.Controllers
     public class VehicleSubmissionsController : ControllerBase
     {
         private readonly IVehicleSubmissionsService _service;
+        private readonly IVehicleService _vehicleService;
 
-        public VehicleSubmissionsController(IVehicleSubmissionsService service)
+        public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService)
         {
             _service = service;
+            _vehicleService = vehicleService;
         }
 
         [HttpGet("{UserId}")]
@@ -26,11 +28,7 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddVehicleSubmission(VehicleSubmissions submission)
         {
-            if(_service.GetVehicleSubmissionsByVIN(submission.Vehicle.VinNumber) != null)
-            {
-                return BadRequest("Vehicle Already Exists");
-            }
-            
+            submission.VehicleId = _vehicleService.AddVehicle(submission.Vehicle);
             await _service.AddVehicleSubmission(submission);
             return Ok("Vehicle submission added");
         }
