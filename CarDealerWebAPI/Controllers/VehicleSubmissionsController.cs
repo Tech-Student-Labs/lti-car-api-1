@@ -26,7 +26,11 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddVehicleSubmission(VehicleSubmissions submission)
         {
-            //var vehicleSub = _service.GetVehicleSubmissionByVIN();
+            if(_service.GetVehicleSubmissionsByVIN(submission.Vehicle.VinNumber) != null)
+            {
+                return BadRequest("Vehicle Already Exists");
+            }
+            
             await _service.AddVehicleSubmission(submission);
             return Ok("Vehicle submission added");
         }
