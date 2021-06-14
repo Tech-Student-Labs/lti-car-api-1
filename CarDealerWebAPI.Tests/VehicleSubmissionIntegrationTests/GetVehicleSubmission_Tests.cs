@@ -7,11 +7,15 @@ using CarDealerAPIService.services;
 using Microsoft.EntityFrameworkCore;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
+using Moq;
 
 namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
 {
     public class GetVehicleSubmission_Tests
     {
+        private readonly Mock<IVehicleMarketValueService> mockMarketValueService =
+            new Mock<IVehicleMarketValueService>();
+
         [Fact]
         public void GetAllSubmissions_ShouldReturn0_WhenListIsEmpty()
         {
@@ -20,7 +24,8 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             var databaseContext = new CarDealerContext(options);
-            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
+            var vehicleSubmissionsService =
+                new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
             var result = vehicleSubmissionsService.GetAllVehicleSubmissionsByUser("abc123").Count;
             //Then
@@ -35,13 +40,15 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             var databaseContext = new CarDealerContext(options);
-            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
+            var vehicleSubmissionsService =
+                new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
             User MyUser = new User() {Id = "abc123", Email = "string@string.com", PasswordHash = "xxxxxx"};
             Vehicle vehicle = new Vehicle() {Id = 1};
             databaseContext.UserTable.Add(MyUser);
             databaseContext.VehicleInventory.Add(vehicle);
-            var submission = new VehicleSubmissions() {
+            var submission = new VehicleSubmissions()
+            {
                 User = MyUser,
                 TimeStamp = new DateTime(12, 12, 12),
                 Vehicle = vehicle
@@ -61,23 +68,27 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             var databaseContext = new CarDealerContext(options);
-            var vehicleSubmissionsService = new VehicleSubmissionsService(databaseContext);
+            var vehicleSubmissionsService =
+                new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
-            User MyUser = new User() {Id="abc123"};
+            User MyUser = new User() {Id = "abc123"};
             Vehicle vehicle1 = new Vehicle() {Id = 1, Make = "Toyota"};
             Vehicle vehicle2 = new Vehicle() {Id = 2, Make = "Chevy"};
             Vehicle vehicle3 = new Vehicle() {Id = 3, Make = "SUV"};
-            var submission1 = new VehicleSubmissions() {
+            var submission1 = new VehicleSubmissions()
+            {
                 User = MyUser,
                 TimeStamp = new DateTime(12, 12, 12),
                 Vehicle = vehicle1
             };
-            var submission2 = new VehicleSubmissions() {
+            var submission2 = new VehicleSubmissions()
+            {
                 User = MyUser,
                 TimeStamp = new DateTime(12, 12, 12),
                 Vehicle = vehicle2
             };
-            var submission3 = new VehicleSubmissions() {
+            var submission3 = new VehicleSubmissions()
+            {
                 User = MyUser,
                 TimeStamp = new DateTime(12, 12, 12),
                 Vehicle = vehicle3

@@ -6,6 +6,7 @@ namespace CarDealerAPIService.services
     public class HttpClientHandler : IHttpClient
     {
         private HttpClient _client;
+
         public HttpClientHandler()
         {
             _client = new HttpClient();

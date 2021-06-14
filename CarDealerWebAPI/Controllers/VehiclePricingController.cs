@@ -12,8 +12,9 @@ namespace CarDealerWebAPI.Controllers
     [ApiController]
     [Route("[controller]")]
     public class VehiclePricingController : ControllerBase
-    {   
+    {
         private readonly IVehicleMarketValueService _marketValueService;
+
         public VehiclePricingController(IVehicleMarketValueService marketValueService)
         {
             _marketValueService = marketValueService;

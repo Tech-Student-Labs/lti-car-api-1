@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
 using CarDealerAPIService.App.Data;
@@ -18,6 +19,9 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
 {
     public class GET_Route_Vehicle
     {
+        //Generated this token with an unlimited lifetime.
+        private readonly string token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJmOGFmN2RiNS1kODI5LTQzYzktYmYyYS1jNmIxZGYwZjgwNzkiLCJyb2xlIjoiUmVndWxhclVzZXIiLCJuYmYiOjE2MjM2NzU4MTQsImV4cCI6MTYyMzc2MjIxNCwiaWF0IjoxNjIzNjc1ODE0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAifQ.lVO0GK80VdCTuMHO2qrUA98jmhQj12_hhU6Xqqm42cc";
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>
@@ -27,6 +31,11 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
                         s => s.ServiceType == typeof(DbContextOptions<CarDealerContext>))
                 );
                 services.AddDbContext<CarDealerContext>(options => options.UseInMemoryDatabase("ToDoGet"));
+                services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = "Test";
+                    options.DefaultChallengeScheme = "Test";
+                });
             });
 
         [Fact]
@@ -35,7 +44,8 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             //GIVEN the service is running and there are no items in the Vehicles Table
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
-
+            
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             //WHEN a GET request is submitted to Vehicle with no parameters
             var result = await client.GetAsync("/Vehicle");
 
@@ -52,6 +62,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             //WHEN a GET request is submitted to Vehicle with no parameters
             var result = await client.GetAsync("/Vehicle");
 
@@ -71,6 +82,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var vehicle1 = new Vehicle();
             await todoService.VehicleInventory.AddAsync(vehicle1);
             await todoService.SaveChangesAsync();
@@ -114,6 +126,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var vehicle1 = new Vehicle();
             await todoService.VehicleInventory.AddAsync(vehicle1);
             await todoService.VehicleInventory.AddAsync(vehicle1);
@@ -160,7 +173,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
-            
+
             var vehicle1 = new Vehicle() {Id = 1, VinNumber = "123qwe"};
             await todoService.VehicleInventory.AddAsync(vehicle1);
             await todoService.SaveChangesAsync();

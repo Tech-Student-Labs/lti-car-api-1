@@ -39,7 +39,8 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
 
-            var vehicle = new Vehicle() {Make = "Toyota", Model = "Camry", Year = 2016, VinNumber = "abc123", MarketValue = 23000};
+            var vehicle = new Vehicle()
+                {Make = "Toyota", Model = "Camry", Year = 2016, VinNumber = "abc123", MarketValue = 23000};
             await todoService.VehicleInventory.AddAsync(vehicle);
             await todoService.SaveChangesAsync();
             //WHEN
@@ -62,7 +63,8 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
 
-            var vehicle = new Vehicle() {Make = "Toyota", Model = "Camry", Year = 2016, VinNumber = "abcd123", MarketValue = 23001};
+            var vehicle = new Vehicle()
+                {Make = "Toyota", Model = "Camry", Year = 2016, VinNumber = "abcd123", MarketValue = 23001};
             await todoService.VehicleInventory.AddAsync(vehicle);
             await todoService.SaveChangesAsync();
 

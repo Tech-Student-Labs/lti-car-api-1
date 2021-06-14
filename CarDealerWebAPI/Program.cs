@@ -21,10 +21,8 @@ namespace CarDealerWebAPI
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+
         public static IHost MigrateDatabase<T>(IHost webHost) where T : DbContext
         {
             using (var scope = webHost.Services.CreateScope())
@@ -41,8 +39,8 @@ namespace CarDealerWebAPI
                     logger.LogError(ex, "An error occurred while migrating the database.");
                 }
             }
+
             return webHost;
         }
     }
-
 }

@@ -4,14 +4,16 @@ using CarDealerAPIService.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarDealerAPIService.App.Migrations
 {
     [DbContext(typeof(CarDealerContext))]
-    partial class CarDealerContextModelSnapshot : ModelSnapshot
+    [Migration("20210614180616_AddedForeignKeyToVehicleSubmissionsTable")]
+    partial class AddedForeignKeyToVehicleSubmissionsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,26 +136,6 @@ namespace CarDealerAPIService.App.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VehicleInventory");
-                });
-
-            modelBuilder.Entity("CarDealerAPIService.App.models.VehicleListing", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("VehicleListings");
                 });
 
             modelBuilder.Entity("CarDealerAPIService.App.models.VehiclePriceRequest", b =>
@@ -345,17 +327,6 @@ namespace CarDealerAPIService.App.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("CarDealerAPIService.App.models.VehicleListing", b =>
-                {
-                    b.HasOne("CarDealerAPIService.App.models.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("CarDealerAPIService.App.models.VehiclePriceRequest", b =>

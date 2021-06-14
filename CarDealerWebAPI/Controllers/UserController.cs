@@ -15,17 +15,17 @@ namespace CarDealerWebAPI.Controllers
         {
             _userService = userService;
         }
-        
+
         // GET
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLogin cred)
         {
             var result = await _userService.Authenticate(cred);
-            
+
             return Ok(result);
         }
-        
-        [HttpPost("SignUp")]
+
+        [HttpPost("Signup")]
         public async Task<IActionResult> SignUp(UserSignUp cred)
         {
             var result = await _userService.SignUpUser(cred);
