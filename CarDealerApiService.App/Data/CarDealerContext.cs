@@ -12,6 +12,7 @@ namespace CarDealerAPIService.App.Data
         public DbSet<User> UserTable { get; set; }
         public DbSet<VehicleSubmissions> VehicleSubmissions { get; set; }
         public DbSet<VehiclePriceRequest> MarketValues { get; set; }
+        public DbSet<VehicleListing> VehicleListings {get; set;}
 
         public CarDealerContext(DbContextOptions options) : base(options)
         {
@@ -29,6 +30,12 @@ namespace CarDealerAPIService.App.Data
           
 
             modelBuilder.Entity<VehicleSubmissions>(b =>
+            {
+                b.HasKey(e => e.Id);
+                b.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<VehicleListing>(b =>
             {
                 b.HasKey(e => e.Id);
                 b.Property(e => e.Id).ValueGeneratedOnAdd();

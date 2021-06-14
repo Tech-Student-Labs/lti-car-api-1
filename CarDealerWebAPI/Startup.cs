@@ -47,6 +47,7 @@ namespace CarDealerWebAPI
             services.AddScoped<IVehicleMarketValueService, VehicleMarketValueService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IVehicleListingService, VehicleListingService>();
             services.AddCors();
 
             services.AddSwaggerGen(c =>

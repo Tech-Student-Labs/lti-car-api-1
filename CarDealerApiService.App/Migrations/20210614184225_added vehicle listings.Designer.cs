@@ -4,14 +4,16 @@ using CarDealerAPIService.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarDealerAPIService.App.Migrations
 {
     [DbContext(typeof(CarDealerContext))]
-    partial class CarDealerContextModelSnapshot : ModelSnapshot
+    [Migration("20210614184225_added vehicle listings")]
+    partial class addedvehiclelistings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
