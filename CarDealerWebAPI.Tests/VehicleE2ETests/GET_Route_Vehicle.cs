@@ -21,7 +21,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
     {
         //Generated this token with an unlimited lifetime.
         private readonly string token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJmOGFmN2RiNS1kODI5LTQzYzktYmYyYS1jNmIxZGYwZjgwNzkiLCJyb2xlIjoiUmVndWxhclVzZXIiLCJuYmYiOjE2MjM2NzU4MTQsImV4cCI6MTYyMzc2MjIxNCwiaWF0IjoxNjIzNjc1ODE0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAifQ.lVO0GK80VdCTuMHO2qrUA98jmhQj12_hhU6Xqqm42cc";
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI2MmEwYjlkMS1mM2JjLTQzODUtOWM4Zi0zOWIyOTRmMjZjM2EiLCJyb2xlIjoiUmVndWxhclVzZXIiLCJuYmYiOjE2MjM3NjI0NzYsImV4cCI6MTYzMjQwMjQ3NiwiaWF0IjoxNjIzNzYyNDc2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAifQ.l1JJfThNYlfQ6LLyk2REIq0BGGM5pfeMA1eYw9OqV_Q";
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>

@@ -32,7 +32,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionE2ETests
 
         [Fact]
         //finish this up
-        public async Task Action_Should_When()
+        public async Task POST_ShouldAddVehicleSubmission_WhenCalled()
         {
             //Given
             var testServer = new TestServer(HostBuilder);
