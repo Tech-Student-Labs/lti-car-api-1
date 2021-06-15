@@ -12,6 +12,8 @@ services:
       - SA_PASSWORD=Password123
   cardealerwebapi:
     image: cardealerwebapi
+    volumes:
+      - sql-data:/var/opt/mssql/data
     build:
       context: .
       dockerfile: CarDealerWebAPI/Dockerfile
@@ -20,4 +22,5 @@ services:
     depends_on:
       - sqlserver
     restart: always
-  
+volumes:
+  sql-data:
