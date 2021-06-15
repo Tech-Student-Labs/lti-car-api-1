@@ -18,7 +18,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
     public class POST_Route_Vehicle
     {
         private readonly string token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJmOGFmN2RiNS1kODI5LTQzYzktYmYyYS1jNmIxZGYwZjgwNzkiLCJyb2xlIjoiUmVndWxhclVzZXIiLCJuYmYiOjE2MjM2NzU4MTQsImV4cCI6MTYyMzc2MjIxNCwiaWF0IjoxNjIzNjc1ODE0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAifQ.lVO0GK80VdCTuMHO2qrUA98jmhQj12_hhU6Xqqm42cc";
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI5YjNiZGI4Ny1kZTQ3LTQxOGQtODg3ZS0zMzVkYTUzNTBmMWUiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzEwNDUzLCJleHAiOjE2MzIzNTA0NTMsImlhdCI6MTYyMzcxMDQ1MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.g11nmSnglviiN2H_zW5hOaNOnnMqwOVm_soOUcshlkM";
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>
@@ -42,7 +42,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var service = testServer.Services.GetService<CarDealerContext>();
-           // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             //When
             var response = await client.PostAsJsonAsync("/Vehicle", new Vehicle{Id = 1, VinNumber = "jnjknf",Make = "Toyoya",MarketValue = 12331,Model = "camry",Year = 1997});
             //Then
