@@ -11,6 +11,7 @@ namespace CarDealerWebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles = "AdminUser")]
     public class VehicleController : ControllerBase
     {
         private readonly IVehicleService _service;
@@ -21,13 +22,12 @@ namespace CarDealerWebAPI.Controllers
         }
 
         // GET
-        [Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_service.GetAllVehicles());
         }
-
+        
         [HttpGet("{id}")]
         public IActionResult GetVehicleById(int id)
         {

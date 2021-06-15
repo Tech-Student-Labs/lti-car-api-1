@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
 using CarDealerAPIService.App.Data;
@@ -18,6 +19,9 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
 {
     public class GET_Route_Vehicle_Id_MarketValue
     {
+        private readonly string adminToken =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI5YjNiZGI4Ny1kZTQ3LTQxOGQtODg3ZS0zMzVkYTUzNTBmMWUiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzEwNDUzLCJleHAiOjE2MzIzNTA0NTMsImlhdCI6MTYyMzcxMDQ1MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.g11nmSnglviiN2H_zW5hOaNOnnMqwOVm_soOUcshlkM";
+
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>
@@ -36,6 +40,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
 
@@ -60,6 +65,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var todoService = testServer.Services.GetRequiredService<CarDealerContext>();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
 

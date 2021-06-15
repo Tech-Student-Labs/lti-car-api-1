@@ -31,5 +31,12 @@ namespace CarDealerWebAPI.Controllers
             var result = await _userService.SignUpUser(cred);
             return Ok(result);
         }
+        
+        [HttpPost("SignupAdmin")]
+        public async Task<IActionResult> SignUpAdmin(UserSignUp cred)
+        {
+            var result = await _userService.SignUpAdmin(cred);
+            return Ok(result);
+        }
     }
 }

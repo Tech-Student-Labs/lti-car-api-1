@@ -14,6 +14,15 @@ namespace CarDealerAPIService.services
             _db = db;
         }
 
+        public int AddToVehicleListing(VehicleListing vehicle)
+        {
+         if (vehicle == null)
+                throw new System.ArgumentNullException(nameof(vehicle), "The vehicle you are trying to add is null");
+
+            _db.VehicleListings.Add(vehicle);
+            _db.SaveChanges();
+            return vehicle.Id;        }
+
         public List<VehicleListing> GetAllVehicleListings()
         {
             return _db.VehicleListings.ToList();

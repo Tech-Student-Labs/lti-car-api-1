@@ -19,6 +19,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
 {
     public class GET_Route_GetAllVehicleListing
     {
+        private readonly string adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI5YjNiZGI4Ny1kZTQ3LTQxOGQtODg3ZS0zMzVkYTUzNTBmMWUiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzEwNDUzLCJleHAiOjE2MzIzNTA0NTMsImlhdCI6MTYyMzcxMDQ1MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.g11nmSnglviiN2H_zW5hOaNOnnMqwOVm_soOUcshlkM";
         //Generated this token with an unlimited lifetime.
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
@@ -38,7 +39,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             //GIVEN the service is running and there are no items in the Vehicles Table
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
-            
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
             //WHEN a GET request is submitted to Vehicle with no parameters
             var result = await client.GetAsync("/VehicleListing");
 
@@ -52,7 +53,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             //GIVEN the service is running and there are no items in the Vehicles Table
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
-            
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
             //WHEN a GET request is submitted to Vehicle with no parameters
             var response = await client.GetAsync("/VehicleListing");
             var JsonObject = await response.Content.ReadAsStringAsync();
@@ -67,6 +68,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
             context.VehicleListings.Add(new VehicleListing{Id = 1, VehicleId = 1, Price = 23000});
             context.SaveChanges();
             //WHEN a GET request is submitted to Vehicle with no parameters
@@ -84,6 +86,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
             context.VehicleListings.Add(new VehicleListing{Id = 1, VehicleId = 1, Price = 23000});
             context.VehicleListings.Add(new VehicleListing{Id = 2, VehicleId = 2, Price = 23000});
 
