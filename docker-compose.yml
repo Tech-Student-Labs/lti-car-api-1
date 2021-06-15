@@ -5,6 +5,9 @@ version: '3.4'
 services:
   sqlserver:
     image: "mcr.microsoft.com/mssql/server:2019-latest"
+    user: root
+    volumes:
+      - sql-data:/var/opt/mssql/data
     ports:
       - "1433:1433"
     environment:
@@ -12,8 +15,6 @@ services:
       - SA_PASSWORD=Password123
   cardealerwebapi:
     image: cardealerwebapi
-    volumes:
-      - sql-data:/var/opt/mssql/data
     build:
       context: .
       dockerfile: CarDealerWebAPI/Dockerfile
