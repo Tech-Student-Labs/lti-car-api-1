@@ -41,14 +41,17 @@ namespace CarDealerWebApi.Tests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
-
+            await client.PostAsJsonAsync("/Roles/Create", "");
             //WHEN a GET request is submitted to VehicleSubmissions with UserID
-            var result = await client.PostAsJsonAsync("/User/Signup",
+            var response = await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
-                    {Email = "kevinhuynh@yahoo.com", Password = "123qwe123_", FirstName = "Kevin", LastName = "Huynh"});
-
+                {
+                    Email = "kevinynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    LastName = "Huynh"
+                });
+            response.StatusCode.Should().Be(200);
             //THEN the response should return a OK status
-            result.StatusCode.Should().Be(HttpStatusCode.OK);
+
             await context.Database.EnsureDeletedAsync();
         }
 

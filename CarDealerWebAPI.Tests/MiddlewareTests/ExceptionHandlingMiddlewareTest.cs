@@ -28,7 +28,7 @@ namespace CarDealerWebAPI.Tests.MiddlewareTests
             //Then
             objResponse
                 .Should()
-                .BeEquivalentTo(new ErrorDetails() {Message = "Test", Type = "Exception", StatusCode = 200});
+                .BeEquivalentTo(new ErrorDetails() {Message = "Test", Type = "Exception", StatusCode = 400});
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace CarDealerWebAPI.Tests.MiddlewareTests
             //Then
             objResponse
                 .Should()
-                .BeEquivalentTo(new ErrorDetails() {Message = "Test", Type = "ArgumentException", StatusCode = 200});
+                .BeEquivalentTo(new ErrorDetails() {Message = "Test", Type = "ArgumentException", StatusCode = 400});
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace CarDealerWebAPI.Tests.MiddlewareTests
                 .BeEquivalentTo(new ErrorDetails()
                 {
                     Message = "Argument can't be null (Parameter 'testing')", Type = "ArgumentNullException",
-                    StatusCode = 200
+                    StatusCode = 400
                 });
         }
     }
