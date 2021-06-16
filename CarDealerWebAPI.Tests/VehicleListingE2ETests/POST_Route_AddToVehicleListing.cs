@@ -19,9 +19,9 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
 {
     public class POST_Route_AddToVehicleListing
     {
-        private readonly string adminToken =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI5MzIxM2UwMi1kMWRkLTQ5M2MtOWFmZC03MjU3NWMzODMzYWMiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzA5MjQ4LCJleHAiOjE2MjM3OTU2NDgsImlhdCI6MTYyMzcwOTI0OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.yZAMh82PpKNzuYoqykuBSPg6zt2C78n_6Ln3r7szzdw";
-       private IWebHostBuilder HostBuilder => new WebHostBuilder()
+        private readonly string adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI5YjNiZGI4Ny1kZTQ3LTQxOGQtODg3ZS0zMzVkYTUzNTBmMWUiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzEwNDUzLCJleHAiOjE2MzIzNTA0NTMsImlhdCI6MTYyMzcxMDQ1MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.g11nmSnglviiN2H_zW5hOaNOnnMqwOVm_soOUcshlkM";
+
+        private IWebHostBuilder HostBuilder => new WebHostBuilder()
         .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
         .ConfigureServices(services =>
         {
@@ -41,7 +41,6 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
 
 
         [Fact]
-        //finish this up
         public async Task Action_Should_When()
         {
             //Given
@@ -55,7 +54,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             
             //setup Vehicles
             var vehicles = new Vehicle
-            { Id = 1, Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
+            { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
             dbContext.Add(vehicles);
             dbContext.SaveChanges();
 
