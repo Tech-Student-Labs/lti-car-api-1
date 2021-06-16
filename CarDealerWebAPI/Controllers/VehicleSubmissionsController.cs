@@ -12,11 +12,13 @@ namespace CarDealerWebAPI.Controllers
     {
         private readonly IVehicleSubmissionsService _service;
         private readonly IVehicleService _vehicleService;
+        private readonly IVehicleMarketValueService _marketPrice;
 
-        public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService)
+        public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService, IVehicleMarketValueService marketPrice)
         {
             _service = service;
             _vehicleService = vehicleService;
+            _marketPrice = marketPrice;
         }
 
         [HttpGet("{UserId}")]
@@ -28,6 +30,7 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddVehicleSubmission(VehicleSubmissions submission)
         {
+            await _marketPrice.GetAverageVehiclePrice(submission.Vehicle.VinNumber);
             submission.VehicleId = _vehicleService.AddVehicle(submission.Vehicle);
             await _service.AddVehicleSubmission(submission);
             return Ok("Vehicle submission added");
