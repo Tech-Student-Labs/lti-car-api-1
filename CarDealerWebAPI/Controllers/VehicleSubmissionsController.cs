@@ -26,7 +26,8 @@ namespace CarDealerWebAPI.Controllers
         {
             return Ok(_service.GetAllVehicleSubmissionsByUser(UserId));
         }
-
+        //this should add to both the vehicle table and the vehicle submission table 
+        //and will need a admin to add it to the vehicle listing table to be seen by everyone.
         [HttpPost]
         public async Task<IActionResult> AddVehicleSubmission(VehicleSubmissions submission)
         {

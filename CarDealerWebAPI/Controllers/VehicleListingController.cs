@@ -17,13 +17,13 @@ namespace CarDealerWebAPI.Controllers
         }
 
         // GET
-        [Authorize(Roles = "AdminUser")]
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_service.GetAllVehicleListings());
         }
-        
+        //only admin can add to vehicle listing which is the list that any users can see 
+        [Authorize(Roles = "AdminUser")]
         [HttpPost]
         public IActionResult AddToVehicleListing([FromBody] VehicleListing vehicle)
         {

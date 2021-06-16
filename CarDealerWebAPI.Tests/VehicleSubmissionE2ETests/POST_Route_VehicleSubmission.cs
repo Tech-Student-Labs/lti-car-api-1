@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -57,6 +58,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionE2ETests
             var jsonObj = await response.Content.ReadAsStringAsync();
 
             //Then
+           // dbContext.VehicleSubmissions.FirstOrDefault(x => true).TimeStamp.Should().Be(new DateTime(.));
             dbContext.UserTable.ToList().Count.Should().Be(1);
             dbContext.VehicleSubmissions.ToList().Count.Should().Be(1);
         }
