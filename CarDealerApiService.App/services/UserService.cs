@@ -61,6 +61,9 @@ namespace CarDealerAPIService.services
             User user = new User()
                 {Email = cred.Email, FirstName = cred.FirstName, LastName = cred.LastName, UserName = cred.UserName};
             var result = await _userManager.CreateAsync(user, cred.Password);
+            if (result.ToString() != "Succeeded")
+                throw new Exception(result.ToString());
+            
             await _userManager.AddToRoleAsync(user, "RegularUser");
             //add to roles here
             return result.ToString();
