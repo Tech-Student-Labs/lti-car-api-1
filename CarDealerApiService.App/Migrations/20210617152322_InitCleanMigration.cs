@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarDealerAPIService.App.Migrations
 {
-    public partial class AddedUserTable : Migration
+    public partial class InitCleanMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,6 +26,8 @@ namespace CarDealerAPIService.App.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -44,6 +46,23 @@ namespace CarDealerAPIService.App.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VehicleInventory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Make = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Model = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    VinNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MarketValue = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleInventory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +171,52 @@ namespace CarDealerAPIService.App.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "VehicleListings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleListings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VehicleListings_VehicleInventory_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "VehicleInventory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VehicleSubmissions",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    VehicleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleSubmissions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VehicleSubmissions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_VehicleSubmissions_VehicleInventory_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "VehicleInventory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +255,21 @@ namespace CarDealerAPIService.App.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleListings_VehicleId",
+                table: "VehicleListings",
+                column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleSubmissions_UserId",
+                table: "VehicleSubmissions",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleSubmissions_VehicleId",
+                table: "VehicleSubmissions",
+                column: "VehicleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +290,19 @@ namespace CarDealerAPIService.App.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "VehicleListings");
+
+            migrationBuilder.DropTable(
+                name: "VehicleSubmissions");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "VehicleInventory");
         }
     }
 }
