@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using CarDealerAPIService.App.Data;
 using Microsoft.AspNetCore.Mvc;
 using CarDealerAPIService.services;
 using CarDealerAPIService.App.models;
@@ -13,12 +16,14 @@ namespace CarDealerWebAPI.Controllers
         private readonly IVehicleSubmissionsService _service;
         private readonly IVehicleService _vehicleService;
         private readonly IVehicleMarketValueService _marketPrice;
+        private readonly CarDealerContext _context;
 
-        public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService, IVehicleMarketValueService marketPrice)
+        public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService, IVehicleMarketValueService marketPrice,CarDealerContext context)
         {
             _service = service;
             _vehicleService = vehicleService;
             _marketPrice = marketPrice;
+            _context = context;
         }
 
         [HttpGet("{UserId}")]
@@ -31,9 +36,14 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddVehicleSubmission(VehicleSubmissions submission)
         {
-            await _marketPrice.GetAverageVehiclePrice(submission.Vehicle.VinNumber);
+            //assign and pass it into AddVehicleSubmission
+            var foundVehicle = _context.VehicleInventory.ToList()
+                .FirstOrDefault(x => x.VinNumber == submission.Vehicle.VinNumber);
+            if (foundVehicle != null)
+                throw new Exception("Already Submitted that Vehicle");
+            var price = Int32.Parse(await _marketPrice.GetAverageVehiclePrice(submission.Vehicle.VinNumber));
             submission.VehicleId = _vehicleService.AddVehicle(submission.Vehicle);
-            await _service.AddVehicleSubmission(submission);
+            await _service.AddVehicleSubmission(submission,price);
             return Ok("Vehicle submission added");
         }
 

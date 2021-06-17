@@ -7,7 +7,7 @@ namespace CarDealerAPIService.services
     public interface IVehicleSubmissionsService
     {
         List<VehicleSubmissionsDTO> GetAllVehicleSubmissionsByUser(string Id);
-        Task AddVehicleSubmission(VehicleSubmissions submission);
+        Task AddVehicleSubmission(VehicleSubmissions submission, int price);
         void UpdateVehicleSubmission(VehicleSubmissions submission);
         void DeleteVehicleSubmission(VehicleSubmissions submission);
         void DeleteVehicleSubmissionById(string Id);
