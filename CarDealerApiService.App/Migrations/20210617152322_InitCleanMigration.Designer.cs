@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarDealerAPIService.App.Migrations
 {
     [DbContext(typeof(CarDealerContext))]
-    [Migration("20210614184225_added vehicle listings")]
-    partial class addedvehiclelistings
+    [Migration("20210617152322_InitCleanMigration")]
+    partial class InitCleanMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,24 +20,6 @@ namespace CarDealerAPIService.App.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("CarDealerAPIService.App.models.Prices", b =>
-                {
-                    b.Property<long>("Average")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("Above")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Below")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Average");
-
-                    b.ToTable("Prices");
-                });
 
             modelBuilder.Entity("CarDealerAPIService.App.models.User", b =>
                 {
@@ -156,42 +138,6 @@ namespace CarDealerAPIService.App.Migrations
                     b.HasIndex("VehicleId");
 
                     b.ToTable("VehicleListings");
-                });
-
-            modelBuilder.Entity("CarDealerAPIService.App.models.VehiclePriceRequest", b =>
-                {
-                    b.Property<string>("Vin")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<long>("Certainty")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Count")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Mean")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Mileage")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("PricesAverage")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Stdev")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("Success")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Vehicle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Vin");
-
-                    b.HasIndex("PricesAverage");
-
-                    b.ToTable("MarketValues");
                 });
 
             modelBuilder.Entity("CarDealerAPIService.App.models.VehicleSubmissions", b =>
@@ -358,15 +304,6 @@ namespace CarDealerAPIService.App.Migrations
                         .IsRequired();
 
                     b.Navigation("Vehicle");
-                });
-
-            modelBuilder.Entity("CarDealerAPIService.App.models.VehiclePriceRequest", b =>
-                {
-                    b.HasOne("CarDealerAPIService.App.models.Prices", "Prices")
-                        .WithMany()
-                        .HasForeignKey("PricesAverage");
-
-                    b.Navigation("Prices");
                 });
 
             modelBuilder.Entity("CarDealerAPIService.App.models.VehicleSubmissions", b =>
