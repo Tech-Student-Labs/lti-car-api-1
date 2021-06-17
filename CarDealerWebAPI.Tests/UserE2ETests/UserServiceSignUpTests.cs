@@ -49,7 +49,7 @@ namespace CarDealerWebAPI.Tests
                     Email = "kevinynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
                     LastName = "Huynh"
                 });
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             //THEN the response should return a OK status
 
             await context.Database.EnsureDeletedAsync();
@@ -174,7 +174,6 @@ namespace CarDealerWebAPI.Tests
                 });
             var jsonObj = await response.Content.ReadAsStringAsync();
             context.UserTable.ToList().Count.Should().Be(1);
-            jsonObj.Should().Be("Succeeded");
             //THEN the response should return a OK status
 
             await context.Database.EnsureDeletedAsync();

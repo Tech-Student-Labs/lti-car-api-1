@@ -22,7 +22,7 @@ namespace CarDealerWebAPI.Controllers
         {
             var result = await _userService.Authenticate(cred);
 
-            return Ok(new {message = result});
+            return Ok(result);
         }
 
         [HttpPost("Signup")]
