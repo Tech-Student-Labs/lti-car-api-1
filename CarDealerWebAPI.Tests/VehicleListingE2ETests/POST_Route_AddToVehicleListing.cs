@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
 using CarDealerAPIService.App.Data;
+using CarDealerAPIService.App.Exception.ExceptionModel;
 using CarDealerAPIService.App.models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
@@ -41,7 +42,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
 
 
         [Fact]
-        public async Task Action_Should_When()
+        public async Task PostVehicleListing_ShouldAddVehicleToVehicleListings_WhenTheEndpointIsHit()
         {
             //Given
             var testServer = new TestServer(HostBuilder);
@@ -64,7 +65,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             var jsonObj = await response.Content.ReadAsStringAsync();
             //Then
             dbContext.VehicleListings.ToList().Count.Should().Be(1);
-
+            dbContext.Database.EnsureDeleted();
         }
     }
 }

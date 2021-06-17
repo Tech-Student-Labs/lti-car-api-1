@@ -18,7 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace CarDealerWebApi.Tests
+namespace CarDealerWebAPI.Tests
 {
     public class UserServiceSignUpTests
     {
