@@ -9,6 +9,6 @@ namespace CarDealerAPIService.App.models
         public string Model { get; set; }
         public int Year { get; set; }
         public string VinNumber { get; set; }
-        [JsonIgnore] public int MarketValue { get; set; }
+        public int MarketValue { get; set; }
     }
 }
