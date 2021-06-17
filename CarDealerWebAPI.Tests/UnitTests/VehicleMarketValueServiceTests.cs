@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using CarDealerAPIService.services;
 
-namespace CarDealerWebApi.Tests.UnitTests
+namespace CarDealerWebAPI.Tests.UnitTests
 {
     public class VehicleMarketValueServiceTests
     {

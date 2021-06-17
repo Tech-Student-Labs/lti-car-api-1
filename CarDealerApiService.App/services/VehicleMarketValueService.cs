@@ -20,11 +20,16 @@ namespace CarDealerAPIService.services
 
         public async Task<string> GetAverageVehiclePrice(string vin)
         {
+            
             var stringTask =
                 await _client.GetAsync(
                     $"http://marketvalue.vinaudit.com/getmarketvalue.php?key=VA_DEMO_KEY&vin={vin}&format=json&period=90&mileage=average");
             string result = await stringTask.Content.ReadAsStringAsync();
-            var obj = JsonConvert.DeserializeObject<VehiclePriceRequest>(result);
+            if (result.Contains("error"))
+            {
+                throw new Exception("Cannot Find Vin Number");
+            }
+                var obj = JsonConvert.DeserializeObject<VehiclePriceRequest>(result);
 
             return obj.Prices.Average.ToString();
         }

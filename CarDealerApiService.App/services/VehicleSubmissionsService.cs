@@ -32,7 +32,7 @@ namespace CarDealerAPIService.services
             return ListOfSubmissions;
         }
 
-        public async Task AddVehicleSubmission(VehicleSubmissions submission)
+        public async Task AddVehicleSubmission(VehicleSubmissions submission,int price)
         {
             if (_db.UserTable.FirstOrDefault(e => e.Id == submission.UserId) == null)
                 throw new ArgumentException("User not found");
@@ -42,9 +42,8 @@ namespace CarDealerAPIService.services
                 throw new ArgumentException("Vehicle already used in previous submission");
 
             var vehicle = await _db.VehicleInventory.FirstOrDefaultAsync(x => x.Id == submission.VehicleId);
-
-            submission.Vehicle.MarketValue =
-                int.Parse(await _vehicleMarketValueService.GetAverageVehiclePrice(vehicle.VinNumber));
+            
+            submission.Vehicle.MarketValue = price;
             await _db.VehicleSubmissions.AddAsync(submission);
             await _db.SaveChangesAsync();
         }
@@ -76,10 +75,6 @@ namespace CarDealerAPIService.services
             var submission =  _db.VehicleSubmissions.FirstOrDefault(x => x.Vehicle.VinNumber == vin);
 
             if (submission == null)
-            {
-                throw new System.NullReferenceException();
-            }
-            if (submission.Vehicle == null)
             {
                 throw new System.NullReferenceException();
             }

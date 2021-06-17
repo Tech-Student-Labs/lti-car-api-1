@@ -42,7 +42,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 VehicleId = vehicle.Id
             };
             //When
-            await vehicleSubmissionsService.AddVehicleSubmission(submission);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission,4529);
             //Then
             databaseContext.VehicleSubmissions.Count().Should().Be(1);
             databaseContext.Database.EnsureDeleted();
@@ -98,9 +98,9 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 Vehicle = vehicle3,
                 VehicleId = 3
             };
-            await vehicleSubmissionsService.AddVehicleSubmission(submission1);
-            await vehicleSubmissionsService.AddVehicleSubmission(submission2);
-            await vehicleSubmissionsService.AddVehicleSubmission(submission3);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission1,74524);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission2,12345);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission3,75465);
             var result = vehicleSubmissionsService.GetAllVehicleSubmissionsByUser("abc123").Count;
             //Then
             result.Should().Be(3);
@@ -151,9 +151,9 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 Vehicle = vehicle2,
                 VehicleId = 2
             };
-            await vehicleSubmissionsService.AddVehicleSubmission(submission1);
-            await vehicleSubmissionsService.AddVehicleSubmission(submission2);
-            Func<Task> action = async () => { await vehicleSubmissionsService.AddVehicleSubmission(submission3); };
+            await vehicleSubmissionsService.AddVehicleSubmission(submission1,789456);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission2,789456);
+            Func<Task> action = async () => await vehicleSubmissionsService.AddVehicleSubmission(submission3,789456);
             //Then
             action.Should().Throw<System.ArgumentException>().WithMessage("Vehicle already used in previous submission");
             databaseContext.Database.EnsureDeleted();

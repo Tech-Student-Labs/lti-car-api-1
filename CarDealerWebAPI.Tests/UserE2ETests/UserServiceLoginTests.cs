@@ -21,7 +21,7 @@ using Moq;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace CarDealerWebApi.Tests
+namespace CarDealerWebAPI.Tests.Tests
 {
     public class UserServiceLoginTests
     {

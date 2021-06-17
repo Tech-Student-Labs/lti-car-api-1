@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using CarDealerAPIService.App.Data;
 using Microsoft.AspNetCore.Mvc;
 using CarDealerAPIService.services;
 using CarDealerAPIService.App.models;
@@ -12,11 +15,15 @@ namespace CarDealerWebAPI.Controllers
     {
         private readonly IVehicleSubmissionsService _service;
         private readonly IVehicleService _vehicleService;
+        private readonly IVehicleMarketValueService _marketPrice;
+        private readonly CarDealerContext _context;
 
-        public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService)
+        public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService, IVehicleMarketValueService marketPrice,CarDealerContext context)
         {
             _service = service;
             _vehicleService = vehicleService;
+            _marketPrice = marketPrice;
+            _context = context;
         }
 
         [HttpGet("{UserId}")]
@@ -24,12 +31,19 @@ namespace CarDealerWebAPI.Controllers
         {
             return Ok(_service.GetAllVehicleSubmissionsByUser(UserId));
         }
-
+        //this should add to both the vehicle table and the vehicle submission table 
+        //and will need a admin to add it to the vehicle listing table to be seen by everyone.
         [HttpPost]
         public async Task<IActionResult> AddVehicleSubmission(VehicleSubmissions submission)
         {
+            //assign and pass it into AddVehicleSubmission
+            var foundVehicle = _context.VehicleInventory.ToList()
+                .FirstOrDefault(x => x.VinNumber == submission.Vehicle.VinNumber);
+            if (foundVehicle != null)
+                throw new Exception("Already Submitted that Vehicle");
+            var price = Int32.Parse(await _marketPrice.GetAverageVehiclePrice(submission.Vehicle.VinNumber));
             submission.VehicleId = _vehicleService.AddVehicle(submission.Vehicle);
-            await _service.AddVehicleSubmission(submission);
+            await _service.AddVehicleSubmission(submission,price);
             return Ok("Vehicle submission added");
         }
 

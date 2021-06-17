@@ -34,6 +34,7 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
             if (exception.GetType() == typeof(ArgumentNullException))
             {
                 var response = context.Response;
+                response.StatusCode = 400;
                 response.ContentType = "application/json";
                 var result = JsonSerializer.Serialize(new ErrorDetails
                     {Type = "ArgumentNullException", StatusCode = response.StatusCode, Message = exception?.Message});
@@ -42,6 +43,7 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
             else if (exception.GetType() == typeof(ArgumentException))
             {
                 var response = context.Response;
+                response.StatusCode = 400;
                 response.ContentType = "application/json";
                 var result = JsonSerializer.Serialize(new ErrorDetails
                     {Type = "ArgumentException", StatusCode = response.StatusCode, Message = exception?.Message});
@@ -50,6 +52,7 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
             else
             {
                 var response = context.Response;
+                response.StatusCode = 400;
                 response.ContentType = "application/json";
                 var result = JsonSerializer.Serialize(new ErrorDetails
                     {Type = "Exception", StatusCode = response.StatusCode, Message = exception?.Message});

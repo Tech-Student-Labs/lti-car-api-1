@@ -37,6 +37,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var response = vehicleSubmissionsService.GetVehicleSubmissionsByVIN("1GCCT19X738198141");
             //Then
             response.Vehicle.Should().Be(vehicle);
+            databaseContext.Database.EnsureDeleted();
         }
 
         [Fact]
@@ -57,6 +58,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             Action action = () => vehicleSubmissionsService.GetVehicleSubmissionsByVIN("1GCCT19X738198141");
             //Then
             action.Should().Throw<NullReferenceException>();
+            databaseContext.Database.EnsureDeleted();
         }
 
         [Fact]
@@ -69,16 +71,15 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var databaseContext = new CarDealerContext(options);
             var vehicleSubmissionsService =
                 new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
-            //setup Vehicles
-            var vehicle = new Vehicle
-                {Id =2 , Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997};
-            databaseContext.VehicleInventory.Add(vehicle);
+            databaseContext.UserTable.Add(new User
+                {Id = "1", Email = "KevinHuynh@yahoo.com", UserName = "hahahaha", FirstName = "ha", LastName = "Ha"});
             databaseContext.VehicleSubmissions.Add(new VehicleSubmissions {UserId = "1", VehicleId = 2});
             databaseContext.SaveChanges();
             //When
             Action action = () => vehicleSubmissionsService.GetVehicleSubmissionsByVIN("1GCCT19X738198141");
             //Then
             action.Should().Throw<NullReferenceException>();
+            databaseContext.Database.EnsureDeleted();
         }
     }
 }

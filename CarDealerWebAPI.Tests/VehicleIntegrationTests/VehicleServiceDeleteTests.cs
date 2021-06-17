@@ -7,7 +7,7 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace CarDealerWebApi.Tests
+namespace CarDealerWebAPI.Tests
 {
     public class VehicleServiceDeleteTests
     {
