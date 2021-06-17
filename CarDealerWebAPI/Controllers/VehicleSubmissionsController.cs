@@ -44,28 +44,28 @@ namespace CarDealerWebAPI.Controllers
             var price = Int32.Parse(await _marketPrice.GetAverageVehiclePrice(submission.Vehicle.VinNumber));
             submission.VehicleId = _vehicleService.AddVehicle(submission.Vehicle);
             await _service.AddVehicleSubmission(submission,price);
-            return Ok("Vehicle submission added");
+            return Ok(new {message = "Vehicle submission added"});
         }
 
         [HttpPut]
         public IActionResult UpdateVehicleSubmission(VehicleSubmissions submission)
         {
             _service.UpdateVehicleSubmission(submission);
-            return Ok("Vehicle submission updated");
+            return Ok(new {message = "Vehicle submission updated"});
         }
 
         [HttpDelete]
         public IActionResult DeleteVehicleSubmission(VehicleSubmissions submission)
         {
             _service.DeleteVehicleSubmission(submission);
-            return Ok("Vehicle submission deleted");
+            return Ok(new {message = "Vehicle submission deleted"});
         }
 
         [HttpDelete("{Id}")]
         public IActionResult DeleteVehicleSubmissionById(string Id)
         {
             _service.DeleteVehicleSubmissionById(Id);
-            return Ok("Vehicle submission deleted");
+            return Ok(new {message = "Vehicle submission deleted"});
         }
     }
 }
