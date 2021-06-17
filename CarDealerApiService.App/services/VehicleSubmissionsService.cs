@@ -64,8 +64,11 @@ namespace CarDealerAPIService.services
 
         public void DeleteVehicleSubmissionById(string Id)
         {
-            var submissionToDelete = _db.VehicleSubmissions.FirstOrDefault(e => e.Id == Id);
+            var submissionToDelete = _db.VehicleSubmissions.Include(x=>x.Vehicle).FirstOrDefault(e => e.Id == Id);
             if (submissionToDelete == null) throw new System.ArgumentOutOfRangeException();
+            var vehicleToDelete = _db.VehicleInventory.FirstOrDefault(x=>x.VinNumber == submissionToDelete.Vehicle.VinNumber);
+            
+            _db.VehicleInventory.Remove(vehicleToDelete!);
             _db.VehicleSubmissions.Remove(submissionToDelete);
             _db.SaveChanges();
         }
