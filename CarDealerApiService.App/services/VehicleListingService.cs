@@ -41,5 +41,13 @@ namespace CarDealerAPIService.services
         {
             return _db.VehicleListings.Include(x => x.Vehicle).ToList();
         }
+        
+        public bool DeleteVehicleListings(string vin)
+        {
+            var vehicleListingToDelete = _db.VehicleListings.FirstOrDefault(x=>x.Vehicle.VinNumber == vin);
+            _db.VehicleListings.Remove(vehicleListingToDelete ?? throw new InvalidOperationException("Cannot Delete Null"));
+            
+            return true;
+        }
     }
 }

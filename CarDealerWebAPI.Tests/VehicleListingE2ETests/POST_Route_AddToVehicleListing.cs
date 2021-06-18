@@ -87,8 +87,8 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
 
             //When
             //Call VehicleListingsController            
-            await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 1,Vehicle = vehicles, Price = 12000});
-            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 1, Vehicle = vehicles, Price = 12000});
+            await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { Vehicle = vehicles, Price = 12000});
+            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing {  Vehicle = vehicles, Price = 12000});
             var jsonObj = await response.Content.ReadAsStringAsync();
             //Then
             var result = JsonConvert.DeserializeObject<ErrorDetails>(jsonObj);
