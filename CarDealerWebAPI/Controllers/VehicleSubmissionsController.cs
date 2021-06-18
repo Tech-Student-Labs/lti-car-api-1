@@ -61,10 +61,18 @@ namespace CarDealerWebAPI.Controllers
             return Ok(new {message = "Vehicle submission deleted"});
         }
 
-        [HttpDelete("{Id}")]
-        public IActionResult DeleteVehicleSubmissionById(string Id)
+        // [HttpDelete("{Id}")]
+        // public IActionResult DeleteVehicleSubmissionById(string Id)
+        // {
+        //     _service.DeleteVehicleSubmissionById(Id);
+        //     return Ok(new {message = "Vehicle submission deleted"});
+        // }
+        //
+        
+        [HttpDelete("{vin}")]
+        public IActionResult DeleteVehicleSubmissionByVin(string vin)
         {
-            _service.DeleteVehicleSubmissionById(Id);
+            _service.DeleteVehicleSubmissionByVIN(vin);
             return Ok(new {message = "Vehicle submission deleted"});
         }
     }

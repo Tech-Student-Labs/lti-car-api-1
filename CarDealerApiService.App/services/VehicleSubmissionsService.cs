@@ -54,7 +54,16 @@ namespace CarDealerAPIService.services
             _db.VehicleSubmissions.Update(submission);
             _db.SaveChanges();
         }
-
+        public void DeleteVehicleSubmissionByVIN(string vin)
+        {
+            if (vin == null) throw new System.ArgumentNullException();
+            var deleteVehicleSubmission = _db.VehicleSubmissions.Include(x => x.Vehicle).FirstOrDefault(x => x.Vehicle.VinNumber == vin);
+            var deleteVehicle = _db.VehicleInventory.FirstOrDefault(x => x.VinNumber == vin);
+            
+            _db.VehicleSubmissions.Remove(deleteVehicleSubmission ?? throw new InvalidOperationException("delete vehicle submission is null "));
+            _db.VehicleInventory.Remove(deleteVehicle?? throw new InvalidOperationException("delete vehicle is null"));
+            _db.SaveChanges();
+        }
         public void DeleteVehicleSubmission(VehicleSubmissions submission)
         {
             if (submission == null) throw new System.ArgumentNullException();
