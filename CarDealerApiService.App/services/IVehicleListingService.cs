@@ -7,7 +7,7 @@ namespace CarDealerAPIService.services
     {
         List<VehicleListing> GetAllVehicleListings();
         int AddToVehicleListing(VehicleListing vehicle);
-
+        bool TrueForNonDuplicateVins(string vin);
 
     }   
 }

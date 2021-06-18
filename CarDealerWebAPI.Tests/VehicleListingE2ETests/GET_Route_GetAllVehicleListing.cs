@@ -83,7 +83,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
 
             //When
             //Call VehicleListingsController            
-            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 1, Price = 12000});
+            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { Vehicle = vehicles, Price = 12000});
             //added a vehicle Listings 
             dbContext.VehicleListings.Count().Should().Be(1);
             var response1 = await client.GetAsync("/VehicleListing");
@@ -114,8 +114,8 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
 
             //When
             //Call VehicleListingsController            
-             await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 1, Price = 12000});
-             await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 2, Price = 12000});
+             await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 1, Vehicle = vehicles, Price = 12000});
+             await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 2, Vehicle = vehicles1, Price = 12000});
             //added a vehicle Listings 
             dbContext.VehicleListings.Count().Should().Be(2);
             var response1 = await client.GetAsync("/VehicleListing");

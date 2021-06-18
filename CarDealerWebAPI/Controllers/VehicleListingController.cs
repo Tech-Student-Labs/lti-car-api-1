@@ -26,6 +26,7 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public IActionResult AddToVehicleListing([FromBody] VehicleListing vehicle)
         {
+            _service.TrueForNonDuplicateVins(vehicle.Vehicle.VinNumber);
             _service.AddToVehicleListing(vehicle);
             return Ok("Created new vehicle");
         }

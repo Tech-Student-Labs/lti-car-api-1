@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarDealerAPIService.App.Data;
@@ -22,6 +23,17 @@ namespace CarDealerAPIService.services
             _db.VehicleListings.Add(vehicle);
             _db.SaveChanges();
             return vehicle.Id;
+            
+        }
+        
+        public bool TrueForNonDuplicateVins(string vin)
+        {
+            var foundListing = _db.VehicleListings.Include(x => x.Vehicle).FirstOrDefault(x => x.Vehicle.VinNumber == vin);
+            if (foundListing != null)
+            {
+                throw new Exception("You Already Have An Vehicle Listing");
+            }
+            return true;
             
         }
 
