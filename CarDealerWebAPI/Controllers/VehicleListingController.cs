@@ -33,7 +33,7 @@ namespace CarDealerWebAPI.Controllers
         
         [Authorize(Roles = "AdminUser")]
         [HttpDelete("{vin}")]
-        public IActionResult DeleteAVehicleListing([FromQuery]string vin)
+        public IActionResult DeleteAVehicleListing(string vin)
         {
             _service.DeleteVehicleListings(vin);
             return Ok(new {message = $"Deleted the vehicle with vin {vin}"});
