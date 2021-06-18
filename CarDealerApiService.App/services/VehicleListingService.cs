@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarDealerAPIService.services
 {
@@ -26,7 +27,7 @@ namespace CarDealerAPIService.services
 
         public List<VehicleListing> GetAllVehicleListings()
         {
-            return _db.VehicleListings.ToList();
+            return _db.VehicleListings.Include(x => x.Vehicle).ToList();
         }
     }
 }

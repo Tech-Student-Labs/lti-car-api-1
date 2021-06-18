@@ -2,7 +2,7 @@
 
 namespace CarDealerAPIService.App.Migrations
 {
-    public partial class fixedvehiclesubmission : Migration
+    public partial class fixedVehicleListingIgnores : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

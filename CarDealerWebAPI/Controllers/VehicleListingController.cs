@@ -15,7 +15,6 @@ namespace CarDealerWebAPI.Controllers
         {
             _service = service;
         }
-
         // GET
         [HttpGet]
         public IActionResult GetAll()
