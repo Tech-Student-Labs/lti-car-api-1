@@ -17,7 +17,7 @@ namespace CarDealerWebAPI.Controllers
         private readonly IVehicleService _vehicleService;
         private readonly IVehicleMarketValueService _marketPrice;
         private readonly CarDealerContext _context;
-
+        
         public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService, IVehicleMarketValueService marketPrice,CarDealerContext context)
         {
             _service = service;
@@ -26,6 +26,11 @@ namespace CarDealerWebAPI.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IActionResult GetAllVehicleSubmissions()
+        {
+            return Ok(_service.GetAllVehicleSubmissions());
+        }
         [HttpGet("{UserId}")]
         public IActionResult GetAllVehicleSubmissionsByUser(string UserId)
         {

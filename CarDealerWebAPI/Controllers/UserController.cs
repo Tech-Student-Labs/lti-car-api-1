@@ -21,7 +21,6 @@ namespace CarDealerWebAPI.Controllers
         public async Task<IActionResult> Login(UserLogin cred)
         {
             var result = await _userService.Authenticate(cred);
-
             return Ok(result);
         }
 

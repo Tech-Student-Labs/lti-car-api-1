@@ -28,4 +28,9 @@
     <ProjectReference Include="..\CarDealerWebAPI\CarDealerWebAPI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Roles" />
+    <Folder Include="User" />
+  </ItemGroup>
+
 </Project>

@@ -13,6 +13,7 @@ namespace CarDealerAPIService.services
         void DeleteVehicleSubmissionById(string Id);
         void DeleteVehicleSubmissionByVIN(string vin);
         VehicleSubmissions GetVehicleSubmissionsByVIN(string vin);
-        
+        List<VehicleSubmissionsDTO> GetAllVehicleSubmissions();
+
     }
 }

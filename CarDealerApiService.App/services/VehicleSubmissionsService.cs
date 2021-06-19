@@ -20,6 +20,11 @@ namespace CarDealerAPIService.services
             _vehicleMarketValueService = vehicleMarketValueService;
         }
 
+
+        public List<VehicleSubmissionsDTO> GetAllVehicleSubmissions()
+        {
+            return _db.VehicleSubmissions.Where(x=>true).Select(x=> new VehicleSubmissionsDTO{TimeStamp = x.TimeStamp, Vehicle = x.Vehicle}).ToList();
+        }
         public List<VehicleSubmissionsDTO> GetAllVehicleSubmissionsByUser(string Id)
         {
             User MyUser = new User() {Id = Id};
