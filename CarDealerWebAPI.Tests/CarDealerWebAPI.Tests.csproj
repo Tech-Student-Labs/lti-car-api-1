@@ -31,6 +31,9 @@
   <ItemGroup>
     <Folder Include="Roles" />
     <Folder Include="User" />
+    <Folder Include="Vehicle" />
+    <Folder Include="VehicleListing" />
+    <Folder Include="VehicleSubmission" />
   </ItemGroup>
 
 </Project>

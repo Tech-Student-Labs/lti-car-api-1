@@ -66,7 +66,7 @@ namespace CarDealerAPIService.services
             var deleteVehicle = _db.VehicleInventory.FirstOrDefault(x => x.VinNumber == vin);
             
             _db.VehicleSubmissions.Remove(deleteVehicleSubmission ?? throw new InvalidOperationException("delete vehicle submission is null "));
-            _db.VehicleInventory.Remove(deleteVehicle?? throw new InvalidOperationException("delete vehicle is null"));
+            _db.VehicleInventory.Remove(deleteVehicle);
             _db.SaveChanges();
         }
         public void DeleteVehicleSubmission(VehicleSubmissions submission)

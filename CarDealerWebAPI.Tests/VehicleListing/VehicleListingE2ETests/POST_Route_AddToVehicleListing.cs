@@ -56,9 +56,6 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             //setup Vehicles
             var vehicles = new Vehicle
             { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
-            dbContext.Add(vehicles);
-            dbContext.SaveChanges();
-
             //When
             //Call VehicleListingsController            
             var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing {Vehicle = vehicles, Price = 12000});
@@ -78,13 +75,9 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             //setup roles
             dbContext.Database.EnsureDeleted();
             await client.PostAsJsonAsync("/Roles/Create", "");
-            
             //setup Vehicles
             var vehicles = new Vehicle
                 { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
-            dbContext.Add(vehicles);
-            dbContext.SaveChanges();
-
             //When
             //Call VehicleListingsController            
             await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { Vehicle = vehicles, Price = 12000});

@@ -127,6 +127,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionE2ETests
             //Then
             dbContext.UserTable.ToList().Count.Should().Be(1);
             jsonObj.Should().Contain("Exception");
+            dbContext.Database.EnsureDeleted();
         }
     }
 }

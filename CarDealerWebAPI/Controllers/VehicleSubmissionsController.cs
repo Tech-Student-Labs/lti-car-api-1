@@ -53,7 +53,7 @@ namespace CarDealerWebAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateVehicleSubmission(VehicleSubmissions submission)
+        public IActionResult  UpdateVehicleSubmission(VehicleSubmissions submission)
         {
             _service.UpdateVehicleSubmission(submission);
             return Ok(new {message = "Vehicle submission updated"});
