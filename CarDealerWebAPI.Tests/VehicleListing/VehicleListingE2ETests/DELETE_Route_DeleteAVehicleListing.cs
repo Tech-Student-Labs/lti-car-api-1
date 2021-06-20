@@ -29,7 +29,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
                         s => s.ServiceType == typeof(DbContextOptions<CarDealerContext>))
                 );
                 services.AddDbContext<CarDealerContext>(options =>
-                    options.UseInMemoryDatabase("GetSubmittedVehicleListing"));
+                    options.UseInMemoryDatabase("DeleteSubmittedVehicleListing"));
 
                 services.AddAuthentication(options =>
                 {
