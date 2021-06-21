@@ -61,32 +61,11 @@ namespace CarDealerWebAPI.Controllers
             return Ok("Vehicle updated");
         }
 
-        [HttpDelete]
-        public IActionResult DeleteVehicle(Vehicle vehicle)
-        {
-            try
-            {
-                _service.DeleteVehicle(vehicle);
-                return Ok($"Vehicle {vehicle.Id} deleted");
-            }
-            catch
-            {
-                return NotFound();
-            }
-        }
-
         [HttpDelete("{id}")]
         public IActionResult DeleteVehicleById(int id)
         {
-            try
-            {
-                _service.DeleteVehicleById(id);
-                return Ok($"Vehicle {id} deleted");
-            }
-            catch
-            {
-                return NotFound();
-            }
+            _service.DeleteVehicleById(id);
+            return Ok($"Vehicle {id} deleted");
         }
     }
 }
