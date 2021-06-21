@@ -20,6 +20,11 @@ namespace CarDealerAPIService.services
             _vehicleMarketValueService = vehicleMarketValueService;
         }
 
+
+        public List<VehicleSubmissionsDTO> GetAllVehicleSubmissions()
+        {
+            return _db.VehicleSubmissions.Where(x=>true).Select(x=> new VehicleSubmissionsDTO{TimeStamp = x.TimeStamp, Vehicle = x.Vehicle}).ToList();
+        }
         public List<VehicleSubmissionsDTO> GetAllVehicleSubmissionsByUser(string Id)
         {
             User MyUser = new User() {Id = Id};
@@ -54,7 +59,16 @@ namespace CarDealerAPIService.services
             _db.VehicleSubmissions.Update(submission);
             _db.SaveChanges();
         }
-
+        public void DeleteVehicleSubmissionByVIN(string vin)
+        {
+            if (vin == null) throw new System.ArgumentNullException();
+            var deleteVehicleSubmission = _db.VehicleSubmissions.Include(x => x.Vehicle).FirstOrDefault(x => x.Vehicle.VinNumber == vin);
+            var deleteVehicle = _db.VehicleInventory.FirstOrDefault(x => x.VinNumber == vin);
+            
+            _db.VehicleSubmissions.Remove(deleteVehicleSubmission ?? throw new InvalidOperationException("delete vehicle submission is null "));
+            _db.VehicleInventory.Remove(deleteVehicle);
+            _db.SaveChanges();
+        }
         public void DeleteVehicleSubmission(VehicleSubmissions submission)
         {
             if (submission == null) throw new System.ArgumentNullException();

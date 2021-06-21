@@ -17,7 +17,7 @@ namespace CarDealerWebAPI.Controllers
         private readonly IVehicleService _vehicleService;
         private readonly IVehicleMarketValueService _marketPrice;
         private readonly CarDealerContext _context;
-
+        
         public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService, IVehicleMarketValueService marketPrice,CarDealerContext context)
         {
             _service = service;
@@ -26,6 +26,11 @@ namespace CarDealerWebAPI.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IActionResult GetAllVehicleSubmissions()
+        {
+            return Ok(_service.GetAllVehicleSubmissions());
+        }
         [HttpGet("{UserId}")]
         public IActionResult GetAllVehicleSubmissionsByUser(string UserId)
         {
@@ -48,23 +53,31 @@ namespace CarDealerWebAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateVehicleSubmission(VehicleSubmissions submission)
+        public IActionResult  UpdateVehicleSubmission(VehicleSubmissions submission)
         {
             _service.UpdateVehicleSubmission(submission);
             return Ok(new {message = "Vehicle submission updated"});
         }
 
-        [HttpDelete]
-        public IActionResult DeleteVehicleSubmission(VehicleSubmissions submission)
-        {
-            _service.DeleteVehicleSubmission(submission);
-            return Ok(new {message = "Vehicle submission deleted"});
-        }
+        // [HttpDelete]
+        // public IActionResult DeleteVehicleSubmission(VehicleSubmissions submission)
+        // {
+        //     _service.DeleteVehicleSubmission(submission);
+        //     return Ok(new {message = "Vehicle submission deleted"});
+        // }
 
-        [HttpDelete("{Id}")]
-        public IActionResult DeleteVehicleSubmissionById(string Id)
+        // [HttpDelete("{Id}")]
+        // public IActionResult DeleteVehicleSubmissionById(string Id)
+        // {
+        //     _service.DeleteVehicleSubmissionById(Id);
+        //     return Ok(new {message = "Vehicle submission deleted"});
+        // }
+        //
+        
+        [HttpDelete("{vin}")]
+        public IActionResult DeleteVehicleSubmissionByVin(string vin)
         {
-            _service.DeleteVehicleSubmissionById(Id);
+            _service.DeleteVehicleSubmissionByVIN(vin);
             return Ok(new {message = "Vehicle submission deleted"});
         }
     }

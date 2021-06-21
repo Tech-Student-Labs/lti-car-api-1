@@ -32,7 +32,7 @@ namespace CarDealerWebAPI.Tests.UnitTests
 
             //Then
             mock.Verify(
-                mock => mock.GetAsync(
+                httpClient => httpClient.GetAsync(
                     "http://marketvalue.vinaudit.com/getmarketvalue.php?key=VA_DEMO_KEY&vin=KL79MMS22MB176461&format=json&period=90&mileage=average"),
                 Times.Once);
         }

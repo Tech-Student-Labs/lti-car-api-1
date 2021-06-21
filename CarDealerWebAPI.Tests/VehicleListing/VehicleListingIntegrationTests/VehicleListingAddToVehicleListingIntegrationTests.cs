@@ -47,5 +47,6 @@ namespace CarDealerWebAPI.Tests.VehicleListingIntegrationTests
             //Then
             dbContext.VehicleListings.Count().Should().Be(1);
         }
+        
     }
 }

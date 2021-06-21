@@ -47,6 +47,22 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var response = await client.PostAsJsonAsync("/Vehicle", new Vehicle{Id = 1, VinNumber = "jnjknf",Make = "Toyoya",MarketValue = 12331,Model = "camry",Year = 1997});
             //Then
             service?.VehicleInventory.Count().Should().Be(1);
+            service.Database.EnsureDeleted();
+        }
+        [Fact]
+        public async Task Post_ShouldAddVehicleToDbTwice_WhenCalledTwice()
+        {
+            //Given
+            var testServer = new TestServer(HostBuilder);
+            var client = testServer.CreateClient();
+            var service = testServer.Services.GetService<CarDealerContext>();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            //When
+            var response = await client.PostAsJsonAsync("/Vehicle", new Vehicle{Id = 1, VinNumber = "jnjknf",Make = "Toyoya",MarketValue = 12331,Model = "camry",Year = 1997});
+            var response1 = await client.PostAsJsonAsync("/Vehicle", new Vehicle{Id = 2, VinNumber = "jnjknf",Make = "Toyoya",MarketValue = 12331,Model = "camry",Year = 1997});
+            //Then
+            service?.VehicleInventory.Count().Should().Be(2);
+            service.Database.EnsureDeleted();
         }
     }
 }

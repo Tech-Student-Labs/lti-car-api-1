@@ -71,9 +71,12 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var databaseContext = new CarDealerContext(options);
             var vehicleSubmissionsService =
                 new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
-            databaseContext.UserTable.Add(new User
-                {Id = "1", Email = "KevinHuynh@yahoo.com", UserName = "hahahaha", FirstName = "ha", LastName = "Ha"});
-            databaseContext.VehicleSubmissions.Add(new VehicleSubmissions {UserId = "1", VehicleId = 2});
+            var vehicle = new Vehicle
+            {
+                Id = 1, Make = "testMake", MarketValue = 10000, Model = "TestModel", VinNumber = "1GCCT19X738198141",
+                Year = 2020
+            };
+            databaseContext.VehicleSubmissions.Add(new VehicleSubmissions {UserId = "12", VehicleId = 2,Vehicle = vehicle});
             databaseContext.SaveChanges();
             //When
             Action action = () => vehicleSubmissionsService.GetVehicleSubmissionsByVIN("1GCCT19X738198141");
