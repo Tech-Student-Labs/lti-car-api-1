@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using CarDealerAPIService.App.models;
+﻿using CarDealerAPIService.App.models;
+using System.Threading.Tasks;
 
 namespace CarDealerAPIService.services
 {

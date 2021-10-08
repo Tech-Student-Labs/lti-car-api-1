@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using CarDealerAPIService.App.models;
+using System.Collections.Generic;
 
 namespace CarDealerAPIService.services
 {
@@ -10,5 +10,5 @@ namespace CarDealerAPIService.services
         bool TrueForNonDuplicateVins(string vin);
         bool DeleteVehicleListings(string vin);
 
-    }   
+    }
 }

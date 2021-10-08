@@ -8,6 +8,6 @@ namespace CarDealerAPIService.App.models
         [JsonIgnore] public int Id { get; set; }
         public int VehicleId { get; set; }
         public Vehicle Vehicle { get; set; }
-        public int Price {get; set;}
+        public int Price { get; set; }
     }
 }

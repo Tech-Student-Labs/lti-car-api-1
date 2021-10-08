@@ -1,14 +1,10 @@
-using System.Threading.Tasks;
-using Xunit;
-using FluentAssertions;
-using CarDealerWebAPI.Controllers;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
-using System.Linq;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using CarDealerAPIService.services;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using System;
+using Xunit;
 
 namespace CarDealerWebAPI.Tests
 {
@@ -25,7 +21,7 @@ namespace CarDealerWebAPI.Tests
             var vehicleInventoryService = new VehicleService(databaseContext);
             //When
             var vehicle = new Vehicle()
-                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
+            { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 };
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.SaveChanges();
             var result = vehicleInventoryService.GetVehicle(1);
@@ -44,7 +40,7 @@ namespace CarDealerWebAPI.Tests
             var vehicleInventoryService = new VehicleService(databaseContext);
             //When
             var vehicle = new Vehicle()
-                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
+            { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 };
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.SaveChanges();
             Action action = () => vehicleInventoryService.GetVehicle(-1);

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CarDealerAPIService.services
 {

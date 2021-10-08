@@ -1,14 +1,13 @@
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using Xunit;
-using FluentAssertions;
-using CarDealerAPIService.services;
-using Microsoft.EntityFrameworkCore;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
+using CarDealerAPIService.services;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Moq;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
 {
@@ -28,8 +27,8 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             mockMarketValueService.Setup(x => x.GetAverageVehiclePrice("abc123xyzz")).ReturnsAsync("123");
             var vehicleSubmissionsService =
                 new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
-            User user = new User() {Id = "abc123"};
-            Vehicle vehicle = new Vehicle() {Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc123xyzz"};
+            User user = new User() { Id = "abc123" };
+            Vehicle vehicle = new Vehicle() { Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc123xyzz" };
             databaseContext.UserTable.Add(user);
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.SaveChanges();
@@ -42,7 +41,7 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 VehicleId = vehicle.Id
             };
             //When
-            await vehicleSubmissionsService.AddVehicleSubmission(submission,4529);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission, 4529);
             //Then
             databaseContext.VehicleSubmissions.Count().Should().Be(1);
             databaseContext.Database.EnsureDeleted();
@@ -62,13 +61,13 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var vehicleSubmissionsService =
                 new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
-            User user = new User() {Id = "abc123"};
+            User user = new User() { Id = "abc123" };
             Vehicle vehicle1 = new Vehicle()
-                {Id = 1, Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc1213xyzz"};
+            { Id = 1, Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc1213xyzz" };
             Vehicle vehicle2 = new Vehicle()
-                {Id = 2, Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc2123xyzz"};
+            { Id = 2, Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc2123xyzz" };
             Vehicle vehicle3 = new Vehicle()
-                {Id = 3, Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc123xyz3z"};
+            { Id = 3, Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc123xyz3z" };
             databaseContext.UserTable.Add(user);
             databaseContext.VehicleInventory.Add(vehicle1);
             databaseContext.VehicleInventory.Add(vehicle2);
@@ -98,9 +97,9 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 Vehicle = vehicle3,
                 VehicleId = 3
             };
-            await vehicleSubmissionsService.AddVehicleSubmission(submission1,74524);
-            await vehicleSubmissionsService.AddVehicleSubmission(submission2,12345);
-            await vehicleSubmissionsService.AddVehicleSubmission(submission3,75465);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission1, 74524);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission2, 12345);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission3, 75465);
             var result = vehicleSubmissionsService.GetAllVehicleSubmissionsByUser("abc123").Count;
             //Then
             result.Should().Be(3);
@@ -120,9 +119,9 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var vehicleSubmissionsService =
                 new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
-            User user = new User() {Id = "abc123"};
-            Vehicle vehicle1 = new Vehicle() {Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc1213xyzz"};
-            Vehicle vehicle2 = new Vehicle() {Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc2123xyzz"};
+            User user = new User() { Id = "abc123" };
+            Vehicle vehicle1 = new Vehicle() { Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc1213xyzz" };
+            Vehicle vehicle2 = new Vehicle() { Make = "Toyota", Model = "Camry", Year = 1994, VinNumber = "abc2123xyzz" };
             await databaseContext.UserTable.AddAsync(user);
             await databaseContext.VehicleInventory.AddAsync(vehicle1);
             await databaseContext.VehicleInventory.AddAsync(vehicle2);
@@ -151,9 +150,9 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
                 Vehicle = vehicle2,
                 VehicleId = 2
             };
-            await vehicleSubmissionsService.AddVehicleSubmission(submission1,789456);
-            await vehicleSubmissionsService.AddVehicleSubmission(submission2,789456);
-            Func<Task> action = async () => await vehicleSubmissionsService.AddVehicleSubmission(submission3,789456);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission1, 789456);
+            await vehicleSubmissionsService.AddVehicleSubmission(submission2, 789456);
+            Func<Task> action = async () => await vehicleSubmissionsService.AddVehicleSubmission(submission3, 789456);
             //Then
             action.Should().Throw<System.ArgumentException>().WithMessage("Vehicle already used in previous submission");
             databaseContext.Database.EnsureDeleted();

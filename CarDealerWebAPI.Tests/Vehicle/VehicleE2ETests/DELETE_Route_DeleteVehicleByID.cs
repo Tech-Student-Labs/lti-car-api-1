@@ -1,16 +1,16 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.Threading.Tasks;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Reflection;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleE2ETests
@@ -20,7 +20,12 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
         private readonly string token =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI5YjNiZGI4Ny1kZTQ3LTQxOGQtODg3ZS0zMzVkYTUzNTBmMWUiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzEwNDUzLCJleHAiOjE2MzIzNTA0NTMsImlhdCI6MTYyMzcxMDQ1MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.g11nmSnglviiN2H_zW5hOaNOnnMqwOVm_soOUcshlkM";
 
+        private static readonly IConfigurationBuilder builder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+        private readonly IConfiguration config = builder.Build();
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
+            .UseConfiguration(config)
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>
             {
@@ -45,7 +50,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var context = testServer.Services.GetService<CarDealerContext>();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var vehicle = new Vehicle
-                {Id = 1, VinNumber = "jnjknf", Make = "Toyota", MarketValue = 12331, Model = "camry", Year = 1997};
+            { Id = 1, VinNumber = "jnjknf", Make = "Toyota", MarketValue = 12331, Model = "camry", Year = 1997 };
             context.VehicleInventory.Add(vehicle);
             context.SaveChanges();
             context.VehicleInventory.Count().Should().Be(1);
@@ -64,7 +69,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var context = testServer.Services.GetService<CarDealerContext>();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var vehicle = new Vehicle
-                {Id = 1, VinNumber = "jnjknf", Make = "Toyota", MarketValue = 12331, Model = "camry", Year = 1997};
+            { Id = 1, VinNumber = "jnjknf", Make = "Toyota", MarketValue = 12331, Model = "camry", Year = 1997 };
             context.VehicleInventory.Add(vehicle);
             context.SaveChanges();
             context.VehicleInventory.Count().Should().Be(1);
@@ -74,7 +79,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             context.VehicleInventory.Count().Should().Be(1);
             context.Database.EnsureDeleted();
         }
-        
+
         [Fact]
         public async Task DeleteVehicleByID_ShouldThrowException_WhenAVehicleWithId1DoesNotExists()
         {
@@ -84,12 +89,12 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var context = testServer.Services.GetService<CarDealerContext>();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var vehicle = new Vehicle
-                {Id = 1, VinNumber = "jnjknf", Make = "Toyota", MarketValue = 12331, Model = "camry", Year = 1997};
+            { Id = 1, VinNumber = "jnjknf", Make = "Toyota", MarketValue = 12331, Model = "camry", Year = 1997 };
             context.VehicleInventory.Add(vehicle);
             context.SaveChanges();
             context.VehicleInventory.Count().Should().Be(1);
             //When
-            var resp =  await client.DeleteAsync("/Vehicle/2");
+            var resp = await client.DeleteAsync("/Vehicle/2");
             var jsonRes = await resp.Content.ReadAsStringAsync();
             jsonRes.Should().Contain("Exception");
             //Then

@@ -1,13 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using Xunit;
-using FluentAssertions;
-using CarDealerAPIService.services;
-using Microsoft.EntityFrameworkCore;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
+using CarDealerAPIService.services;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Moq;
+using System;
+using System.Linq;
+using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
 {

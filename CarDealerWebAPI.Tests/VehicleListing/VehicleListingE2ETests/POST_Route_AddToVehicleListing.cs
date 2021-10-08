@@ -1,10 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.Threading.Tasks;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.Exception.ExceptionModel;
 using CarDealerAPIService.App.models;
@@ -14,6 +7,12 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
@@ -52,13 +51,13 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             //setup roles
             dbContext.Database.EnsureDeleted();
             await client.PostAsJsonAsync("/Roles/Create", "");
-            
+
             //setup Vehicles
             var vehicles = new Vehicle
             { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
             //When
             //Call VehicleListingsController            
-            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing {Vehicle = vehicles, Price = 12000});
+            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { Vehicle = vehicles, Price = 12000 });
             var jsonObj = await response.Content.ReadAsStringAsync();
             //Then
             dbContext.VehicleListings.ToList().Count.Should().Be(1);
@@ -77,11 +76,11 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             await client.PostAsJsonAsync("/Roles/Create", "");
             //setup Vehicles
             var vehicles = new Vehicle
-                { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
+            { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
             //When
             //Call VehicleListingsController            
-            await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { Vehicle = vehicles, Price = 12000});
-            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing {  Vehicle = vehicles, Price = 12000});
+            await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { Vehicle = vehicles, Price = 12000 });
+            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { Vehicle = vehicles, Price = 12000 });
             var jsonObj = await response.Content.ReadAsStringAsync();
             //Then
             var result = JsonConvert.DeserializeObject<ErrorDetails>(jsonObj);

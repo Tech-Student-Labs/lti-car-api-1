@@ -1,21 +1,21 @@
+using CarDealerAPIService.App.Data;
+using CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware;
+using CarDealerAPIService.App.models;
+using CarDealerAPIService.services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
-using CarDealerAPIService.services;
-using Microsoft.AspNetCore.Identity;
-using CarDealerAPIService.App.models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CarDealerWebAPI
 {
@@ -94,6 +94,8 @@ namespace CarDealerWebAPI
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddRoles<IdentityRole>();
 
+            var key = Configuration.GetValue<string>("TheKey:SecretKey");
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -109,9 +111,9 @@ namespace CarDealerWebAPI
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey =
                         new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes("ThisIsTheKeyPleaseDoNotShareThisKeyOrWeWillBeHacked")),
+                            Encoding.UTF8.GetBytes(key)),
                     ValidIssuer = "http://localhost:5000",
-                    ValidateIssuer =  true,
+                    ValidateIssuer = true,
                     ValidateAudience = false,
                     ClockSkew = TimeSpan.Zero
                 };

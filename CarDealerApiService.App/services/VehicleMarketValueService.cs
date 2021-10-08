@@ -1,11 +1,7 @@
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using CarDealerAPIService.App.models;
 using Newtonsoft.Json;
-using CarDealerAPIService.services;
+using System;
+using System.Threading.Tasks;
 
 namespace CarDealerAPIService.services
 {
@@ -20,7 +16,7 @@ namespace CarDealerAPIService.services
 
         public async Task<string> GetAverageVehiclePrice(string vin)
         {
-            
+
             var stringTask =
                 await _client.GetAsync(
                     $"http://marketvalue.vinaudit.com/getmarketvalue.php?key=VA_DEMO_KEY&vin={vin}&format=json&period=90&mileage=average");
@@ -29,7 +25,7 @@ namespace CarDealerAPIService.services
             {
                 throw new Exception("Cannot Find Vin Number");
             }
-                var obj = JsonConvert.DeserializeObject<VehiclePriceRequest>(result);
+            var obj = JsonConvert.DeserializeObject<VehiclePriceRequest>(result);
 
             return obj.Prices.Average.ToString();
         }

@@ -1,10 +1,10 @@
+using CarDealerAPIService.App.Data;
+using CarDealerAPIService.App.models;
+using CarDealerAPIService.services;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
-using Microsoft.AspNetCore.Mvc;
-using CarDealerAPIService.services;
-using CarDealerAPIService.App.models;
 
 
 namespace CarDealerWebAPI.Controllers
@@ -17,8 +17,8 @@ namespace CarDealerWebAPI.Controllers
         private readonly IVehicleService _vehicleService;
         private readonly IVehicleMarketValueService _marketPrice;
         private readonly CarDealerContext _context;
-        
-        public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService, IVehicleMarketValueService marketPrice,CarDealerContext context)
+
+        public VehicleSubmissionsController(IVehicleSubmissionsService service, IVehicleService vehicleService, IVehicleMarketValueService marketPrice, CarDealerContext context)
         {
             _service = service;
             _vehicleService = vehicleService;
@@ -48,15 +48,15 @@ namespace CarDealerWebAPI.Controllers
                 throw new Exception("Already Submitted that Vehicle");
             var price = Int32.Parse(await _marketPrice.GetAverageVehiclePrice(submission.Vehicle.VinNumber));
             submission.VehicleId = _vehicleService.AddVehicle(submission.Vehicle);
-            await _service.AddVehicleSubmission(submission,price);
-            return Ok(new {message = "Vehicle submission added"});
+            await _service.AddVehicleSubmission(submission, price);
+            return Ok(new { message = "Vehicle submission added" });
         }
 
         [HttpPut]
-        public IActionResult  UpdateVehicleSubmission(VehicleSubmissions submission)
+        public IActionResult UpdateVehicleSubmission(VehicleSubmissions submission)
         {
             _service.UpdateVehicleSubmission(submission);
-            return Ok(new {message = "Vehicle submission updated"});
+            return Ok(new { message = "Vehicle submission updated" });
         }
 
         // [HttpDelete]
@@ -73,12 +73,12 @@ namespace CarDealerWebAPI.Controllers
         //     return Ok(new {message = "Vehicle submission deleted"});
         // }
         //
-        
+
         [HttpDelete("{vin}")]
         public IActionResult DeleteVehicleSubmissionByVin(string vin)
         {
             _service.DeleteVehicleSubmissionByVIN(vin);
-            return Ok(new {message = "Vehicle submission deleted"});
+            return Ok(new { message = "Vehicle submission deleted" });
         }
     }
 }

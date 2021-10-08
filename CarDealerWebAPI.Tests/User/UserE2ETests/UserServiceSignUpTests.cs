@@ -1,28 +1,31 @@
+using CarDealerAPIService.App.Data;
+using CarDealerAPIService.App.Exception.ExceptionModel;
+using CarDealerAPIService.App.models;
+using FluentAssertions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Reflection;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware;
-using CarDealerAPIService.App.Exception.ExceptionModel;
-using CarDealerAPIService.App.models;
-using CarDealerWebAPI;
-using FluentAssertions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests
 {
     public class UserServiceSignUpTests
     {
+        private static readonly IConfigurationBuilder builder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+        private readonly IConfiguration config = builder.Build();
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
+            .UseConfiguration(config)
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             //.Configure(app => app.UseMiddleware<ExceptionMiddleware>())
             .ConfigureServices(services =>
@@ -46,7 +49,10 @@ namespace CarDealerWebAPI.Tests
             var response = await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    Email = "kevinynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -67,7 +73,10 @@ namespace CarDealerWebAPI.Tests
             var result = await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    Email = "kevinhuynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
 
@@ -88,13 +97,19 @@ namespace CarDealerWebAPI.Tests
             await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    Email = "kevinhuynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
             await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinuynh@yahoo.com", UserName = "usrName", Password = "12qwe123_", FirstName = "Kevin",
+                    Email = "kevinuynh@yahoo.com",
+                    UserName = "usrName",
+                    Password = "12qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
 
@@ -115,13 +130,19 @@ namespace CarDealerWebAPI.Tests
             await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    Email = "kevinhuynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
             await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    Email = "kevinhuynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
 
@@ -142,14 +163,20 @@ namespace CarDealerWebAPI.Tests
             await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123q51651_", FirstName = "Kevin",
+                    Email = "kevinhuynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123q51651_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
 
             var response = await client.PostAsJsonAsync("/User/Login",
                 new UserSignUp()
                 {
-                    Email = "kevinhuynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    Email = "kevinhuynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
             var str = await response.Content.ReadAsStringAsync();
@@ -169,7 +196,10 @@ namespace CarDealerWebAPI.Tests
             var response = await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    Email = "kevinynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
             var jsonObj = await response.Content.ReadAsStringAsync();
@@ -191,13 +221,19 @@ namespace CarDealerWebAPI.Tests
             await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    Email = "kevinynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
             var response = await client.PostAsJsonAsync("/User/Signup",
                 new UserSignUp()
                 {
-                    Email = "kevinynh@yahoo.com", UserName = "userName", Password = "123qwe123_", FirstName = "Kevin",
+                    Email = "kevinynh@yahoo.com",
+                    UserName = "userName",
+                    Password = "123qwe123_",
+                    FirstName = "Kevin",
                     LastName = "Huynh"
                 });
             var jsonObj = await response.Content.ReadAsStringAsync();

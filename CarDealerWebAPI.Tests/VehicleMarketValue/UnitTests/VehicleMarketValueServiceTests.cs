@@ -1,14 +1,7 @@
-using Moq;
-using Xunit;
-using FluentAssertions;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Moq.Protected;
-using System.Threading;
-using System.Net;
-using Microsoft.Extensions.Logging;
-using System;
 using CarDealerAPIService.services;
+using Moq;
+using System.Net.Http;
+using Xunit;
 
 namespace CarDealerWebAPI.Tests.UnitTests
 {

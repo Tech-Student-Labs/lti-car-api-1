@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using CarDealerAPIService.App.models;
+﻿using CarDealerAPIService.App.models;
 using CarDealerAPIService.services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CarDealerWebAPI.Controllers
 {
@@ -28,14 +28,14 @@ namespace CarDealerWebAPI.Controllers
         public async Task<IActionResult> SignUp(UserSignUp cred)
         {
             var result = await _userService.SignUpUser(cred);
-            return Ok(new {message = result});
+            return Ok(new { message = result });
         }
-        
+
         [HttpPost("SignupAdmin")]
         public async Task<IActionResult> SignUpAdmin(UserSignUp cred)
         {
             var result = await _userService.SignUpAdmin(cred);
-            return Ok(new {message = result});
+            return Ok(new { message = result });
         }
     }
 }

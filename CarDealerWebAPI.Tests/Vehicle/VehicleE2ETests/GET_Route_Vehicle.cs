@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using CarDealerAPIService.App.Data;
+using CarDealerAPIService.App.models;
+using FluentAssertions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.models;
-using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleE2ETests
@@ -22,7 +23,12 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
         //Generated this token with an unlimited lifetime.
         private readonly string adminToken =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI5YjNiZGI4Ny1kZTQ3LTQxOGQtODg3ZS0zMzVkYTUzNTBmMWUiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzEwNDUzLCJleHAiOjE2MzIzNTA0NTMsImlhdCI6MTYyMzcxMDQ1MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.g11nmSnglviiN2H_zW5hOaNOnnMqwOVm_soOUcshlkM";
+        private static readonly IConfigurationBuilder builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+        private readonly IConfiguration config = builder.Build();
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
+            .UseConfiguration(config)
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>
             {
@@ -44,7 +50,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             //GIVEN the service is running and there are no items in the Vehicles Table
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
-            
+
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
             //WHEN a GET request is submitted to Vehicle with no parameters
             var result = await client.GetAsync("/Vehicle");
@@ -175,7 +181,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
 
-            var vehicle1 = new Vehicle() {Id = 1, VinNumber = "123qwe"};
+            var vehicle1 = new Vehicle() { Id = 1, VinNumber = "123qwe" };
             await todoService.VehicleInventory.AddAsync(vehicle1);
             await todoService.SaveChangesAsync();
             //WHEN a GET request is submitted to Vehicle with id = 1 in the parameters
@@ -199,7 +205,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await todoService.Database.EnsureDeletedAsync();
             await todoService.Database.EnsureCreatedAsync();
 
-            var vehicle1 = new Vehicle() {VinNumber = "123qwe"};
+            var vehicle1 = new Vehicle() { VinNumber = "123qwe" };
             var vehicle2 = new Vehicle();
             await todoService.VehicleInventory.AddAsync(vehicle1);
             await todoService.SaveChangesAsync();

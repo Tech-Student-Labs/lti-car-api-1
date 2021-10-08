@@ -1,14 +1,10 @@
-using System.Threading.Tasks;
-using Xunit;
-using FluentAssertions;
-using CarDealerWebAPI.Controllers;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
-using System.Linq;
-using System.Collections.Generic;
+using CarDealerAPIService.services;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using System;
-using CarDealerAPIService.services;
+using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleIntegrationTests
 {
@@ -26,7 +22,7 @@ namespace CarDealerWebAPI.Tests.VehicleIntegrationTests
 
             //When
             var vehicle = new Vehicle()
-                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
+            { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 };
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.SaveChanges();
             var result = vehicleInventoryService.GetMarketValues().Count;
@@ -47,9 +43,9 @@ namespace CarDealerWebAPI.Tests.VehicleIntegrationTests
 
             //When
             var vehicle = new Vehicle()
-                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000};
+            { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 };
             var vehicle2 = new Vehicle()
-                {Id = 2, Make = "Tesla", Model = "XXX", Year = 2023, VinNumber = "abcxyz123", MarketValue = 23001};
+            { Id = 2, Make = "Tesla", Model = "XXX", Year = 2023, VinNumber = "abcxyz123", MarketValue = 23001 };
             databaseContext.VehicleInventory.Add(vehicle);
             databaseContext.VehicleInventory.Add(vehicle2);
             databaseContext.SaveChanges();

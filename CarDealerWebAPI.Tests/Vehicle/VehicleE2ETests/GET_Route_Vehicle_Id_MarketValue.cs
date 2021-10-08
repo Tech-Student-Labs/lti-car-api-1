@@ -1,3 +1,12 @@
+using CarDealerAPIService.App.Data;
+using CarDealerAPIService.App.models;
+using FluentAssertions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -5,14 +14,6 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.models;
-using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleE2ETests
@@ -22,7 +23,12 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
         private readonly string adminToken =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI5YjNiZGI4Ny1kZTQ3LTQxOGQtODg3ZS0zMzVkYTUzNTBmMWUiLCJyb2xlIjoiQWRtaW5Vc2VyIiwibmJmIjoxNjIzNzEwNDUzLCJleHAiOjE2MzIzNTA0NTMsImlhdCI6MTYyMzcxMDQ1MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.g11nmSnglviiN2H_zW5hOaNOnnMqwOVm_soOUcshlkM";
 
+        private static readonly IConfigurationBuilder builder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+        private readonly IConfiguration config = builder.Build();
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
+            .UseConfiguration(config)
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>
             {
@@ -45,7 +51,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await todoService.Database.EnsureCreatedAsync();
 
             var vehicle = new Vehicle()
-                {Make = "Toyota", Model = "Camry", Year = 2016, VinNumber = "abc123", MarketValue = 23000};
+            { Make = "Toyota", Model = "Camry", Year = 2016, VinNumber = "abc123", MarketValue = 23000 };
             await todoService.VehicleInventory.AddAsync(vehicle);
             await todoService.SaveChangesAsync();
             //WHEN
@@ -70,7 +76,7 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             await todoService.Database.EnsureCreatedAsync();
 
             var vehicle = new Vehicle()
-                {Make = "Toyota", Model = "Camry", Year = 2016, VinNumber = "abcd123", MarketValue = 23001};
+            { Make = "Toyota", Model = "Camry", Year = 2016, VinNumber = "abcd123", MarketValue = 23001 };
             await todoService.VehicleInventory.AddAsync(vehicle);
             await todoService.SaveChangesAsync();
 

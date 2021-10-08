@@ -1,24 +1,30 @@
+using CarDealerAPIService.App.Data;
+using CarDealerAPIService.App.models;
+using FluentAssertions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.TestHost;
-using FluentAssertions;
-using System.Net;
-using CarDealerAPIService.App.models;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace CarDealerWebAPI.Tests.VehicleE2ETests
 {
     public class GET_Route_Submitted_Vehicles
     {
+        private static readonly IConfigurationBuilder builder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+        private readonly IConfiguration config = builder.Build();
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
+            .UseConfiguration(config)
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>
             {
@@ -51,12 +57,12 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
-            User newUser = new User() {Id = "1"};
-            Vehicle newVehicle = new Vehicle() {Id = 1};
+            User newUser = new User() { Id = "1" };
+            Vehicle newVehicle = new Vehicle() { Id = 1 };
             await context.Users.AddAsync(newUser);
             await context.VehicleInventory.AddAsync(newVehicle);
             await context.VehicleSubmissions.AddAsync(new VehicleSubmissions()
-                {UserId = newUser.Id, VehicleId = newVehicle.Id});
+            { UserId = newUser.Id, VehicleId = newVehicle.Id });
             await context.SaveChangesAsync();
 
 
@@ -75,12 +81,12 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
-            User newUser = new User() {Id = "1"};
-            Vehicle newVehicle = new Vehicle() {Id = 1};
+            User newUser = new User() { Id = "1" };
+            Vehicle newVehicle = new Vehicle() { Id = 1 };
             await context.Users.AddAsync(newUser);
             await context.VehicleInventory.AddAsync(newVehicle);
             await context.VehicleSubmissions.AddAsync(new VehicleSubmissions()
-                {UserId = newUser.Id, VehicleId = newVehicle.Id});
+            { UserId = newUser.Id, VehicleId = newVehicle.Id });
             await context.SaveChangesAsync();
 
 
@@ -102,20 +108,20 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
-            User newUser = new User() {Id = "1"};
-            Vehicle newVehicle1 = new Vehicle() {Make = "Toyota"};
-            Vehicle newVehicle2 = new Vehicle() {Make = "Toyota"};
-            Vehicle newVehicle3 = new Vehicle() {Make = "Toyota"};
+            User newUser = new User() { Id = "1" };
+            Vehicle newVehicle1 = new Vehicle() { Make = "Toyota" };
+            Vehicle newVehicle2 = new Vehicle() { Make = "Toyota" };
+            Vehicle newVehicle3 = new Vehicle() { Make = "Toyota" };
             await context.Users.AddAsync(newUser);
             await context.VehicleInventory.AddAsync(newVehicle1);
             await context.VehicleInventory.AddAsync(newVehicle2);
             await context.VehicleInventory.AddAsync(newVehicle3);
             await context.VehicleSubmissions.AddAsync(new VehicleSubmissions()
-                {UserId = newUser.Id, VehicleId = newVehicle1.Id});
+            { UserId = newUser.Id, VehicleId = newVehicle1.Id });
             await context.VehicleSubmissions.AddAsync(new VehicleSubmissions()
-                {UserId = newUser.Id, VehicleId = newVehicle2.Id});
+            { UserId = newUser.Id, VehicleId = newVehicle2.Id });
             await context.VehicleSubmissions.AddAsync(new VehicleSubmissions()
-                {UserId = newUser.Id, VehicleId = newVehicle3.Id});
+            { UserId = newUser.Id, VehicleId = newVehicle3.Id });
 
             await context.SaveChangesAsync();
 
@@ -135,20 +141,20 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var testServer = new TestServer(HostBuilder);
             var client = testServer.CreateClient();
             var context = testServer.Services.GetRequiredService<CarDealerContext>();
-            User newUser = new User() {Id = "1"};
-            Vehicle newVehicle1 = new Vehicle() {Make = "Toyota"};
-            Vehicle newVehicle2 = new Vehicle() {Make = "Toyota"};
-            Vehicle newVehicle3 = new Vehicle() {Make = "Toyota"};
+            User newUser = new User() { Id = "1" };
+            Vehicle newVehicle1 = new Vehicle() { Make = "Toyota" };
+            Vehicle newVehicle2 = new Vehicle() { Make = "Toyota" };
+            Vehicle newVehicle3 = new Vehicle() { Make = "Toyota" };
             await context.Users.AddAsync(newUser);
             await context.VehicleInventory.AddAsync(newVehicle1);
             await context.VehicleInventory.AddAsync(newVehicle2);
             await context.VehicleInventory.AddAsync(newVehicle3);
             await context.VehicleSubmissions.AddAsync(new VehicleSubmissions()
-                {UserId = newUser.Id, VehicleId = newVehicle1.Id});
+            { UserId = newUser.Id, VehicleId = newVehicle1.Id });
             await context.VehicleSubmissions.AddAsync(new VehicleSubmissions()
-                {UserId = newUser.Id, VehicleId = newVehicle2.Id});
+            { UserId = newUser.Id, VehicleId = newVehicle2.Id });
             await context.VehicleSubmissions.AddAsync(new VehicleSubmissions()
-                {UserId = newUser.Id, VehicleId = newVehicle3.Id});
+            { UserId = newUser.Id, VehicleId = newVehicle3.Id });
             await context.SaveChangesAsync();
 
 

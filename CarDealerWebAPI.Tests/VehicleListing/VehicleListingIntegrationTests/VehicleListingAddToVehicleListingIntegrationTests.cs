@@ -1,10 +1,10 @@
-using System;
-using System.Linq;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 using CarDealerAPIService.services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleListingIntegrationTests
@@ -26,7 +26,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingIntegrationTests
             //Then
             action.Should().Throw<ArgumentNullException>();
         }
-        
+
         [Fact]
         public void AddToVehicleListings_ShouldAddTodbContext_WhenPassedVehicleListing()
         {
@@ -37,16 +37,16 @@ namespace CarDealerWebAPI.Tests.VehicleListingIntegrationTests
                 .Options;
             var dbContext = new CarDealerContext(options);
             var vehicleListingService = new VehicleListingService(dbContext);
-            var vehicle = new Vehicle {Make = "toyoya",MarketValue = 20000,Model = "camry",VinNumber = "jksndfjsnfjnui32",Year = 2020};
+            var vehicle = new Vehicle { Make = "toyoya", MarketValue = 20000, Model = "camry", VinNumber = "jksndfjsnfjnui32", Year = 2020 };
             dbContext.VehicleInventory.Add(vehicle);
             dbContext.SaveChanges();
             var vehicleId = dbContext.VehicleInventory.FirstOrDefault(x => x.VinNumber == "jksndfjsnfjnui32").Id;
-            var vehicleListing = new VehicleListing() { VehicleId = vehicleId,Vehicle = vehicle};
+            var vehicleListing = new VehicleListing() { VehicleId = vehicleId, Vehicle = vehicle };
             //When
             vehicleListingService.AddToVehicleListing(vehicleListing);
             //Then
             dbContext.VehicleListings.Count().Should().Be(1);
         }
-        
+
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using CarDealerAPIService.App.models;
+﻿using CarDealerAPIService.App.models;
+using System.Collections.Generic;
 
 namespace CarDealerAPIService.services
 {
