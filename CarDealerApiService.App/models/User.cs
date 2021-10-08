@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
 
 namespace CarDealerAPIService.App.models
 {

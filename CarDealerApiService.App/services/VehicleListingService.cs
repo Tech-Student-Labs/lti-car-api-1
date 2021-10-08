@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CarDealerAPIService.services
 {
@@ -23,9 +23,9 @@ namespace CarDealerAPIService.services
             _db.VehicleListings.Add(vehicle);
             _db.SaveChanges();
             return vehicle.Id;
-            
+
         }
-        
+
         public bool TrueForNonDuplicateVins(string vin)
         {
             var foundListing = _db.VehicleListings.Include(x => x.Vehicle).FirstOrDefault(x => x.Vehicle.VinNumber == vin);
@@ -34,17 +34,17 @@ namespace CarDealerAPIService.services
                 throw new Exception("You Already Have An Vehicle Listing");
             }
             return true;
-            
+
         }
 
         public List<VehicleListing> GetAllVehicleListings()
         {
             return _db.VehicleListings.Include(x => x.Vehicle).ToList();
         }
-        
+
         public bool DeleteVehicleListings(string vin)
         {
-            var vehicleListingToDelete = _db.VehicleListings.FirstOrDefault(x=>x.Vehicle.VinNumber == vin);
+            var vehicleListingToDelete = _db.VehicleListings.FirstOrDefault(x => x.Vehicle.VinNumber == vin);
             var vehicleToDelete = _db.VehicleInventory.FirstOrDefault(x => x.VinNumber == vin);
             _db.VehicleListings.Remove(vehicleListingToDelete ?? throw new InvalidOperationException("Cannot Delete Null Vehicle Listings"));
             _db.VehicleInventory.Remove(vehicleToDelete ?? throw new InvalidOperationException("Cannot Delete Null Vehicle"));

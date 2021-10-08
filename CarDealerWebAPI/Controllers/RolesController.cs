@@ -1,7 +1,6 @@
-using System.Threading.Tasks;
 using CarDealerAPIService.services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CarDealerWebAPI.Controllers
 {

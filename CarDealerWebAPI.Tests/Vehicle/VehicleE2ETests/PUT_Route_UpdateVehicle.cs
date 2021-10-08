@@ -1,8 +1,3 @@
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 using FluentAssertions;
@@ -10,6 +5,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleE2ETests
@@ -42,13 +42,13 @@ namespace CarDealerWebAPI.Tests.VehicleE2ETests
             var client = testServer.CreateClient();
             var service = testServer.Services.GetService<CarDealerContext>();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var vehicle = new Vehicle { Id = 1,Make = "Toyota",Model = "Camry",MarketValue = 20000,VinNumber = "VinNumber",Year = 2016};
+            var vehicle = new Vehicle { Id = 1, Make = "Toyota", Model = "Camry", MarketValue = 20000, VinNumber = "VinNumber", Year = 2016 };
             service.VehicleInventory.Add(vehicle);
             service.SaveChanges();
             vehicle.Make = "nissan";
             vehicle.Model = "sentra";
             //When
-            client.PutAsJsonAsync("/Vehicle",vehicle);
+            client.PutAsJsonAsync("/Vehicle", vehicle);
             //Then
             var foundVehicle = service.VehicleInventory.FirstOrDefault(x => true);
             foundVehicle.Make.Should().Be("nissan");

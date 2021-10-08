@@ -1,3 +1,11 @@
+using CarDealerAPIService.App.Data;
+using CarDealerAPIService.App.models;
+using FluentAssertions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,15 +14,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.models;
-using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
@@ -32,7 +31,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
                         s => s.ServiceType == typeof(DbContextOptions<CarDealerContext>))
                 );
                 services.AddDbContext<CarDealerContext>(options => options.UseInMemoryDatabase("VehicleListings"));
-                
+
             });
 
         [Fact]
@@ -49,7 +48,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
-          [Fact]
+        [Fact]
         public async Task Should_ReturnNoVehicleListings_WhenNoVehicleListingsExist()
         {
             //GIVEN the service is running and there are no items in the Vehicles Table
@@ -63,7 +62,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             JsonObject.Should().Be("[]");
         }
 
-          [Fact]
+        [Fact]
         public async Task Should_Return1VehicleListings_When1VehicleListingsExist()
         {
             //Given
@@ -74,16 +73,16 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             //setup roles
             dbContext.Database.EnsureDeleted();
             await client.PostAsJsonAsync("/Roles/Create", "");
-            
+
             //setup Vehicles
             var vehicles = new Vehicle
-                { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
+            { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
             dbContext.Add(vehicles);
             dbContext.SaveChanges();
 
             //When
             //Call VehicleListingsController            
-            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { Vehicle = vehicles, Price = 12000});
+            var response = await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { Vehicle = vehicles, Price = 12000 });
             //added a vehicle Listings 
             dbContext.VehicleListings.Count().Should().Be(1);
             var response1 = await client.GetAsync("/VehicleListing");
@@ -91,7 +90,7 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             var result = JsonConvert.DeserializeObject<List<VehicleListing>>(jsonObj);
             result.Count().Should().Be(1);
         }
-           [Fact]
+        [Fact]
         public async Task Should_Return2VehicleListings_When2VehicleListingsExist()
         {
             //Given
@@ -102,20 +101,20 @@ namespace CarDealerWebAPI.Tests.VehicleListingE2ETests
             //setup roles
             dbContext.Database.EnsureDeleted();
             await client.PostAsJsonAsync("/Roles/Create", "");
-            
+
             //setup Vehicles
             var vehicles = new Vehicle
-                { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
+            { Make = "toyoya", MarketValue = 12313, Model = "camry", VinNumber = "1GCCT19X738198141", Year = 1997 };
             var vehicles1 = new Vehicle
-                { Make = "toyoya", MarketValue = 12313243, Model = "camry", VinNumber = "4T4BF3EK3AR045559", Year = 1997 };
+            { Make = "toyoya", MarketValue = 12313243, Model = "camry", VinNumber = "4T4BF3EK3AR045559", Year = 1997 };
             dbContext.Add(vehicles);
             dbContext.Add(vehicles1);
             dbContext.SaveChanges();
 
             //When
             //Call VehicleListingsController            
-             await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 1, Vehicle = vehicles, Price = 12000});
-             await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 2, Vehicle = vehicles1, Price = 12000});
+            await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 1, Vehicle = vehicles, Price = 12000 });
+            await client.PostAsJsonAsync("/VehicleListing", new VehicleListing { VehicleId = 2, Vehicle = vehicles1, Price = 12000 });
             //added a vehicle Listings 
             dbContext.VehicleListings.Count().Should().Be(2);
             var response1 = await client.GetAsync("/VehicleListing");

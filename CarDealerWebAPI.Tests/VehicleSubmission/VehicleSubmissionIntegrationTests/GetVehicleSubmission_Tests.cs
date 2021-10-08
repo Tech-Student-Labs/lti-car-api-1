@@ -1,13 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using Xunit;
-using FluentAssertions;
-using CarDealerAPIService.services;
-using Microsoft.EntityFrameworkCore;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
+using CarDealerAPIService.services;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Moq;
+using System;
+using Xunit;
 
 namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
 {
@@ -43,8 +41,8 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var vehicleSubmissionsService =
                 new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
-            User MyUser = new User() {Id = "abc123", Email = "string@string.com", PasswordHash = "xxxxxx"};
-            Vehicle vehicle = new Vehicle() {Id = 1};
+            User MyUser = new User() { Id = "abc123", Email = "string@string.com", PasswordHash = "xxxxxx" };
+            Vehicle vehicle = new Vehicle() { Id = 1 };
             databaseContext.UserTable.Add(MyUser);
             databaseContext.VehicleInventory.Add(vehicle);
             var submission = new VehicleSubmissions()
@@ -71,10 +69,10 @@ namespace CarDealerWebAPI.Tests.VehicleSubmissionIntegrationTests
             var vehicleSubmissionsService =
                 new VehicleSubmissionsService(databaseContext, mockMarketValueService.Object);
             //When
-            User MyUser = new User() {Id = "abc123"};
-            Vehicle vehicle1 = new Vehicle() {Id = 1, Make = "Toyota"};
-            Vehicle vehicle2 = new Vehicle() {Id = 2, Make = "Chevy"};
-            Vehicle vehicle3 = new Vehicle() {Id = 3, Make = "SUV"};
+            User MyUser = new User() { Id = "abc123" };
+            Vehicle vehicle1 = new Vehicle() { Id = 1, Make = "Toyota" };
+            Vehicle vehicle2 = new Vehicle() { Id = 2, Make = "Chevy" };
+            Vehicle vehicle3 = new Vehicle() { Id = 3, Make = "SUV" };
             var submission1 = new VehicleSubmissions()
             {
                 User = MyUser,

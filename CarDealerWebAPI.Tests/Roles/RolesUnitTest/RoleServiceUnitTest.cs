@@ -1,9 +1,7 @@
-using System.Threading.Tasks;
 using CarDealerAPIService.services;
-using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 using Moq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.RolesUnitTest

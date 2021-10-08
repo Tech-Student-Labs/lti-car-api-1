@@ -1,10 +1,9 @@
-using System;
-using System.Linq;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 using CarDealerAPIService.services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests
@@ -37,7 +36,7 @@ namespace CarDealerWebAPI.Tests
             var vehicleInventoryService = new VehicleService(databaseContext);
             //When
             databaseContext.VehicleInventory.Add(new Vehicle()
-                {Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000});
+            { Id = 1, Make = "Tesla", Model = "XXX", Year = 2022, VinNumber = "abcxyz123", MarketValue = 23000 });
             databaseContext.SaveChanges();
             var result = vehicleInventoryService.GetAllVehicles().Count;
             //Then

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.InteropServices;
-using CarDealerAPIService.App.Data;
-using CarDealerAPIService.App.models;
+﻿using CarDealerAPIService.App.models;
 using CarDealerAPIService.services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +23,7 @@ namespace CarDealerWebAPI.Controllers
         {
             return Ok(_service.GetAllVehicles());
         }
-        
+
         [HttpGet("{id}")]
         public IActionResult GetVehicleById(int id)
         {

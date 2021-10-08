@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using CarDealerAPIService.App.Data;
+﻿using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.models;
 using CarDealerAPIService.services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests

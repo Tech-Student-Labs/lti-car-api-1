@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware;
+﻿using CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware;
 using CarDealerAPIService.App.Exception.ExceptionModel;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System;
+using System.IO;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.MiddlewareTests
@@ -28,7 +28,7 @@ namespace CarDealerWebAPI.Tests.MiddlewareTests
             //Then
             objResponse
                 .Should()
-                .BeEquivalentTo(new ErrorDetails() {Message = "Test", Type = "Exception", StatusCode = 400});
+                .BeEquivalentTo(new ErrorDetails() { Message = "Test", Type = "Exception", StatusCode = 400 });
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace CarDealerWebAPI.Tests.MiddlewareTests
             //Then
             objResponse
                 .Should()
-                .BeEquivalentTo(new ErrorDetails() {Message = "Test", Type = "ArgumentException", StatusCode = 400});
+                .BeEquivalentTo(new ErrorDetails() { Message = "Test", Type = "ArgumentException", StatusCode = 400 });
         }
 
         [Fact]
@@ -77,7 +77,8 @@ namespace CarDealerWebAPI.Tests.MiddlewareTests
                 .Should()
                 .BeEquivalentTo(new ErrorDetails()
                 {
-                    Message = "Argument can't be null (Parameter 'testing')", Type = "ArgumentNullException",
+                    Message = "Argument can't be null (Parameter 'testing')",
+                    Type = "ArgumentNullException",
                     StatusCode = 400
                 });
         }

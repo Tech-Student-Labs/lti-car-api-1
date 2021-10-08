@@ -1,23 +1,30 @@
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Reflection;
-using System.Threading.Tasks;
 using CarDealerAPIService.App.Data;
 using CarDealerAPIService.App.Exception.ExceptionModel;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Reflection;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CarDealerWebAPI.Tests.CreateRolesE2ETests
 {
     public class POST_Routes_Tests
     {
+        private static readonly IConfigurationBuilder builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+        private readonly IConfiguration config = builder.Build();
         private IWebHostBuilder HostBuilder => new WebHostBuilder()
+            .UseConfiguration(config)
             .UseContentRoot(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Startup)).Location)).UseStartup<Startup>()
             .ConfigureServices(services =>
             {
@@ -72,7 +79,7 @@ namespace CarDealerWebAPI.Tests.CreateRolesE2ETests
             todoService.Roles.ToList()[1].Name.Should().Be("AdminUser");
             //Then
         }
-        
+
         [Fact]
         public async Task CreateRoles_ShouldThrowExceptionWithMessage_WhenCalledAlreadyExists()
         {

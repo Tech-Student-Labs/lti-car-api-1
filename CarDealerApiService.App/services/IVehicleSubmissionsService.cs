@@ -1,6 +1,6 @@
+using CarDealerAPIService.App.models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.models;
 
 namespace CarDealerAPIService.services
 {

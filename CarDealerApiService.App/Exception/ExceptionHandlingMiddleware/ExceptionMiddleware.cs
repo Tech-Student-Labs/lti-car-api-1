@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using CarDealerAPIService.App.Exception.ExceptionModel;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.Exception.ExceptionModel;
-using Microsoft.AspNetCore.Http;
 
 namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
 {
@@ -37,7 +36,7 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
                 response.StatusCode = 400;
                 response.ContentType = "application/json";
                 var result = JsonSerializer.Serialize(new ErrorDetails
-                    {Type = "ArgumentNullException", StatusCode = response.StatusCode, Message = exception?.Message});
+                { Type = "ArgumentNullException", StatusCode = response.StatusCode, Message = exception?.Message });
                 return response.WriteAsync(result);
             }
             else if (exception.GetType() == typeof(ArgumentException))
@@ -46,7 +45,7 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
                 response.StatusCode = 400;
                 response.ContentType = "application/json";
                 var result = JsonSerializer.Serialize(new ErrorDetails
-                    {Type = "ArgumentException", StatusCode = response.StatusCode, Message = exception?.Message});
+                { Type = "ArgumentException", StatusCode = response.StatusCode, Message = exception?.Message });
                 return response.WriteAsync(result);
             }
             else
@@ -55,7 +54,7 @@ namespace CarDealerAPIService.App.Exception.ExceptionHandlingMiddleware
                 response.StatusCode = 400;
                 response.ContentType = "application/json";
                 var result = JsonSerializer.Serialize(new ErrorDetails
-                    {Type = "Exception", StatusCode = response.StatusCode, Message = exception?.Message});
+                { Type = "Exception", StatusCode = response.StatusCode, Message = exception?.Message });
                 return response.WriteAsync(result);
             }
         }

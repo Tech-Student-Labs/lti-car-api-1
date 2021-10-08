@@ -1,14 +1,12 @@
-﻿using System;
+﻿using CarDealerAPIService.App.models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using CarDealerAPIService.App.models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CarDealerAPIService.services
 {
@@ -49,30 +47,30 @@ namespace CarDealerAPIService.services
                 var claim = new Claim(ClaimTypes.Role, role);
                 tokenDescriptor.Subject.AddClaim(claim);
             }
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             var token = tokenHandler.WriteToken(securityToken);
-            return new TokenDTO() {Token = token};
+            return new TokenDTO() { Token = token };
         }
 
         public async Task<string> SignUpUser(UserSignUp cred)
         {
             User user = new User()
-                {Email = cred.Email, FirstName = cred.FirstName, LastName = cred.LastName, UserName = cred.UserName};
+            { Email = cred.Email, FirstName = cred.FirstName, LastName = cred.LastName, UserName = cred.UserName };
             var result = await _userManager.CreateAsync(user, cred.Password);
             if (result.ToString() != "Succeeded")
                 throw new Exception(result.ToString());
-            
+
             await _userManager.AddToRoleAsync(user, "RegularUser");
             //add to roles here
             return result.ToString();
         }
-        
+
         public async Task<string> SignUpAdmin(UserSignUp cred)
         {
             User user = new User()
-                {Email = cred.Email, FirstName = cred.FirstName, LastName = cred.LastName, UserName = cred.UserName};
+            { Email = cred.Email, FirstName = cred.FirstName, LastName = cred.LastName, UserName = cred.UserName };
             var result = await _userManager.CreateAsync(user, cred.Password);
             await _userManager.AddToRoleAsync(user, "AdminUser");
             //add to roles here
